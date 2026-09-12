@@ -100,6 +100,13 @@ public sealed class Plugin : IDalamudPlugin
     /// <summary>Set when Wrath Combo could not be found, for display in the status window.</summary>
     internal bool WrathFound { get; private set; }
 
+    /// <summary>
+    ///     How many WrathCombo assemblies are loaded. More than one means Wrath was re-enabled
+    ///     and its previous copy has not been collected yet, which is worth showing because
+    ///     patching the wrong copy looks identical to the overlay simply not working.
+    /// </summary>
+    internal int WrathCopies { get; private set; }
+
     /// <summary>Set once installation has failed too often to keep retrying.</summary>
     internal bool GaveUp { get; private set; }
 
@@ -240,6 +247,7 @@ public sealed class Plugin : IDalamudPlugin
         Assembly? wrath;
         try
         {
+            WrathCopies = WrathLocator.FindWrathAssemblies().Count;
             wrath = WrathLocator.FindWrathAssembly();
         }
         catch (Exception ex)

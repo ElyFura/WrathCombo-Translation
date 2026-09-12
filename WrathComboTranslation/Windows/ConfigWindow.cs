@@ -53,7 +53,11 @@ internal sealed class ConfigWindow : Window
         ImGui.TextUnformatted("Status");
         ImGui.Spacing();
 
-        Row("Wrath Combo", _plugin.WrathFound, _plugin.WrathFound ? "loaded" : "not loaded");
+        var copies = _plugin.WrathCopies;
+        Row("Wrath Combo", _plugin.WrathFound,
+            !_plugin.WrathFound ? "not loaded"
+            : copies > 1 ? $"loaded ({copies} copies present - using the newest)"
+            : "loaded");
         Row("Overlay", _installer.Installed,
             _installer.Installed
                 ? $"active on {_installer.Patched.Count} resource files"
@@ -69,6 +73,16 @@ internal sealed class ConfigWindow : Window
             ImGui.TextUnformatted("Lookups served:");
             ImGui.SameLine();
             ImGui.TextColored(Muted, _installer.OverrideHits.ToString());
+        }
+
+        if (_installer.Installed && _installer.OverrideHits == 0)
+        {
+            ImGui.Spacing();
+            ImGui.TextColored(Bad, "Installed, but Wrath has not asked for a single string.");
+            ImGui.TextColored(Muted,
+                "Open Wrath's window to make it draw text. If this stays at zero, press\n" +
+                "Reload below - Wrath may have been re-enabled and left a stale copy behind.");
+            ImGui.Spacing();
         }
 
         ImGui.TextUnformatted("Dalamud UI language:");

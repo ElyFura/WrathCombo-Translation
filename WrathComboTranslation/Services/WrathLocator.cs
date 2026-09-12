@@ -50,19 +50,42 @@ internal static class WrathLocator
     private const string ResourceSuffix = ".resources";
 
     /// <summary>
-    ///     Locates the loaded Wrath Combo assembly, or null if it is not (yet) loaded.
+    ///     Locates the live Wrath Combo assembly, or null if it is not (yet) loaded.
     /// </summary>
     /// <remarks>
-    ///     Dalamud loads every plugin into its own <see cref="AssemblyLoadContext" />, but all of
-    ///     them live in the same process, so both lookups below can see across plugin boundaries.
+    ///     Dalamud loads every plugin into its own <see cref="AssemblyLoadContext" />, but all
+    ///     of them live in the same process, so the lookups below see across plugin boundaries.
+    ///     <br /><br />
+    ///     Disabling and re-enabling Wrath gives it a brand new load context while the previous
+    ///     one lingers until the GC gets to it, so more than one WrathCombo can be present at
+    ///     once. Patching the dead one installs cleanly and then serves nothing, which is
+    ///     exactly what it looks like when the overlay silently stops working, so the most
+    ///     recently loaded assembly wins. That ordering is a heuristic rather than a guarantee:
+    ///     the runtime appends newly loaded assemblies, but does not promise to.
     /// </remarks>
     public static Assembly? FindWrathAssembly()
     {
-        var fromDomain = AppDomain.CurrentDomain
+        var candidates = FindWrathAssemblies();
+
+        if (candidates.Count > 1)
+            Log.Warning($"{candidates.Count} copies of Wrath Combo are loaded, which happens " +
+                        "after it is disabled and re-enabled. Using the most recent one.");
+
+        return candidates.Count == 0 ? null : candidates[^1];
+    }
+
+    /// <summary>
+    ///     Every loaded assembly named WrathCombo, in load order.
+    /// </summary>
+    public static IReadOnlyList<Assembly> FindWrathAssemblies()
+    {
+        var found = AppDomain.CurrentDomain
             .GetAssemblies()
-            .FirstOrDefault(IsWrath);
-        if (fromDomain is not null)
-            return fromDomain;
+            .Where(IsWrath)
+            .ToList();
+
+        if (found.Count > 0)
+            return found;
 
         // Fallback: walk the load contexts directly, in case the domain view is stale.
         return AssemblyLoadContext.All
@@ -71,7 +94,8 @@ internal static class WrathLocator
                 try { return ctx.Assemblies; }
                 catch { return []; }
             })
-            .FirstOrDefault(IsWrath);
+            .Where(IsWrath)
+            .ToList();
 
         static bool IsWrath(Assembly a)
         {
@@ -227,8 +251,16 @@ internal static class WrathLocator
                 continue;
             }
 
-            if (type is not null)
-                yield return type;
+            if (type is null)
+            {
+                // A resource whose class will not resolve means this assembly is not in a
+                // healthy state - typically a leftover copy from a previous load whose context
+                // is on its way out.
+                Log.Warning($"'{resourceName}' has no matching type in the Wrath Combo assembly.");
+                continue;
+            }
+
+            yield return type;
         }
     }
 }

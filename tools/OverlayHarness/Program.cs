@@ -121,6 +121,29 @@ internal static class Program
         Check("uninstall restores the original ResourceManager type",
             restoredManager?.GetType().FullName == typeof(ResourceManager).FullName);
 
+        // 11. Disabling and re-enabling Wrath in-game leaves the previous copy loaded until the
+        //     GC collects it. Patching that dead copy installs cleanly and then serves nothing,
+        //     so the locator has to prefer the newest. Loading Wrath a second time reproduces it.
+        var secondAlc = new ProbingLoadContext("wrath-reloaded", wrathPath, dalamudDir);
+        var reloaded = secondAlc.LoadFromAssemblyPath(wrathPath);
+        Check("a second copy of Wrath really is a distinct assembly", !ReferenceEquals(reloaded, wrath));
+
+        var all = (System.Collections.IEnumerable)Invoke(locator, "FindWrathAssemblies", null, [])!;
+        Check("locator sees both copies", all.Cast<Assembly>().Count() == 2);
+
+        var chosen = (Assembly?)Invoke(locator, "FindWrathAssembly", null, []);
+        Check("locator prefers the most recently loaded copy", ReferenceEquals(chosen, reloaded));
+
+        var patchedReloaded = (int)Invoke(installerType, "Install", installer, [reloaded, pack, "de", false])!;
+        Check($"overlay installs onto the reloaded copy ({patchedReloaded} classes)", patchedReloaded == 34);
+
+        var reloadedUi = Internal(reloaded, "WrathCombo.Resources.Localization.UI.MainWindow.MainWindowUI");
+        SetCulture(reloadedUi, new CultureInfo("de"));
+        Check("the reloaded copy serves translations",
+            ReadString(reloadedUi, "Button_About") == "Über");
+
+        Invoke(installerType, "Uninstall", installer, []);
+
         Console.WriteLine();
         Console.WriteLine(_failures == 0
             ? "All checks passed."
