@@ -50,8 +50,8 @@ German, against 4570 translatable source strings:
 | Source | Strings |
 | --- | --- |
 | Shipped by Wrath itself (`CustomComboPresets.de.resx`) | 474 |
-| This plugin | 481 |
-| **Untranslated** | **3615** |
+| This plugin | 807 |
+| **Untranslated** | **3289** |
 
 Wrath does ship `AutoRotationUI.de.resx`, `SettingsUI.de.resx` and `BST_Config.de.resx`, but
 all three are empty Crowdin placeholders, so the UI chrome is effectively untranslated upstream.
@@ -68,6 +68,12 @@ target-stack listings, whose entry names come from the still-untranslated `Gener
 
 What remains is essentially one file: `CustomComboPresets`, 3886 strings covering every
 feature name and description, of which Wrath itself already translates 474.
+
+That file is being worked through names first, across all jobs, rather than one job at a time:
+the names are what the feature tree shows, they are short, and the glossary covers most of the
+ability wording in them. The first tranche (326 names) is done and covers everything outside
+the PvE job groups - PvP, Bozja, Variant and Deep Dungeon content, gathering, and the
+cross-role `ALL` group.
 
 ## Development
 

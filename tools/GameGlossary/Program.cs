@@ -70,12 +70,19 @@ internal static class Program
         var glossary = new SortedDictionary<string, string>(StringComparer.Ordinal);
         var collisions = new SortedDictionary<string, SortedSet<string>>(StringComparer.Ordinal);
 
-        // Only player actions: the sheet is mostly enemy abilities, which Wrath never names
-        // and which collide with player ones often enough to poison the glossary.
+        // Player actions first, as the authoritative pass: the sheet is mostly enemy abilities,
+        // which Wrath never names and which collide with player ones often enough to poison the
+        // glossary. A second pass then fills in what is left, without displacing anything or
+        // raising new collisions, because duty actions - Bozja's Lost spells, Variant Dungeon
+        // actions, Occult Crescent's phantom abilities - are not flagged as player actions but
+        // are named constantly in Wrath's presets for exactly that content.
         var counts = new List<string>
         {
             Collect<Action>(game, language, glossary, collisions,
                 r => (r.RowId, r.Name.ToString()), "actions", r => r.IsPlayerAction),
+            Collect<Action>(game, language, glossary, collisions,
+                r => (r.RowId, r.Name.ToString()), "duty actions", r => !r.IsPlayerAction,
+                fillOnly: true),
             Collect<Status>(game, language, glossary, collisions,
                 r => (r.RowId, r.Name.ToString()), "statuses"),
             Collect<Trait>(game, language, glossary, collisions,
@@ -121,7 +128,8 @@ internal static class Program
         SortedDictionary<string, SortedSet<string>> collisions,
         Func<T, (uint RowId, string Name)> read,
         string label,
-        Func<T, bool>? include = null)
+        Func<T, bool>? include = null,
+        bool fillOnly = false)
         where T : struct, Lumina.Excel.IExcelRow<T>
     {
         var english = game.GetExcelSheet<T>(Language.English);
@@ -149,6 +157,11 @@ internal static class Program
             // dropping them would make the two indistinguishable.
             var translatedName = read(other).Name;
             if (string.IsNullOrWhiteSpace(translatedName) || IsDeadRow(translatedName))
+                continue;
+
+            // A filling pass only adds what nothing has claimed yet, so a duty action can
+            // never displace a player action of the same name or turn one into a collision.
+            if (fillOnly && (glossary.ContainsKey(englishName) || collisions.ContainsKey(englishName)))
                 continue;
 
             if (glossary.TryGetValue(englishName, out var existing))
