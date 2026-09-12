@@ -50,18 +50,22 @@ German, against 4570 translatable source strings:
 | Source | Strings |
 | --- | --- |
 | Shipped by Wrath itself (`CustomComboPresets.de.resx`) | 474 |
-| This plugin | 49 |
-| **Untranslated** | **4047** |
+| This plugin | 232 |
+| **Untranslated** | **3864** |
 
 Wrath does ship `AutoRotationUI.de.resx`, `SettingsUI.de.resx` and `BST_Config.de.resx`, but
 all three are empty Crowdin placeholders, so the UI chrome is effectively untranslated upstream.
 
-The bundled German pack covers the main window, the features pane and the generic labels.
-In-game proper nouns (Bozja, Occult Crescent, Variant Dungeons) are deliberately left to fall
-back until the official German client wording is confirmed.
+The bundled German pack covers the main window, the features pane, the generic labels and
+all 45 entries of the settings pane (`SettingsCfgUI`, 183 of 198 strings).
+
+Some strings are deliberately left to fall back rather than translated: in-game proper nouns
+(Bozja, Occult Crescent, Variant Dungeons) until the official German client wording is
+confirmed, purely numeric defaults and colour codes that read identically in German, and the
+target-stack listings, whose entry names come from the still-untranslated `Generics.resx`.
 
 The bulk of the remaining work is `CustomComboPresets` (3886 strings — every feature name and
-description) and `SettingsCfgUI` (198).
+description), followed by `AutoRotationUI` (88) and `Generics` (165).
 
 ## Development
 

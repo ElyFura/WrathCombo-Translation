@@ -93,7 +93,23 @@ internal static class Program
         Check($"forced language overrides any culture (\"{forced}\")", forced == "Über");
         Set(packType, "Forced", pack, false);
 
-        // 9. Uninstalling must leave Wrath exactly as it was.
+        // 9. The settings pane is reached through Text.GetLocalizedString rather than a
+        //    generated property, so exercise that resource class separately.
+        var settingsCfg = Internal(wrath, "WrathCombo.Resources.Localization.UI.Settings.SettingsCfgUI");
+        var settingsManager = (ResourceManager?)Get(settingsCfg, "ResourceManager", null);
+        var de = new CultureInfo("de");
+
+        var settingName = settingsManager?.GetString("ActionChanging_Name", de);
+        Check($"settings name translated (\"{settingName}\")", settingName == "Aktionen ersetzen");
+
+        var category = settingsManager?.GetString("TargetingOptions_Category", de);
+        Check($"settings category translated (\"{category}\")", category == "Ziel-Optionen");
+
+        // Numeric defaults are deliberately left out of the pack and must fall through.
+        var numericDefault = settingsManager?.GetString("Throttle_defaultValue", de);
+        Check($"numeric default falls back (\"{numericDefault}\")", numericDefault == "50");
+
+        // 10. Uninstalling must leave Wrath exactly as it was.
         Invoke(installerType, "Uninstall", installer, []);
         var restored = ReadString(mainWindowUi, "Button_About");
         Check($"uninstall restores the original ({restored})", restored == "About");

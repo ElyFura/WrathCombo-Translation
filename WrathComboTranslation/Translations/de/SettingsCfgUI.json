@@ -1,0 +1,233 @@
+{
+  "_translators": "ElyFura",
+  "_note": "Purely numeric defaults ('0', '1.5', '50'), the colour code and the target-stack listings ('Focus Target > Hard Target > Self') are deliberately omitted: they read identically in German, and the stack entry names themselves come from Generics.resx, which is still untranslated. Established community terms (Combo, Preset, Opener, Retargeting, Heal-Stack, Weaving, GCD/oGCD, Tankbuster, Slidecast) are kept as-is.",
+
+  "MainUIOptions_Category": "Optionen der Hauptoberfläche",
+  "RotationBehaviourOptions_Category": "Optionen zum Rotationsverhalten",
+  "TargetingOptions_Category": "Ziel-Optionen",
+  "TroubleshootingOptions_Category": "Optionen zur Fehlersuche",
+
+  "ActionChanging_Name": "Aktionen ersetzen",
+  "ActionChanging_helpMark": "Legt fest, ob Aktionen auf deiner Hotbar durch Combos des Plugins ersetzt werden.\nIst dies deaktiviert, wirken sich Wrath-Einstellungen nicht mehr auf manuell gedrückte Aktionen aus.\n\nDie Auto-Rotation funktioniert unabhängig von dieser Einstellung.",
+  "ActionChanging_recommendedValue": "An (Aus schaltet praktisch den Großteil von Wrath ab)",
+  "ActionChanging_defaultValue": "An",
+  "ActionChanging_warningMark": "Wrath ist weitgehend darauf ausgelegt, Aktionen zu ersetzen.\nIst dies deaktiviert, funktioniert nur noch die Auto-Rotation.\nDas Deaktivieren kann außerdem zu unerwartetem Verhalten führen, etwa beim Retargeting.",
+
+  "AddOutOfPartyNPCsToRetargeting_Name": "Nicht-Gruppen-NPCs ins Retargeting aufnehmen",
+  "AddOutOfPartyNPCsToRetargeting_helpMark": "Fügt NPCs, die nicht in deiner Gruppe sind, der Retargeting-Logik für Heilaktionen hinzu.\n\nNützlich für Heiler, die NPCs außerhalb der Gruppe anvisieren wollen, etwa Quest-NPCs.\nDiese NPCs funktionieren in der Regel nicht mit rollenbasierten Einträgen im eigenen Heal-Stack\n(auch wenn ein NPC wie ein Tank aussieht, ist er nicht immer als solcher eingestuft).",
+  "AddOutOfPartyNPCsToRetargeting_recommendedValue": "An (sofern du Retargeting überhaupt nutzt)",
+  "AddOutOfPartyNPCsToRetargeting_defaultValue": "Aus",
+
+  "AoEDamageTTS_Name": "TTS bei Gruppenschaden abspielen",
+  "AoEDamageTTS_helpMark": "Spielt einen Text-to-Speech-Clip ab, sobald ein Stack- bzw. Gruppenschaden-Cast erkannt wird, inklusive des Ziels, sofern zutreffend.",
+  "AoEDamageTTS_recommendedValue": "Geschmackssache",
+  "AoEDamageTTS_defaultValue": "Aus",
+
+  "AoEDamageToast_Name": "Toast bei Gruppenschaden anzeigen",
+  "AoEDamageToast_helpMark": "Zeigt eine Meldung auf dem Bildschirm, sobald ein Stack- bzw. Gruppenschaden-Cast erkannt wird, inklusive des Ziels, sofern zutreffend.",
+  "AoEDamageToast_recommendedValue": "Geschmackssache",
+  "AoEDamageToast_defaultValue": "Aus",
+
+  "AprilFools2026_Name": "Aprilscherz-Funktion 2026",
+  "AprilFools2026_helpMark": "Für alle, die von MNK im Plugin einfach nicht genug bekommen.",
+  "AprilFools2026_recommendedValue": "Aus, außer dein Name fängt mit Beep an",
+  "AprilFools2026_defaultValue": "An, ist ja schließlich der Tag dafür",
+
+  "BlockSpellOnMove_Name": "Zauber während der Bewegung blockieren",
+  "BlockSpellOnMove_helpMark": "Blockiert Aktionen während der Bewegung vollständig.\nDies setzt die combo-spezifischen Bewegungsoptionen außer Kraft, die viele Jobs haben.",
+  "BlockSpellOnMove_recommendedValue": "Aus (die meisten Jobs lösen das über ihre eigenen Funktionen besser)",
+  "BlockSpellOnMove_defaultValue": "Aus",
+
+  "CustomHealStack_Name": "Eigener Heal-Stack",
+  "CustomHealStack_helpMark": "Sind weniger als 4 Einträge vorhanden und liefert keiner davon ein Ziel, wird auf dich selbst zurückgegriffen.\n\nZiele gelten nur als gültig, wenn sie freundlich und innerhalb von 25 Yalm sind.\n\nBei Aktionen wie Esuna werden die Ziele zusätzlich daraufhin geprüft, ob sie einen entfernbaren Debuff haben.\nEinträge wie 'Any Cleansable Ally' sind daher nicht nötig.",
+  "CustomHealStack_recommendedValue": "Geschmackssache",
+
+  "EnabledOutputLog_Name": "Log in den Chat ausgeben",
+  "EnabledOutputLog_helpMark": "Gibt bei jeder von Wrath bereitgestellten Aktion eine Meldung im Chat aus.",
+  "EnabledOutputLog_recommendedValue": "An (WENN du ein Problem melden willst)",
+  "EnabledOutputLog_defaultValue": "Aus",
+
+  "HideChildren_Name": "Unteroptionen von Combos ausblenden",
+  "HideChildren_helpMark": "Blendet Funktionen und Optionen unterhalb deaktivierter Combos aus.",
+  "HideChildren_recommendedValue": "Geschmackssache",
+  "HideChildren_defaultValue": "Aus",
+
+  "HideConflictedCombos_Name": "Kollidierende Combos ausblenden",
+  "HideConflictedCombos_helpMark": "Blendet Combos aus, die mit bereits aktivierten Combos kollidieren.",
+  "HideConflictedCombos_recommendedValue": "Geschmackssache",
+  "HideConflictedCombos_defaultValue": "Aus",
+
+  "HideMessageOfTheDay_Name": "Nachricht des Tages ausblenden",
+  "HideMessageOfTheDay_helpMark": "Verhindert, dass die Nachricht des Tages beim Einloggen im Chat angezeigt wird.",
+  "HideMessageOfTheDay_recommendedValue": "Geschmackssache",
+  "HideMessageOfTheDay_defaultValue": "Aus",
+
+  "InterruptDelay_Name": "Unterbrechungs-Verzögerung",
+  "InterruptDelay_helpMark": "Legt fest, wie viel Prozent der gesamten Zauberzeit abgewartet wird, bevor gegnerische Casts unterbrochen werden.\nGilt für alle Unterbrechungen (auch Betäubungen zum Unterbrechen) in den Combos jedes Jobs.",
+  "InterruptDelay_recommendedValue": "unter 40 (darüber scheiterst du regelmäßig an kurzen Casts)",
+  "InterruptDelay_unitLabel": "% des Casts",
+
+  "MaximumWeavesPerWindow_Name": "Maximale Anzahl an Weaves",
+  "MaximumWeavesPerWindow_helpMark": "Legt fest, wie viele oGCDs zwischen zwei GCDs erlaubt sind.\nDer 'Standard' des Spiels ist Double-Weaving, Triple-Weaving ist mit ausreichend niedriger Latenz (jeder Art) aber problemlos möglich; wer dagegen mit Latenz zu kämpfen hat, fährt unter Umständen sogar mit Single-Weaving besser.\nTriple-Weaving ist bereits so umgesetzt, dass GCDs nach Möglichkeit nicht geclippt werden, kommt daher auch bei guter Latenz nicht besonders häufig vor und ist eine legitime Vorgehensweise, also eine sichere Option, wenn du sie möchtest.",
+  "MaximumWeavesPerWindow_unitLabel": "Anzahl oGCDs",
+
+  "MeleeOffset_Name": "Nahkampf-Reichweitenversatz",
+  "MeleeOffset_helpMark": "Legt fest, was als in Nahkampfreichweite gilt.\nVor allem für alle, die nicht auf Fernkampfangriffe wechseln wollen, wenn der Boss knapp aus der Reichweite läuft.\nEin Wert von -0,5 bedeutet zum Beispiel, dass du 0,5 Yalm näher stehen musst,\nein Wert von 2 erlaubt dir, 2 Yalm weiter entfernt zu stehen und trotzdem als in Nahkampfreichweite zu gelten\n(Nahkampfaktionen funktionieren dann nicht, du bekommst aber eine Vorwarnung, statt plötzlich schlechtere Aktionen zu nutzen).",
+  "MeleeOffset_unitLabel": "Yalm",
+
+  "MovementLeeway_Name": "Verzögerung der Bewegungsprüfung",
+  "MovementLeeway_helpMark": "Legt fest, wie lange die Verzögerung ist, bevor Wrath dich als in Bewegung erkennt.\nSo musst du dir keine Sorgen machen, dass kleine Bewegungen deine Rotation stören, was vor allem Caster betrifft.",
+  "MovementLeeway_recommendedValue": "0.0-1.0 (darüber hebelst du die Bewegungsoptionen deines Jobs aus)",
+  "MovementLeeway_unitLabel": "Sekunden",
+
+  "OpenToCurrentJobOnSwitch_Name": "Beim Jobwechsel den Reiter 'PvE-Funktionen' zum aktuellen Job wechseln",
+  "OpenToCurrentJobOnSwitch_helpMark": "Wechselt den Reiter 'PvE-Funktionen' automatisch zu dem Job, den du gerade spielst, sobald du den Job wechselst.",
+  "OpenToCurrentJobOnSwitch_recommendedValue": "Geschmackssache",
+  "OpenToCurrentJobOnSwitch_defaultValue": "Aus",
+
+  "OpenToCurrentJob_Name": "Reiter 'PvE-Funktionen' beim Öffnen zum aktuellen Job öffnen",
+  "OpenToCurrentJob_helpMark": "Beim Öffnen des Reiters 'PvE-Funktionen' wird automatisch dein aktueller Job angezeigt.",
+  "OpenToCurrentJob_recommendedValue": "Geschmackssache",
+  "OpenToCurrentJob_defaultValue": "Aus",
+
+  "OpenToPvE_Name": "Wrath mit dem Reiter 'PvE-Funktionen' öffnen",
+  "OpenToPvE_helpMark": "Wenn du Wrath mit `/wrath` öffnest, wird der Reiter 'PvE-Funktionen' angezeigt statt des zuletzt genutzten Reiters.\nEntspricht dem dauerhaften Öffnen über den Befehl `/wrath pve`.",
+  "OpenToPvE_recommendedValue": "Geschmackssache",
+  "OpenToPvE_defaultValue": "Aus",
+
+  "OpenToPvP_Name": "Wrath in PvP-Gebieten mit dem Reiter 'PvP-Funktionen' öffnen",
+  "OpenToPvP_helpMark": "Wie oben: Wenn du Wrath in einem PvP-Gebiet mit `/wrath` öffnest, wird der Reiter 'PvP-Funktionen' angezeigt statt des zuletzt genutzten Reiters.\nÄhnlich dem Befehl `/wrath pvp`.",
+  "OpenToPvP_recommendedValue": "Geschmackssache",
+  "OpenToPvP_defaultValue": "Aus",
+
+  "OpenerTimeout_Name": "Timeout für fehlgeschlagene Opener",
+  "OpenerTimeout_helpMark": "Legt fest, wie lange eine Lücke ohne Aktion im Opener erlaubt ist, bevor er als fehlgeschlagen gilt und die normale Rotation fortgesetzt wird.\nBei manchen Castern kann eine Erhöhung nötig sein, besonders wenn die erste Aktion des Openers ein Hard-Cast ist.",
+  "OpenerTimeout_recommendedValue": "4.0-7.0 (darüber gehen Opener gründlich kaputt)",
+  "OpenerTimeout_unitLabel": "Sekunden",
+
+  "OutputOpenerLogs_Name": "Opener-Status in den Chat ausgeben",
+  "OutputOpenerLogs_helpMark": "Gibt den Status des Openers deines Jobs im Chat aus,\nz. B. wenn er bereit ist, fehlschlägt oder abgeschlossen wird.",
+  "OutputOpenerLogs_recommendedValue": "An (WENN du einen Opener eingrenzen willst)",
+  "OutputOpenerLogs_defaultValue": "Aus",
+
+  "OverwriteQueue_Name": "Queue überschreiben",
+  "OverwriteQueue_helpMark": "Erlaubt dir, die aktuell eingereihte Aktion durch eine andere zu ersetzen.",
+  "OverwriteQueue_recommendedValue": "An",
+  "OverwriteQueue_defaultValue": "Aus",
+
+  "PenaltyPause_Name": "Sperrfenster bei Strafmechaniken",
+  "PenaltyPause_helpMark": "Sperrt Combos auf deiner Hotbar, wenn eine erkannte Mechanik, die das Ausführen von Aktionen bestraft (z. B. Pyretics, Acceleration Bombs, Gaze-Mechaniken), noch so viel Zeit bis zur Auflösung hat.\n\nManche Mechaniken setzen diesen Wert außer Kraft.\n\nAuf 0 setzen, um die Funktion zu deaktivieren.",
+  "PenaltyPause_recommendedValue": "Bei höherer Latenz zum Server erhöhen",
+  "PenaltyPause_unitLabel": "Sekunden",
+
+  "QueueAdjustThreshold_Name": "Queuen erlauben ab",
+  "QueueAdjustThreshold_helpMark": "Erlaubt dir zu queuen, sobald der GCD noch diese Zeit oder weniger hat.",
+  "QueueAdjustThreshold_unitLabel": "Sekunden",
+  "QueueAdjustThreshold_warningMark": "Ein zu niedriger Wert oder 0 macht manuelles Queuen sehr schwierig.",
+
+  "QueueAdjust_Name": "Eigenes manuelles Queue-Fenster",
+  "QueueAdjust_helpMark": "Erlaubt dir, das Queue-Fenster auf einen beliebigen Zeitpunkt im GCD zu legen statt nur auf die letzten 0,3-0,5 Sekunden. Nützlich, wenn du die Taste nicht dauerhaft drückst oder mit Auto-Rotation spielst und manuell eingreifen willst.",
+  "QueueAdjust_recommendedValue": "An",
+  "QueueAdjust_defaultValue": "Aus",
+
+  "RaiseStack_Name": "Eigener Raise-Stack",
+  "RaiseStack_helpMark": "Dies ist die Reihenfolge, in der Wrath ein Ziel zum Wiederbeleben auswählt,\nsofern Retargeting für eine Raise-Funktion aktiviert ist.\n\nRaise-Funktionen findest du unter PvE > General\noder bei jedem Caster, der eine Wiederbelebung hat.\n\nSind weniger als 5 Einträge vorhanden und liefert keiner davon ein Ziel, wird zurückgegriffen auf:\ndein Hard Target, falls es tot ist, oder <Any Dead Party Member>.\n\nZiele gelten nur als gültig, wenn sie freundlich, tot und innerhalb von 30 Yalm sind.",
+  "RaiseStack_recommendedValue": "Geschmackssache",
+  "RaiseStack_extraText": "(alle Ziele werden auf Wiederbelebbarkeit geprüft)",
+
+  "RetargetHealingActionsToStack_Name": "Heilaktionen (Einzelziel) umleiten",
+  "RetargetHealingActionsToStack_helpMark": "Leitet alle Einzelziel-Heilaktionen auf den unten gezeigten Heal-Stack um,\nähnlich wie Redirect oder Reaction es tun.\nDamit ist das Ziel, an dem die HP%-Schwellenlogik geprüft wird, auch das Ziel, das die Heilung erhält.",
+  "RetargetHealingActionsToStack_recommendedValue": "An (sobald du den Heal-Stack ÜBERHAUPT anpasst)",
+  "RetargetHealingActionsToStack_defaultValue": "Aus",
+
+  "ShortDTRText_Name": "Text der Server-Infoleiste kürzen",
+  "ShortDTRText_helpMark": "Blendet die Anzahl aktiver Auto-Modus-Combos aus.\nStandardmäßig zeigt die Server-Infoleiste:\n- ob die Auto-Rotation an oder aus ist\n- (falls an) die Anzahl aktiver Auto-Modus-Combos\n- (falls zutreffend) ob ein anderes Plugin den Zustand der Auto-Rotation steuert.",
+  "ShortDTRText_recommendedValue": "Geschmackssache",
+  "ShortDTRText_defaultValue": "Aus",
+
+  "ShowBorderAroundOptionsWithChildren_Name": "Rahmen um Combos und Funktionen mit Optionen anzeigen",
+  "ShowBorderAroundOptionsWithChildren_helpMark": "Zeichnet einen Rahmen um Combos und Funktionen, die eigene Funktionen und Optionen haben.",
+  "ShowBorderAroundOptionsWithChildren_recommendedValue": "Geschmackssache",
+  "ShowBorderAroundOptionsWithChildren_defaultValue": "An",
+
+  "ShowOpenerDtr_Name": "Opener-Status in der Server-Infoleiste",
+  "ShowOpenerDtr_helpMark": "Zeigt den Status deines aktuellen Openers an, sofern aktiviert und zutreffend.",
+  "ShowOpenerDtr_recommendedValue": "Geschmackssache",
+  "ShowOpenerDtr_defaultValue": "Aus",
+
+  "ShowTargetHighlight_Name": "Ziel-Hervorhebung anzeigen",
+  "ShowTargetHighlight_helpMark": "Zeichnet einen Rahmen um Gruppenmitglieder in der normalen Gruppenliste, wenn sie von bestimmten Funktionen anvisiert werden.",
+  "ShowTargetHighlight_recommendedValue": "Geschmackssache",
+  "ShowTargetHighlight_defaultValue": "Aus",
+  "ShowTargetHighlight_extraText": "(derzeit nur von AST und DNC genutzt)",
+
+  "SuppressAutorotCommand_Name": "Rückmeldung der Auto-Rotation-Befehle unterdrücken",
+  "SuppressAutorotCommand_helpMark": "Blendet die Chat-Rückmeldung für `/wrath auto`-Befehle aus.",
+  "SuppressAutorotCommand_recommendedValue": "Geschmackssache",
+  "SuppressAutorotCommand_defaultValue": "Aus",
+
+  "SuppressSetCommands_Name": "Rückmeldung der Set- und Unset-Befehle unterdrücken",
+  "SuppressSetCommands_helpMark": "Blendet die Chat-Rückmeldung für `/wrath set`- und `/wrath unset`-Befehle aus.\n(Eine Rückmeldung erscheint weiterhin, wenn der Befehl per IPC überschrieben wird oder fehlschlägt.)",
+  "SuppressSetCommands_recommendedValue": "Geschmackssache",
+  "SuppressSetCommands_defaultValue": "Aus",
+
+  "TankbusterTTS_Name": "TTS bei Tankbuster abspielen",
+  "TankbusterTTS_helpMark": "Spielt einen Text-to-Speech-Clip ab, sobald ein Tankbuster erkannt wird, inklusive des Ziels.",
+  "TankbusterTTS_recommendedValue": "Geschmackssache",
+  "TankbusterTTS_defaultValue": "Aus",
+
+  "TankbusterToast_Name": "Toast bei Tankbuster anzeigen",
+  "TankbusterToast_helpMark": "Zeigt eine Meldung auf dem Bildschirm, sobald ein Tankbuster erkannt wird, inklusive des Ziels.",
+  "TankbusterToast_recommendedValue": "Geschmackssache",
+  "TankbusterToast_defaultValue": "Aus",
+
+  "TargetHighlightColor_Name": "Farbe der Ziel-Hervorhebung",
+  "TargetHighlightColor_helpMark": "Legt die Farbe des Rahmens fest, der um Gruppenmitglieder gezeichnet wird.",
+  "TargetHighlightColor_recommendedValue": "Geschmackssache",
+
+  "Throttle_Name": "Drosselung der Aktionsaktualisierung",
+  "Throttle_helpMark": "Beschränkt, wie oft Combos die Aktion auf deiner Hotbar aktualisieren.\nBei 50 ms ist das kaum spürbar und du bekommst stets eine aktuelle Aktion.\n\nWenn du (recht geringe) FPS-Gewinne suchst, kannst du den Wert erhöhen, damit Combos seltener laufen.\nDas macht deine Combos träger und kann sogar GCDs clippen.\nBei hohen Werten clippt das deine GCDs um mehrere Sekunden oder zerlegt deine Rotation vollständig.",
+  "Throttle_unitLabel": "Millisekunden",
+
+  "UIShowPresetIDs_Name": "Preset-IDs neben Combo-Namen anzeigen",
+  "UIShowPresetIDs_helpMark": "Zeigt die Preset-ID-Nummer neben dem Namen jeder Combo und Funktion an.\nDiese IDs werden für Befehle wie `/wrath toggle <ID>` verwendet.\nVor 7.3 wurde hier ebenfalls eine Nummer angezeigt, die aber deutlich kürzer war und in Befehlen nicht funktionierte.",
+  "UIShowPresetIDs_recommendedValue": "An",
+  "UIShowPresetIDs_defaultValue": "An",
+
+  "UIShowSearchBar_Name": "Suchleisten anzeigen",
+  "UIShowSearchBar_helpMark": "Legt fest, ob Suchleisten in den Einstellungen sowie bei PvE- und PvP-Jobs angezeigt werden.",
+  "UIShowSearchBar_recommendedValue": "An",
+  "UIShowSearchBar_defaultValue": "An",
+
+  "UseCustomHealStack_Name": "Stattdessen eigenen Heal-Stack verwenden",
+  "UseCustomHealStack_helpMark": "Wähle dies, wenn du lieber eine eigene Liste von Zielprioritäten für Heilziele erstellen möchtest, statt unsere Standardliste zu nutzen.\n\nEs empfiehlt sich, dies zur Abstimmung mit deiner Redirect-/Reaction-Konfiguration zu verwenden, WENN du die Option 'Heilaktionen umleiten' oben nicht nutzt; andernfalls ist es Geschmackssache.",
+  "UseCustomHealStack_recommendedValue": "Geschmackssache",
+  "UseCustomHealStack_defaultValue": "Aus",
+
+  "UseExperimentalHP_Name": "Experimentelle HP-Prüfung",
+  "UseExperimentalHP_helpMark": "Dies ist eine neue Art, aktuelle HP-Werte auszuwerten: Vorab ermittelte Werte aktualisieren die Lebenspunkte intern, bevor sie im Spiel korrekt dargestellt werden.\n\nDadurch können Dinge früher geschehen als erwartet, da Schadens- und Heilungswerte deutlich früher feststehen, als sie im Spiel angezeigt werden. Sobald du etwa das Slidecast-Fenster erreichst, ist der Wert des Zaubers bereits bekannt.\n\nAm ehesten empfiehlt sich das für Heiler mit Auto-Rotation, um doppelt gecastete Heilungen zu reduzieren. Für DPS wechselt die Auto-Rotation das Ziel, sobald der tödliche Schlag herausgeht, statt zu warten, bis das Ziel offiziell als tot gilt.\n\nWird derzeit bei HP%-Prüfungen in Funktionen und in der Auto-Rotation verwendet.",
+  "UseExperimentalHP_recommendedValue": "Geschmackssache",
+  "UseExperimentalHP_defaultValue": "Aus",
+  "UseExperimentalHP_warningMark": "Dies ist hochgradig experimentell und kann unerwünschtes Verhalten zeigen. Bitte sei wachsam und melde entsprechende Fälle.",
+
+  "UseFieldMouseoverOverridesInDefaultHealStack_Name": "Feld-MouseOver zum Standard-Heal-Stack hinzufügen",
+  "UseFieldMouseoverOverridesInDefaultHealStack_helpMark": "Setzt MouseOver-Ziele an den Anfang des Standard-Heal-Stacks und setzt damit den Rest des Stacks außer Kraft, solange du über der Oberfläche eines Gruppenmitglieds stehst.\n\nEmpfohlen, wenn du mit Tastatur und Maus spielst und 'Heilaktionen umleiten' aktivierst (oder UI-MouseOver-Ziele in deiner Redirect-/Reaction-Konfiguration hast).",
+  "UseFieldMouseoverOverridesInDefaultHealStack_recommendedValue": "Geschmackssache",
+  "UseFieldMouseoverOverridesInDefaultHealStack_defaultValue": "Aus",
+
+  "UseFocusTargetOverrideInDefaultHealStack_Name": "Fokusziel zum Standard-Heal-Stack hinzufügen",
+  "UseFocusTargetOverrideInDefaultHealStack_helpMark": "Setzt dein Fokusziel unterhalb von Hard- und Soft-Target in den Standard-Heal-Stack und setzt den Rest des Stacks außer Kraft, solange dein Fokusziel lebt.",
+  "UseFocusTargetOverrideInDefaultHealStack_recommendedValue": "Geschmackssache",
+  "UseFocusTargetOverrideInDefaultHealStack_defaultValue": "Aus",
+
+  "UseLowestHPOverrideInDefaultHealStack_Name": "Verbündeten mit niedrigstem HP% zum Standard-Heal-Stack hinzufügen",
+  "UseLowestHPOverrideInDefaultHealStack_helpMark": "Setzt das nahe Gruppenmitglied mit dem niedrigsten HP%-Wert ans Ende des Standard-Heal-Stacks und setzt dabei nur dich selbst außer Kraft.",
+  "UseLowestHPOverrideInDefaultHealStack_recommendedValue": "Geschmackssache",
+  "UseLowestHPOverrideInDefaultHealStack_defaultValue": "Aus",
+  "UseLowestHPOverrideInDefaultHealStack_warningMark": "Anders als die übrigen 'Standard+'-Optionen gibt es diese in den meisten anderen Retargeting-Plugins nicht.\nDIES SOLLTE ZUSAMMEN MIT DER OPTION 'HEILAKTIONEN UMLEITEN' OBEN VERWENDET WERDEN!",
+
+  "UseUIMouseoverOverridesInDefaultHealStack_Name": "UI-MouseOver zum Standard-Heal-Stack hinzufügen",
+  "UseUIMouseoverOverridesInDefaultHealStack_helpMark": "Setzt UI-MouseOver-Ziele an den Anfang des Standard-Heal-Stacks und setzt damit den Rest des Stacks außer Kraft, solange du über der Oberfläche eines Gruppenmitglieds stehst.\n\nEmpfohlen, wenn du mit Tastatur und Maus spielst und 'Heilaktionen umleiten' aktivierst (oder UI-MouseOver-Ziele in deiner Redirect-/Reaction-Konfiguration hast).",
+  "UseUIMouseoverOverridesInDefaultHealStack_recommendedValue": "Geschmackssache",
+  "UseUIMouseoverOverridesInDefaultHealStack_defaultValue": "Aus"
+}
