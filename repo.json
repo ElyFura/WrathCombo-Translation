@@ -1,0 +1,33 @@
+[
+  {
+    "Author": "ElyFura",
+    "Name": "Wrath Combo Translation",
+    "InternalName": "WrathComboTranslation",
+    "AssemblyVersion": "0.1.0.0",
+    "Description": "Overlays translated strings onto Wrath Combo's UI without modifying Wrath Combo itself. Translations live in loose JSON files, so they can be edited and reloaded in-game.",
+    "ApplicableVersion": "any",
+    "RepoUrl": "https://github.com/ElyFura/WrathCombo-Translation",
+    "Tags": [
+      "wrath",
+      "wrathcombo",
+      "translation",
+      "localization",
+      "i18n",
+      "deutsch"
+    ],
+    "DalamudApiLevel": 15,
+    "LoadRequiredState": 0,
+    "LoadSync": false,
+    "CanUnloadAsync": false,
+    "LoadPriority": 0,
+    "Punchline": "Community translations for Wrath Combo, as a separate plugin.",
+    "AcceptsFeedback": true,
+    "DownloadLinkInstall": "https://github.com/ElyFura/WrathCombo-Translation/releases/latest/download/latest.zip",
+    "DownloadLinkUpdate": "https://github.com/ElyFura/WrathCombo-Translation/releases/latest/download/latest.zip",
+    "DownloadLinkTesting": "https://github.com/ElyFura/WrathCombo-Translation/releases/latest/download/latest.zip",
+    "IsHide": false,
+    "IsTestingExclusive": false,
+    "DownloadCount": 0,
+    "LastUpdate": 1789254717
+  }
+]

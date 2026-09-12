@@ -10,6 +10,7 @@
     <Project Path="tools/ResxExtract/ResxExtract.csproj" />
     <Project Path="tools/OverlayHarness/OverlayHarness.csproj" />
     <Project Path="tools/GameGlossary/GameGlossary.csproj" />
+    <Project Path="tools/MakeRepo/MakeRepo.csproj" />
   </Folder>
   <Project Path="WrathComboTranslation/WrathComboTranslation.csproj">
     <Platform Project="x64" />

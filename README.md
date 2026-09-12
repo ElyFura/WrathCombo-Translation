@@ -25,6 +25,17 @@ resource files added in future Wrath releases are picked up automatically.
 - **Contributing upstream via Crowdin** is the right long-term path, but its config currently
   covers only `CustomComboPresets.resx`, and it ties releases to Wrath's own cycle.
 
+## Installing
+
+Add this repository in Dalamud under **Settings → Experimental → Custom Plugin Repositories**:
+
+```
+https://raw.githubusercontent.com/ElyFura/WrathCombo-Translation/main/repo.json
+```
+
+Then install **Wrath Combo Translation** from the plugin installer. It needs Wrath Combo
+itself, which it finds on its own once both are loaded - load order does not matter.
+
 ## Using it
 
 Open the settings with `/wrathtl`. Its coverage section leads with the number that matters -
@@ -55,8 +66,8 @@ German, against 4570 translatable source strings:
 | Source | Strings |
 | --- | --- |
 | Shipped by Wrath itself (`CustomComboPresets.de.resx`) | 474 |
-| This plugin | 4533 |
-| **Untranslated** | **36** |
+| This plugin | 4535 |
+| **Untranslated** | **34** |
 
 Wrath does ship `AutoRotationUI.de.resx`, `SettingsUI.de.resx` and `BST_Config.de.resx`, but
 all three are empty Crowdin placeholders, so the UI chrome is effectively untranslated upstream.
@@ -86,16 +97,17 @@ something unrelated.
 
 **The descriptions are done too**, all 1942 of them.
 
-What is left is 36 strings, and the report lists every one. They fall into four groups:
+What is left is 34 strings, and the report lists every one. They fall into four groups:
 
 - **Identical in German** (21): numeric defaults, a colour code, `Bozja`, `Normal`, `Tank`,
   `DPS`, `DOL`, `Soft Target`, `Wrath Combo`, `Auto-Rotation`, and ability names the client
   keeps as they are (Stotram, Exuviation, Tenri Jindo, Fuma Shuriken, Megaflare). An entry
   repeating the source would only count itself as translated.
 - **Format-only** (3): `{0}`, `        - {0}`, and one empty string.
-- **Unreachable** (2): the target-stack listings. Wrath builds those from hard-coded C#
-  literals in `UserConfig.TargetDisplayNameFromPropertyName`, so the widget below them stays
-  English no matter what; translating the label alone would stop the two matching.
+- **Unreachable** (0): the target-stack listings are now translated, but be aware that the
+  stack widget shown beneath them in-game is not, and cannot be: Wrath builds it from
+  hard-coded C# literals in `UserConfig.TargetDisplayNameFromPropertyName`, which no resource
+  overlay reaches.
 - **Unverifiable** (4): `Warden's Paeon`, whose ability no longer exists in the sheets; the
   phantom Oracle's `Cleansing`, which does not appear in that job's action list at all; and
   `Variant` / `Variant Dungeons`, for which the German client has no corresponding content
@@ -145,6 +157,19 @@ the German client uses for them.
 Use it as a reference while translating, never as a find-and-replace: the most frequent match
 in the corpus is "Burst" (169 hits), which in Wrath's text nearly always means the rotational
 burst window and not the status the game calls "Schub".
+
+`make-repo` writes the Dalamud repository listing from the manifest DalamudPackager produced,
+so `repo.json` cannot fall behind the version in the csproj:
+
+```
+dotnet build WrathComboTranslation/WrathComboTranslation.csproj -c Release -p:Platform=x64
+dotnet run --project tools/MakeRepo --     --manifest WrathComboTranslation/bin/Release/WrathComboTranslation/WrathComboTranslation.json     --zip WrathComboTranslation/bin/Release/WrathComboTranslation/latest.zip     --out repo.json --repo https://github.com/ElyFura/WrathCombo-Translation
+```
+
+Run it as part of cutting a release, and attach `latest.zip` to the GitHub release - the
+listing points at `releases/latest/download/latest.zip`, so it keeps working across versions.
+Dalamud offers an update only when `AssemblyVersion` in the listing is higher than the
+installed one, which is exactly the field that rots when the listing is kept by hand.
 
 `overlay-harness` verifies the overlay against a real build of Wrath without starting the
 game. It loads both DLLs into separate `AssemblyLoadContext`s the way Dalamud does, then
