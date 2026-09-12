@@ -72,7 +72,13 @@ internal static class Program
         var installer = Activator.CreateInstance(installerType)!;
         var patched = (int)Invoke(installerType, "Install", installer, [wrath, pack, "de", false])!;
         Check($"overlay patched {patched} resource classes", patched > 0);
-        Check("all 34 of Wrath's resource classes were found", patched == 34);
+
+        // Counted from the assembly under test rather than hard-coded: how many resource
+        // classes Wrath has depends on the build. The shipped 1.0.4.23 has 33; a repo build
+        // has 34, the extra one being BST_Config, added after that release was cut.
+        var expected = ResourceClassCount(wrath);
+        Check($"every resource class in this build was found ({patched} of {expected})",
+            patched == expected);
 
         var translated = ReadString(mainWindowUi, "Button_About");
         Check($"translated string served (\"{translated}\")", translated == "Über");
@@ -135,7 +141,8 @@ internal static class Program
         Check("locator prefers the most recently loaded copy", ReferenceEquals(chosen, reloaded));
 
         var patchedReloaded = (int)Invoke(installerType, "Install", installer, [reloaded, pack, "de", false])!;
-        Check($"overlay installs onto the reloaded copy ({patchedReloaded} classes)", patchedReloaded == 34);
+        Check($"overlay installs onto the reloaded copy ({patchedReloaded} classes)",
+            patchedReloaded == expected);
 
         var reloadedUi = Internal(reloaded, "WrathCombo.Resources.Localization.UI.MainWindow.MainWindowUI");
         SetCulture(reloadedUi, new CultureInfo("de"));
@@ -151,6 +158,14 @@ internal static class Program
 
         return _failures == 0 ? 0 : 1;
     }
+
+    /// <summary>
+    ///     How many generated resource classes an assembly should have, taken from its embedded
+    ///     resources so the expectation follows whichever build is under test.
+    /// </summary>
+    private static int ResourceClassCount(Assembly assembly)
+        => assembly.GetManifestResourceNames()
+            .Count(n => n.EndsWith(".resources", StringComparison.Ordinal));
 
     /// <summary>Reads a generated resource property, which is what Wrath's UI code does.</summary>
     private static string? ReadString(Type resourceClass, string property)

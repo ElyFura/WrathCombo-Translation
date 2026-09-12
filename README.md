@@ -128,6 +128,19 @@ dotnet run --project tools/OverlayHarness -c Release -p:Platform=x64 -- \
 Run it after any change to the overlay, and after Wrath updates — it is what catches Wrath
 changing its localization internals.
 
+Point it at the **installed** Wrath as well, not only a repo build, since that is what players
+actually run and the two differ:
+
+```
+dotnet run --project tools/OverlayHarness -c Release -p:Platform=x64 -- \
+    "$APPDATA/XIVLauncher/installedPlugins/WrathCombo/<version>/WrathCombo.dll" \
+    WrathComboTranslation/bin/Release/WrathComboTranslation.dll
+```
+
+How many resource classes exist depends on the build — the shipped 1.0.4.23 has 33, a current
+repo build has 34 (`BST_Config`, added after that release was cut) — so the harness counts what
+the assembly under test actually contains rather than expecting a fixed number.
+
 ## Caveats
 
 - The overlay depends on Wrath's generated resource classes keeping their standard shape. If
