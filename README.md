@@ -52,8 +52,8 @@ German, against 4570 translatable source strings:
 | Source | Strings |
 | --- | --- |
 | Shipped by Wrath itself (`CustomComboPresets.de.resx`) | 474 |
-| This plugin | 4529 |
-| **Untranslated** | **40** |
+| This plugin | 4533 |
+| **Untranslated** | **36** |
 
 Wrath does ship `AutoRotationUI.de.resx`, `SettingsUI.de.resx` and `BST_Config.de.resx`, but
 all three are empty Crowdin placeholders, so the UI chrome is effectively untranslated upstream.
@@ -83,13 +83,20 @@ something unrelated.
 
 **The descriptions are done too**, all 1942 of them.
 
-What is left is 40 strings that are deliberately not translated, and the report lists every
-one: numeric defaults and a colour code that read identically in German; proper nouns for
-in-game content (Bozja, Occult Crescent, Variant Dungeons) and role abbreviations (DPS, DOL,
-Tank); the target-stack listings, which Wrath builds from hard-coded C# literals the overlay
-cannot reach; a handful of format-only strings such as `{0}` and `        - {0}`; and five
-names whose German wording cannot be verified against the game's data - Warden's Paeon, whose
-ability no longer exists in the sheets, Encore, and the phantom Oracle's Cleansing.
+What is left is 36 strings, and the report lists every one. They fall into four groups:
+
+- **Identical in German** (21): numeric defaults, a colour code, `Bozja`, `Normal`, `Tank`,
+  `DPS`, `DOL`, `Soft Target`, `Wrath Combo`, `Auto-Rotation`, and ability names the client
+  keeps as they are (Stotram, Exuviation, Tenri Jindo, Fuma Shuriken, Megaflare). An entry
+  repeating the source would only count itself as translated.
+- **Format-only** (3): `{0}`, `        - {0}`, and one empty string.
+- **Unreachable** (2): the target-stack listings. Wrath builds those from hard-coded C#
+  literals in `UserConfig.TargetDisplayNameFromPropertyName`, so the widget below them stays
+  English no matter what; translating the label alone would stop the two matching.
+- **Unverifiable** (4): `Warden's Paeon`, whose ability no longer exists in the sheets; the
+  phantom Oracle's `Cleansing`, which does not appear in that job's action list at all; and
+  `Variant` / `Variant Dungeons`, for which the German client has no corresponding content
+  name - it simply calls those dungeons "Die Unterstadt von Sil'dih" and so on.
 
 ## Development
 
