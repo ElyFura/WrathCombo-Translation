@@ -30,9 +30,11 @@ internal sealed class OverlayInstaller : IDisposable
     /// <summary>Resource classes currently overlaid.</summary>
     public IReadOnlyList<WrathResourceClass> Patched => _patched;
 
-    /// <summary>Resource short names Wrath exposes, whether or not they are translated.</summary>
-    public IReadOnlyList<string> KnownResourceNames
-        => [.. _patched.Select(p => p.ShortName).OrderBy(n => n, StringComparer.Ordinal)];
+    /// <summary>
+    ///     Each resource Wrath exposes and how many strings it holds, whether or not they are
+    ///     translated. Computed once per install rather than per frame.
+    /// </summary>
+    public IReadOnlyList<(string Name, int SourceCount)> KnownResources { get; private set; } = [];
 
     /// <summary>How many lookups the pack has answered since installation.</summary>
     public int OverrideHits
@@ -85,6 +87,10 @@ internal sealed class OverlayInstaller : IDisposable
         }
 
         _wrath = wrath;
+        KnownResources = [.. _patched
+            .Select(p => (p.ShortName, p.SourceCount))
+            .OrderBy(p => p.ShortName, StringComparer.Ordinal)];
+
         var afterPatch = clock.ElapsedMilliseconds;
 
         // Wrath caches resolved strings, so anything it displayed before we got here keeps
@@ -139,6 +145,7 @@ internal sealed class OverlayInstaller : IDisposable
 
         var count = _patched.Count;
         _patched.Clear();
+        KnownResources = [];
         _wrath = null;
 
         // Wrath's caches are deliberately left alone here: the originals are back in place,

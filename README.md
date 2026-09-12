@@ -27,7 +27,9 @@ resource files added in future Wrath releases are picked up automatically.
 
 ## Using it
 
-Open the settings with `/wrathtl`.
+Open the settings with `/wrathtl`. Its coverage table shows translated-of-total per resource;
+eleven of Wrath's `*_Config` files are empty placeholders for future use and are marked
+"empty" rather than showing a misleading zero.
 
 The overlay only applies when Dalamud's UI language matches the pack, so a `de` pack needs
 Dalamud set to German. Players who run Dalamud in English can tick **Force language**.

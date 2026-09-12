@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -31,6 +32,14 @@ internal sealed class WrathResourceClass
 
     /// <summary>The manager that was in place before we touched anything.</summary>
     public required ResourceManager OriginalManager { get; init; }
+
+    /// <summary>
+    ///     How many strings this resource actually contains, so the status window can show
+    ///     translated-out-of-total. Several of Wrath's resource files are empty placeholders
+    ///     for future use, and a bare "0" against those reads as untranslated rather than as
+    ///     nothing to translate.
+    /// </summary>
+    public required int SourceCount { get; init; }
 
     public ResourceManager? CurrentManager => ManagerField.GetValue(null) as ResourceManager;
 
@@ -154,6 +163,7 @@ internal static class WrathLocator
 
             found.Add(new WrathResourceClass
             {
+                SourceCount = CountStrings(original),
                 ShortName = ShortNameOf(baseName),
                 BaseName = baseName,
                 Type = type,
@@ -205,6 +215,25 @@ internal static class WrathLocator
         {
             Log.Warning(ex, "Failed to invalidate Wrath's string caches.");
             return false;
+        }
+    }
+
+    /// <summary>
+    ///     Counts the string entries of a resource, from its culture-neutral set.
+    /// </summary>
+    private static int CountStrings(ResourceManager manager)
+    {
+        try
+        {
+            var set = manager.GetResourceSet(CultureInfo.InvariantCulture,
+                createIfNotExists: true, tryParents: true);
+
+            return set?.Cast<DictionaryEntry>().Count(e => e.Value is string) ?? 0;
+        }
+        catch (Exception ex)
+        {
+            Log.Warning(ex, $"Could not count the strings in '{manager.BaseName}'.");
+            return 0;
         }
     }
 

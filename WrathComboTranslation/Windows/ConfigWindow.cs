@@ -200,11 +200,11 @@ internal sealed class ConfigWindow : Window
             return;
 
         ImGui.TableSetupColumn("Resource file", ImGuiTableColumnFlags.WidthStretch);
-        ImGui.TableSetupColumn("Strings", ImGuiTableColumnFlags.WidthFixed, 70);
+        ImGui.TableSetupColumn("Translated", ImGuiTableColumnFlags.WidthFixed, 90);
         ImGui.TableSetupScrollFreeze(0, 1);
         ImGui.TableHeadersRow();
 
-        foreach (var name in _installer.KnownResourceNames)
+        foreach (var (name, total) in _installer.KnownResources)
         {
             var translated = counts.TryGetValue(name, out var n) ? n : 0;
 
@@ -212,7 +212,15 @@ internal sealed class ConfigWindow : Window
             ImGui.TableNextColumn();
             ImGui.TextUnformatted(name);
             ImGui.TableNextColumn();
-            ImGui.TextColored(translated > 0 ? Good : Muted, translated.ToString());
+
+            // Shown as translated-of-total: several of Wrath's resource files are empty
+            // placeholders, and a bare "0" against those reads as missing work rather than
+            // as nothing to do.
+            if (total == 0)
+                ImGui.TextColored(Muted, "empty");
+            else
+                ImGui.TextColored(translated >= total ? Good : translated > 0 ? Muted : Bad,
+                    $"{translated}/{total}");
         }
 
         ImGui.EndTable();

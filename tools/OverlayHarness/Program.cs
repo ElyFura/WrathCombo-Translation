@@ -80,6 +80,12 @@ internal static class Program
         Check($"every resource class in this build was found ({patched} of {expected})",
             patched == expected);
 
+        // The status window reports translated-of-total per resource, so the counts it shows
+        // have to come from the assembly rather than from the pack alone.
+        var known = (System.Collections.IEnumerable)Get(installerType, "KnownResources", installer)!;
+        var counted = known.Cast<object>().Count();
+        Check($"source string counts collected for {counted} resources", counted == patched);
+
         var translated = ReadString(mainWindowUi, "Button_About");
         Check($"translated string served (\"{translated}\")", translated == "Über");
 
