@@ -50,16 +50,19 @@ German, against 4570 translatable source strings:
 | Source | Strings |
 | --- | --- |
 | Shipped by Wrath itself (`CustomComboPresets.de.resx`) | 474 |
-| This plugin | 3738 |
-| **Untranslated** | **358** |
+| This plugin | 4050 |
+| **Untranslated** | **437** |
 
 Wrath does ship `AutoRotationUI.de.resx`, `SettingsUI.de.resx` and `BST_Config.de.resx`, but
 all three are empty Crowdin placeholders, so the UI chrome is effectively untranslated upstream.
 
-The bundled German pack covers the whole interface outside of the feature list itself: the
-main window, the features pane, the settings pane (`SettingsCfgUI`, 183 of 198), the
-auto-rotation pane (`AutoRotationUI`, 87 of 88) and the shared building blocks reused across
-every job's config (`Generics`, 164 of 165).
+The bundled German pack covers the main window, the features pane, the settings pane
+(`SettingsCfgUI`, 183 of 198), the auto-rotation pane (`AutoRotationUI`, 87 of 88) and the
+shared building blocks reused across every job's config (`Generics`, 162 of 165).
+
+Not yet touched: the per-job config files (`AST_Config`, `BLM_Config`, `SAM_Config` and the
+rest, 144 strings between them), plus `SettingsUI` (15), `OccultCrescent` (11) and
+`MiscStrings` (5).
 
 Some strings are deliberately left to fall back rather than translated: in-game proper nouns
 (Bozja, Occult Crescent, Variant Dungeons) until the official German client wording is
@@ -76,8 +79,11 @@ verified against the game's data - "Warden's Paeon", whose ability no longer exi
 sheets, "Encore", and the phantom Oracle's "Cleansing", whose only row match translates to
 something unrelated.
 
-The descriptions are underway: everything outside the PvE job groups, plus the tanks, healers
-and melee jobs, leaving 616 for the casters, the physical ranged jobs and the Phantom group.
+The descriptions are underway: everything outside the PvE job groups, plus the tanks, healers,
+melee and caster jobs, leaving 304 for the physical ranged jobs and the Phantom group. Wrath's
+own German covers 83 of those already, at noticeably lower quality - it addresses the player
+formally as "Sie" where this pack uses "du", and carries typos such as "Helden-Hymus" and
+"Kraft-Coral" - so they are still worth doing.
 
 ## Development
 

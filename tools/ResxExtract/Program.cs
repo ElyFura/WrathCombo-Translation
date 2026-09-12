@@ -89,6 +89,7 @@ internal static class Program
         var upstreamTotal = 0;
         var packTotal = 0;
         var staleTotal = 0;
+        var missingTotal = 0;
         var problems = 0;
 
         Console.WriteLine($"{"Resource",-24} {"source",6} {"upstream",8} {"pack",8} {"missing",9} {"stale",7}");
@@ -116,6 +117,7 @@ internal static class Program
             upstreamTotal += upstream.Count;
             packTotal += pack.Count;
             staleTotal += stale;
+            missingTotal += missing;
 
             Console.WriteLine(
                 $"{shortName,-24} {source.Count,6} {upstream.Count,8} {pack.Count,8} {missing,9} {stale,7}");
@@ -128,9 +130,11 @@ internal static class Program
 
         Console.WriteLine(new string('-', 68));
         Console.WriteLine($"{"TOTAL",-24} {sourceTotal,6} {upstreamTotal,8} {packTotal,8} " +
-                          $"{sourceTotal - packTotal - upstreamTotal,9} {staleTotal,7}");
+                          $"{missingTotal,9} {staleTotal,7}");
 
-        var covered = Math.Min(sourceTotal, packTotal + upstreamTotal);
+        // Summed per key rather than subtracted from the totals: a string translated both by
+        // us and upstream would otherwise be counted twice and flatter the coverage figure.
+        var covered = sourceTotal - missingTotal;
         Console.WriteLine();
         Console.WriteLine($"Coverage for '{lang}': {covered}/{sourceTotal} " +
                           $"({(sourceTotal == 0 ? 0 : covered * 100.0 / sourceTotal):F1}%)");
