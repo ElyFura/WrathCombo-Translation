@@ -50,22 +50,24 @@ German, against 4570 translatable source strings:
 | Source | Strings |
 | --- | --- |
 | Shipped by Wrath itself (`CustomComboPresets.de.resx`) | 474 |
-| This plugin | 232 |
-| **Untranslated** | **3864** |
+| This plugin | 481 |
+| **Untranslated** | **3615** |
 
 Wrath does ship `AutoRotationUI.de.resx`, `SettingsUI.de.resx` and `BST_Config.de.resx`, but
 all three are empty Crowdin placeholders, so the UI chrome is effectively untranslated upstream.
 
-The bundled German pack covers the main window, the features pane, the generic labels and
-all 45 entries of the settings pane (`SettingsCfgUI`, 183 of 198 strings).
+The bundled German pack covers the whole interface outside of the feature list itself: the
+main window, the features pane, the settings pane (`SettingsCfgUI`, 183 of 198), the
+auto-rotation pane (`AutoRotationUI`, 87 of 88) and the shared building blocks reused across
+every job's config (`Generics`, 164 of 165).
 
 Some strings are deliberately left to fall back rather than translated: in-game proper nouns
 (Bozja, Occult Crescent, Variant Dungeons) until the official German client wording is
 confirmed, purely numeric defaults and colour codes that read identically in German, and the
 target-stack listings, whose entry names come from the still-untranslated `Generics.resx`.
 
-The bulk of the remaining work is `CustomComboPresets` (3886 strings — every feature name and
-description), followed by `AutoRotationUI` (88) and `Generics` (165).
+What remains is essentially one file: `CustomComboPresets`, 3886 strings covering every
+feature name and description, of which Wrath itself already translates 474.
 
 ## Development
 
@@ -89,8 +91,12 @@ dotnet run --project tools/ResxExtract -- report \
     --repo ../WrathCombo --pack WrathComboTranslation/Translations/de --lang de
 ```
 
-Run `report` after every Wrath update: it lists stale keys that Wrath has since removed or
-renamed.
+Run `report` after every Wrath update and before shipping a pack. Besides coverage it lists
+stale keys that Wrath has since removed, and validates each translation against its source:
+it fails (exit 1) on a `{0}` placeholder that was added or dropped, which would throw a
+FormatException in-game, and on a translated `###WidgetId` suffix, which would silently
+detach an ImGui control from its state. It also points out strings left identical to the
+English source.
 
 `overlay-harness` verifies the overlay against a real build of Wrath without starting the
 game. It loads both DLLs into separate `AssemblyLoadContext`s the way Dalamud does, then

@@ -1,0 +1,111 @@
+{
+  "_translators": "ElyFura",
+  "_note": "Checkbox_HealerAlwaysHardTarget keeps its '###HealerHardTarget' suffix verbatim: that is an ImGui widget id, not display text, and changing it would break the control's identity. Ability names that appear as literals rather than {0} placeholders (Excogitation, Regen/Aspected Benefic) are left in English because the official German client wording is unverified; placeholders themselves are filled from the game's own sheets and come out German automatically. Checkbox_AutoCleanse ('Auto-{0}') is omitted because it reads identically in German.",
+
+  "Info_Header": "Hier konfigurierst du, unter welchen Bedingungen die Auto-Rotation arbeitet.\nFunktionen mit einem 'Auto-Modus'-Häkchen lassen sich mit der Auto-Rotation nutzen.",
+
+  "AutomaticActivationHeader": "Einstellungen zur automatischen Aktivierung",
+  "CombatSettingHeader": "Kampfeinstellungen",
+  "Header_HealingSettings": "Heilungseinstellungen",
+  "Label_DamageSettings": "Schadenseinstellungen",
+  "Label_Advanced": "Erweitert",
+
+  "Checkbox_EnableAutoRotation": "Auto-Rotation aktivieren",
+  "Checkbox_EnableInstancedEnter": "In instanziierten Inhalten automatisch aktivieren",
+  "Checkbox_DisableInstanceExit": "Nach Verlassen instanziierter Inhalte deaktivieren",
+  "Checkbox_OnlyInCombat": "Auf den Kampf beschränken",
+  "Input_AutoRotationDelay": "Verzögerung bis zur Aktivierung der Auto-Rotation nach Kampfbeginn (Sekunden)",
+
+  "Checkbox_OnlyAttackInCombat": "Nur Ziele angreifen, die bereits im Kampf sind",
+  "Checkbox_PreferNonCombat": "Ziele außerhalb des Kampfes bevorzugen",
+  "Checkbox_FATEPriority": "FATE-Ziele bevorzugen",
+  "Checkbox_QuestPriority": "Quest-Ziele bevorzugen",
+  "Checkbox_TreasureHuntPriority": "Tötungsreihenfolge bei Schatzkarten bevorzugen",
+  "HelpText_TreasureHuntPriority": "Wenn Gegner nummerierte Namensschild-Markierungen (1–5) tragen, greift die Auto-Rotation nur die niedrigste verbleibende Nummer an, bis diese stirbt. Gedacht für Schatzkarten-Viecher; gilt aber überall, wo diese Markierungen auftauchen.",
+  "Checkbox_BypassFATETargets": "Ausnahme für FATE-Ziele",
+  "HelpText_BypassFATETargets": "Deaktiviert den Auto-Modus außerhalb des Kampfes, sofern du nicht auf ein FATE synchronisiert bist.",
+  "Checkbox_BypassQuestTargets": "Ausnahme für Quest-Ziele",
+  "HelpText_BypassQuestTargets": "Deaktiviert den Auto-Modus außerhalb des Kampfes, sofern du dich nicht in Reichweite eines Quest-Ziels befindest.",
+  "Checkbox_BypassSelfUse": "Ausnahme, wenn die Combo eine Aktion auf sich selbst vorschlägt",
+  "HelpText_BypassSelfUse": "Viele Jobs haben eine Aktion für außerhalb des Kampfes, zum Beispiel {0} oder {1}. Diese Option erlaubt deren Einsatz, ohne im Kampf zu sein.",
+
+  "Label_DPSTargetingMode": "Zielauswahl-Modus",
+  "HelpText_DPSTargettingMode": "Manuell - Überlässt dir sämtliche Zielentscheidungen.\nHöchstes Maximum - Bevorzugt Gegner mit den höchsten maximalen HP.\nNiedrigstes Maximum - Bevorzugt Gegner mit den niedrigsten maximalen HP.\nHöchste aktuelle - Bevorzugt den Gegner mit den höchsten aktuellen HP.\nNiedrigste aktuelle - Bevorzugt den Gegner mit den niedrigsten aktuellen HP.\nTank-Ziel - Bevorzugt dasselbe Ziel wie der erste Tank deiner Gruppe.\nNächstes - Bevorzugt das dir nächstgelegene Ziel.\nEntferntestes - Bevorzugt das am weitesten entfernte Ziel.",
+  "Label_DPSMaxTargetDistance": "Maximale Zielentfernung",
+  "HelpText_DPSMaxTargetDistance": "Maximale Entfernung, in der alle Zielauswahl-Modi (außer Manuell) nach einem Ziel suchen. Nur Werte von 1 bis 30.",
+  "Label_IgnoreRangeInBoss": "Maximale Zielentfernung in Boss-Kämpfen ignorieren",
+  "HelpText_IgnoreRangeInBoss": "Nur in Boss-Kämpfen kann jedes Ziel unabhängig von der Entfernung angegriffen werden.",
+  "Checkbox_DPSAlwaysHardTarget": "Immer Hard Target setzen",
+  "HelpText_DPSAlwaysHardTarget": "Die Auto-Rotation muss Gegner nicht anvisieren, um zu funktionieren. Mit dieser Einstellung setzt sie dein Hard Target aber bei jedem Angriff.",
+
+  "Input_AoETargetCount": "Benötigte Ziele für AoE-Schadensfunktionen",
+  "HelpText_AoETargetCount": "Deaktivieren schaltet die AoE-DPS-Funktionen ab. Andernfalls muss die angegebene Anzahl an Zielen in Reichweite des AoE-Angriffs sein, damit die Funktion greift. Gilt für alle drei Rollen und für alle Funktionen, die AoE-Schaden verursachen.",
+  "Checkbox_EnforceBestAoETarget": "Bestes AoE-Ziel erzwingen",
+  "HelpText_EnforceBestAoETarget": "In allen anderen Zielauswahl-Modi richtet sich AoE nach der höchsten Trefferzahl. Im manuellen Modus geschieht das nur, wenn du dieses Kästchen aktivierst.",
+  "OnlyAoEManualTargetSet": "AoE nur bei gesetztem manuellem Ziel",
+  "OnlyAoEManualTargetSetHelp": "AoE trifft weiterhin das beste Ziel, aber erst, nachdem du ein Hard Target gesetzt hast (es kann danach auf das beste Ziel gewechselt werden).",
+
+  "PauseNoTarget": "Aktionen aus Combos pausieren, wenn kein Ziel ausgewählt ist",
+  "PauseNoTargetHelp": "Pausiert alle Aktionen aus Combos, wenn im gewählten Zielauswahl-Modus kein Ziel vorhanden ist. Ideal, um Aktionen auf sich selbst zu blockieren, wenn kein Ziel verfügbar ist.",
+
+  "Label_HealingTargetingMode": "Zielauswahl-Modus für Heiler",
+  "HelpText_HealerTargetingMode": "Manuell - Heilt ein Ziel nur, wenn du es manuell auswählst. Erfüllt das Ziel die unten eingestellten Heilungsschwellen nicht, wird die Heilung zugunsten von DPS übersprungen (sofern ebenfalls aktiviert).\nHöchste aktuelle - Bevorzugt das Gruppenmitglied mit dem höchsten aktuellen HP%.\nNiedrigste aktuelle - Bevorzugt das Gruppenmitglied mit dem niedrigsten aktuellen HP%.",
+  "Checkbox_HealerAlwaysHardTarget": "Immer Hard Target setzen###HealerHardTarget",
+  "HelpText_HealerAlwaysHardTarget": "Die Auto-Rotation muss Verbündete nicht anvisieren, um zu funktionieren. Mit dieser Einstellung setzt sie dein Hard Target aber bei jeder Heilung.",
+  "Input_HealDelay": "Verzögerung bis zum Heilbeginn, sobald die obigen Bedingungen erfüllt sind (Sekunden)",
+  "HelpText_HealDelay": "Stell das nicht zu hoch ein! 1-2 Sekunden wirken normalerweise noch wie eine natürliche Reaktion.",
+  "Input_AoEHealTargetCount": "Benötigte Ziele für AoE-Heilfunktionen",
+  "HelpText_AoEHealTargetCount": "Deaktivieren schaltet die AoE-Heilfunktionen ab. Andernfalls muss die angegebene Anzahl an Zielen in Reichweite der AoE-Heilung sein, damit die Funktion greift.",
+
+  "Slider_AoETargetHPP": "AoE-HP%-Schwellenwert",
+  "Slider_SingleTargetHPP": "Einzelziel-HP%-Schwellenwert",
+  "Slider_SingleTargetExcogHPP": "Einzelziel-HP%-Schwellenwert (Ziel hat Excogitation)",
+  "HelpText_SingleTargetExcogHPP": "Diesen Wert stellt man üblicherweise niedriger ein als den darüber.",
+  "Slider_SingleTargetRegenHPP": "Einzelziel-HP%-Schwellenwert (Ziel hat Regen/Aspected Benefic)",
+  "HelpText_SingleTargetRegenHPP": "Diesen Wert stellt man üblicherweise niedriger ein als den darüber.",
+
+  "Include_Shields": "Schilde berücksichtigen",
+  "Include_Shields_Helptext": "Bezieht Schild-% in alle HP-Prüfungen ein.",
+
+  "Checkbox_IncludeNPCs": "Freundliche NPCs heilen",
+  "HelpText_IncludeNPCs": "Nützlich für Heiler-Quests, in denen NPCs geheilt werden sollen, die aber nicht direkt Teil deiner Gruppe sind.",
+
+  "Checkbox_AutoRez": "Auto-Wiederbelebung",
+  "HelpText_AutoRez": "Versucht, tote Gruppenmitglieder wiederzubeleben.\nGilt für {0}, {1}, {2}, {3}, {4} und {5} ({6}/{7})",
+  "Checkbox_AutoRezDPSJobs": "Auf {0} & {1} anwenden",
+  "HelpText_AutoRezDPSJobs": "Versucht auch als {0} oder {1}, ein totes Gruppenmitglied wiederzubeleben. {2} belebt nur wieder, wenn {3} oder {4} aktiv ist.",
+  "Checkbox_AutoRezDPSJobsHealersOnly": "Nur Wiederbeleber wiederbeleben",
+  "HelpText_AutoRezDPSJobsHealersOnly": "Versucht als {0} oder {1} nur, Heiler und Wiederbeleber wiederzubeleben",
+  "Checkbox_AutoRezRequireSwift": "{0}/{1} erforderlich",
+  "HelpText_AutoRezRequireSwift": "Erfordert, dass {0} oder {2} von {1} verfügbar ist, um ein Gruppenmitglied wiederzubeleben, damit nicht hart gecastet werden muss.",
+  "Checkbox_AutoRezOutOfParty": "Auf Nicht-Gruppenmitglieder anwenden",
+
+  "HelpText_AutoCleanse": "Entfernt mit {0} alle entfernbaren Debuffs (Heilung hat Vorrang).",
+
+  "Checkbox_ManageKardia": "[{0}] {1} automatisch verwalten",
+  "HelpText_ManageKardia": "Setzt {0} auf Gruppenmitglieder um, die gerade von Gegnern angegriffen werden, und bevorzugt Tanks, wenn mehrere angegriffen werden.",
+  "Checkbox_KardiaTanksOnly": "{0}-Wechsel auf Tanks beschränken",
+
+  "Checkbox_PreEmptiveHoT": "[{0}/{1}/{2}/{3}] HoT/Schilde vorsorglich auf das Fokusziel legen",
+  "HelpText_PreEmptiveHoT": "Legt {0}/{1}/{2}/{3} auf dein Fokusziel, wenn du außerhalb des Kampfes bist und es höchstens 30 Yalm von einem Gegner entfernt ist. (Umgeht die Einstellung 'Auf den Kampf beschränken')",
+
+  "Checkbox_HandleTankbusters": "Erkannte Tankbuster behandeln",
+  "HelpText_HandleTankbusters": "Versucht, vor erkannten Tankbustern Aktionen einzusetzen, um den Schaden am anvisierten Mitglied zu mindern. Maximal 1 Aktion (ohne {0} zur Vorbereitung)",
+  "Checkbox_HandleRaidwides": "Erkannte Raidwides behandeln",
+  "HelpText_HandleRaidwides": "Versucht, vor erkannten Raidwides oder Gruppenschaden Aktionen einzusetzen, um zu mindern oder die Gruppe aufzufüllen. Maximal 3 Aktionen (ohne {0} zur Vorbereitung)",
+
+  "Checkbox_UnTargetAndDisableForPenalty": "Bei Strafmechaniken pausieren",
+  "HelpText_UnTargetAndDisableForPenalty": "Hebt die aktuelle Zielauswahl auf und deaktiviert Aktionen der Auto-Rotation, solange eine Strafmechanik erkannt wird, die dich bei einer Aktion schädigen würde – etwa Pyretics (oder Ähnliches wie Acceleration Bomb).",
+
+  "Checkbox_Orbwalker": "Orbwalker-Anbindung aktivieren",
+  "HelpText_Orbwalker": "Lässt die Auto-Rotation Aktionen mit Cast-Zeit auch in Bewegung einsetzen, da Orbwalker die Bewegung während des Casts sperrt. Möglicherweise musst du in Orbwalker die Einstellung \"Buffer Initial Cast\" aktivieren, falls noch nicht geschehen. Erfordert ein installiertes und aktiviertes Orbwalker-Plugin.",
+
+  "Input_QueueWindow": "Queue-Fenster (s)",
+  "HelpText_QueueWindow": "Legt fest, wie lange vor Ende des GCD die nächste Waffenfähigkeit oder der nächste Zauber eingereiht wird. Deine Latenz kann beeinflussen, welche Aktionen ausgeführt werden. Passe den Wert also an, wenn dir fehlerhafte Aktionen auffallen, etwa doppelte Eis IV-Casts, weil die MP nicht rechtzeitig aktualisiert werden.",
+  "Input_ThrottleDelay": "Drosselungs-Verzögerung (ms)",
+  "HelpText_ThrottleDelay": "Die Auto-Rotation hat aus Performance-Gründen eine eingebaute Drosselung und läuft nur alle paar Millisekunden. Bei Problemen mit der Bildrate kannst du diesen Wert erhöhen. Beachte, dass ein zu hoher Wert Clipping verursachen kann – experimentiere also damit.",
+
+  "Label_IgnoredNPCs": "Ignorierte NPCs",
+  "HelpText_IgnoredNPCs": "Diese NPCs werden von der Auto-Rotation ignoriert.\nJedes Vorkommen dieses NPCs wird von der automatischen Zielauswahl ausgeschlossen (manuell funktioniert weiterhin).\nUm einen NPC aus dieser Liste zu entfernen, wähle ihn aus und drücke unten auf Löschen.\nUm einen NPC hinzuzufügen, visiere ihn an und nutze den Befehl: /wrath ignore",
+  "Button_DeleteFromIgnored": "Aus Ignorierten entfernen"
+}

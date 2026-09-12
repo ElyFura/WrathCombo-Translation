@@ -1,5 +1,6 @@
 using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 namespace ResxExtract;
@@ -88,6 +89,7 @@ internal static class Program
         var upstreamTotal = 0;
         var packTotal = 0;
         var staleTotal = 0;
+        var problems = 0;
 
         Console.WriteLine($"{"Resource",-24} {"source",6} {"upstream",8} {"pack",8} {"missing",9} {"stale",7}");
         Console.WriteLine(new string('-', 68));
@@ -120,6 +122,8 @@ internal static class Program
 
             foreach (var key in pack.Keys.Where(k => !source.ContainsKey(k)).OrderBy(k => k))
                 Console.WriteLine($"    stale key: {key}");
+
+            problems += Validate(shortName, source, pack);
         }
 
         Console.WriteLine(new string('-', 68));
@@ -130,7 +134,74 @@ internal static class Program
         Console.WriteLine();
         Console.WriteLine($"Coverage for '{lang}': {covered}/{sourceTotal} " +
                           $"({(sourceTotal == 0 ? 0 : covered * 100.0 / sourceTotal):F1}%)");
-        return 0;
+
+        if (problems > 0)
+        {
+            Console.WriteLine();
+            Console.WriteLine($"{problems} problem(s) found. These break the UI at runtime - fix before shipping.");
+        }
+
+        return problems > 0 ? 1 : 0;
+    }
+
+    /// <summary>
+    ///     Checks a pack against the source for mistakes that only show up in-game.
+    /// </summary>
+    /// <remarks>
+    ///     Two of these are not cosmetic. Wrath fills <c>{0}</c>-style placeholders through
+    ///     <c>string.Format</c>, so a translation that invents or drops one throws a
+    ///     FormatException where the text would have been drawn. And a trailing
+    ///     <c>###SomeId</c> is an ImGui widget id rather than display text: translate it and
+    ///     the control silently loses its identity, taking its state with it.
+    /// </remarks>
+    private static int Validate(
+        string shortName,
+        Dictionary<string, string> source,
+        Dictionary<string, string> pack)
+    {
+        var problems = 0;
+
+        foreach (var (key, translated) in pack.OrderBy(kv => kv.Key, StringComparer.Ordinal))
+        {
+            if (!source.TryGetValue(key, out var original))
+                continue;
+
+            var wanted = Placeholders(original);
+            var got = Placeholders(translated);
+            if (!wanted.SetEquals(got))
+            {
+                Report($"{key}: placeholders {Show(wanted)} in source, {Show(got)} in translation");
+                problems++;
+            }
+
+            var wantedId = ImGuiId(original);
+            if (wantedId is not null && ImGuiId(translated) != wantedId)
+            {
+                Report($"{key}: must keep the ImGui id '###{wantedId}' at the end");
+                problems++;
+            }
+
+            if (original == translated)
+                Report($"{key}: identical to the English source - omit it instead, " +
+                       "so it is not counted as translated");
+        }
+
+        return problems;
+
+        void Report(string message)
+            => Console.WriteLine($"    {shortName}: {message}");
+
+        static HashSet<string> Placeholders(string s)
+            => [.. Regex.Matches(s, @"\{(\d+)[^}]*\}").Select(m => m.Groups[1].Value)];
+
+        static string? ImGuiId(string s)
+        {
+            var idx = s.LastIndexOf("###", StringComparison.Ordinal);
+            return idx < 0 ? null : s[(idx + 3)..];
+        }
+
+        static string Show(HashSet<string> set)
+            => set.Count == 0 ? "none" : "{" + string.Join(",", set.Order()) + "}";
     }
 
     /// <summary>
