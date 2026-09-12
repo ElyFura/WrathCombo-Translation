@@ -1,9 +1,9 @@
 using System;
 using System.IO;
 using System.Reflection;
+using System.Threading;
 using Dalamud.Game.Command;
 using Dalamud.Interface.Windowing;
-using Dalamud.IoC;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using WrathComboTranslation.Services;
@@ -35,9 +35,29 @@ public sealed class Plugin : IDalamudPlugin
     private DateTime _nextCheck = DateTime.MinValue;
     private int _installAttempts;
 
-    public Plugin(IDalamudPluginInterface pluginInterface)
+    /// <remarks>
+    ///     Services arrive as constructor parameters, which Dalamud injects when it builds the
+    ///     plugin. Note that <c>IDalamudPluginInterface.Create&lt;T&gt;()</c> must never be
+    ///     called with this class as its type argument: it constructs a new instance of the
+    ///     type given, so calling it here would build another Plugin, which would call it
+    ///     again, recursing until the process runs out of memory.
+    /// </remarks>
+    public Plugin(
+        IDalamudPluginInterface pluginInterface,
+        IPluginLog log,
+        IFramework framework,
+        ICommandManager commands)
     {
-        pluginInterface.Create<Plugin>();
+        PluginInterface = pluginInterface;
+        Log = log;
+        Framework = framework;
+        Commands = commands;
+
+        if (Interlocked.Increment(ref _instanceCount) > 1)
+            Log.Error($"Plugin has been constructed {_instanceCount} times; " +
+                      "something is building it recursively.");
+
+        Log.Information("Starting up.");
 
         Config = PluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
         LooseRoot = Path.Combine(PluginInterface.GetPluginConfigDirectory(), TranslationPack.LooseFolderName);
@@ -57,12 +77,17 @@ public sealed class Plugin : IDalamudPlugin
         {
             HelpMessage = "Open the Wrath Combo translation settings.",
         });
+
+        Log.Information($"Ready. {Pack.StringCount} strings loaded for '{Config.Language}'.");
     }
 
-    [PluginService] internal static IDalamudPluginInterface PluginInterface { get; private set; } = null!;
-    [PluginService] internal static IPluginLog Log { get; private set; } = null!;
-    [PluginService] internal static IFramework Framework { get; private set; } = null!;
-    [PluginService] internal static ICommandManager Commands { get; private set; } = null!;
+    internal static IDalamudPluginInterface PluginInterface { get; private set; } = null!;
+    internal static IPluginLog Log { get; private set; } = null!;
+    internal static IFramework Framework { get; private set; } = null!;
+    internal static ICommandManager Commands { get; private set; } = null!;
+
+    /// <summary>Guards against the plugin being constructed more than once.</summary>
+    private static int _instanceCount;
 
     internal Configuration Config { get; }
 
@@ -87,6 +112,7 @@ public sealed class Plugin : IDalamudPlugin
         PluginInterface.UiBuilder.OpenMainUi -= OpenConfig;
 
         _windows.RemoveAllWindows();
+        Interlocked.Decrement(ref _instanceCount);
 
         // Hands Wrath its own resource managers back, so unloading this plugin leaves no trace.
         _installer.Dispose();
