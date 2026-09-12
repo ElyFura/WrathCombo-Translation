@@ -1,0 +1,8 @@
+{
+  "FirstPositional0": "Erstes Positional: {0}.",
+  "FlankFirst": "Flanke zuerst",
+  "OnlyUse0WhileUGot1": "Setzt {0} nur ein, solange du {1} hast.",
+  "RearFirst": "Hinten zuerst",
+  "SecondsBeforeRefreshing0": "Verbleibende Sekunden, bevor {0} erneuert wird.\nEmpfohlen sind 6.",
+  "WillHoldTNforGluttony": "Behält die letzte Aufladung von {0} für den Einsatz mit {1}, selbst wenn du für {2}/{3} falsch stehst.\nSteht der Regler oben auf 1, wird die verbleibende Aufladung NICHT für {1} genutzt, sondern für den manuellen Einsatz."
+}

@@ -1,0 +1,17 @@
+{
+  "Button_CreateDebug": "Debug-Datei erstellen",
+  "Header_SettingsAbout": "In diesem Reiter kannst du die globalen Einstellungen von Wrath Combo anpassen.",
+  "HelpText_CreateDebug": "Erzeugt eine Debug-Datei auf deinem Desktop.\nHilfreich für Entwickler bei der Fehlersuche.\nEntspricht dem Befehl: /wrath debug",
+  "HelpText_HealStack": "Dies ist die Reihenfolge, in der Wrath ein Heilziel auswählt. \nIst die Option 'Heilaktionen umleiten' deaktiviert, dient dieses Ziel nur dazu, die HP-Schwelle zu prüfen, ab der verschiedene Heilaktionen in den Rotationen erscheinen. \nDas heißt: Stimmt deine eigene Umleitungslösung (Redirect, Reaction usw.) damit nicht überein, kann Wrath in einer Schleife hängen bleiben, in der das falsche Ziel geheilt wird!!! \nIst die Option 'Heilaktionen umleiten' aktiviert, ist dieses Ziel auch dasjenige, auf das die Heilaktionen gelenkt werden (selbst wenn die Aktion die HP dieses Ziels nicht zuerst prüft, etwa bei der ersetzten Aktion einer Combo).",
+  "HelpText_RaiseStack": "Dies ist die Reihenfolge, in der Wrath ein Ziel zum Wiederbeleben auswählt,\nsofern Retargeting für eine Raise-Funktion aktiviert ist.",
+  "HelpText_Retargetting1": "Diese Funktion leitet Aktionen um, wenn sie aktiviert ist.",
+  "HelpText_Retargetting2": "Die von dieser Funktion betroffenen Aktionen werden automatisch\nauf die Ziele in der von dir eingestellten Priorität gelenkt.",
+  "HelpText_Retargetting3": "Plugins wie Redirect oder Reaction mit Konfigurationen, die\ndieselben Aktionen betreffen, kollidieren damit und können Probleme verursachen.",
+  "Info_searchHintText": "Kategoriename, Einstellungsname, interner Name usw.",
+  "Label_HealStack": "Aktueller Heal-Stack:",
+  "Label_RaiseStack": "Aktueller Raise-Stack:",
+  "Label_searchLabelText": "Suche:",
+  "Text_DefaultValue": "Standardwert:",
+  "Text_RecommendedValue": "Empfohlener Wert:",
+  "Warning_HealStack": "DU bist dafür verantwortlich, dass deine Umleitungslösung zu diesem Heal-Stack passt!\nTut sie das nicht, kann Wrath in einer Schleife hängen bleiben, in der Spieler X geprüft wird und Heilung braucht, aber Spieler Y geheilt wird!"
+}

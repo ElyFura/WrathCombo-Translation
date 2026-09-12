@@ -1,0 +1,14 @@
+{
+  "AlsoUse0Or1OnCooldown": "Setzt außerdem {0} / {1} nach Cooldown ein.",
+  "BatteryThreshold": "Batterie-Schwellenwert",
+  "ChangesTo0Or1": "Wechselt zu {0} / {1}, je nach Aufladungen und zuletzt Genutztem",
+  "Early0Opener": "Opener mit frühen Buffs",
+  "NotRecommended": "NICHT EMPFOHLEN!\nNur in Tiefen Gewölben beim Einzel-Pull sinnvoll.\nFunktioniert nur bis Stufe 92.",
+  "Save0ForEvenWindows": "Spart {0} für die 2-Minuten-Fenster auf\nDAS FÜHRT ZU EINEM ÜBERLAUF!",
+  "SaveForEvenWindows": "Für 2-Minuten-Fenster aufsparen",
+  "StopUsingToolsBelowHpPercentage": "Werkzeuge nicht mehr einsetzen, wenn die Ziel-HP% auf oder unter diesem Wert liegen\n(Auf 0 setzen, um diese Prüfung zu deaktivieren)",
+  "Use0EveryMinute": "Setzt {0} jede Minute ein bzw. sobald dein höchststufiges Werkzeug nicht mehr im Cooldown ist.",
+  "UseEarly0Opener": "Nutzt den Opener mit frühen Buffs (frühes {0}).",
+  "UseEveryMinute": "Jede Minute einsetzen",
+  "UseQueenOutsideOfBoss": "Setzt {0} bei diesem Batterie-Schwellenwert außerhalb von Boss-Kämpfen ein."
+}

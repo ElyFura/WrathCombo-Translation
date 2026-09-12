@@ -50,8 +50,8 @@ German, against 4570 translatable source strings:
 | Source | Strings |
 | --- | --- |
 | Shipped by Wrath itself (`CustomComboPresets.de.resx`) | 474 |
-| This plugin | 4050 |
-| **Untranslated** | **437** |
+| This plugin | 4223 |
+| **Untranslated** | **264** |
 
 Wrath does ship `AutoRotationUI.de.resx`, `SettingsUI.de.resx` and `BST_Config.de.resx`, but
 all three are empty Crowdin placeholders, so the UI chrome is effectively untranslated upstream.
@@ -60,9 +60,9 @@ The bundled German pack covers the main window, the features pane, the settings 
 (`SettingsCfgUI`, 183 of 198), the auto-rotation pane (`AutoRotationUI`, 87 of 88) and the
 shared building blocks reused across every job's config (`Generics`, 162 of 165).
 
-Not yet touched: the per-job config files (`AST_Config`, `BLM_Config`, `SAM_Config` and the
-rest, 144 strings between them), plus `SettingsUI` (15), `OccultCrescent` (11) and
-`MiscStrings` (5).
+The per-job config files (`AST_Config`, `BLM_Config`, `SAM_Config` and the rest), `SettingsUI`,
+`OccultCrescent` and `MiscStrings` are done too - including the three text-to-speech lines in
+`MiscStrings`, which are spoken aloud and so belong in the player's own language.
 
 Some strings are deliberately left to fall back rather than translated: in-game proper nouns
 (Bozja, Occult Crescent, Variant Dungeons) until the official German client wording is

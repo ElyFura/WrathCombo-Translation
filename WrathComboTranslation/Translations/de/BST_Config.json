@@ -1,0 +1,9 @@
+{
+  "CycleBeasts": "Tiere durchwechseln",
+  "CycleBeastsDesc": "Wechselt die Tiere im Kampf über Scheidender Schlag durch. Möglicherweise willst du das lieber manuell tun, damit die Tiere nicht in den Cooldown gehen.",
+  "Infinitive": "Infinitiv-Combo ausführen?",
+  "InfinitiveDesc": "Fügt Anspornen/Anfeuern hinzu, um Infinitiv-Combos zu ermöglichen. Die Infinitiv-Combo startet, wenn du und dein Tier je 100 TP habt, du mindestens 2 Stapel gemeisterten Instinkt und mindestens 1 Stapel natürlichen Instinkt hast und sowohl Anspornen als auch Anfeuern nicht im Cooldown sind. Dieser Aufbau läuft auch vor Stufe 50, wobei der Abschluss der Infinitiv-Combo ab Stufe 50 hinzukommt.",
+  "MinTPPlayerBeast": "Mindest-TP für Spieler und Tier",
+  "OnlyCurrentHorn": "Nur für das Horn ersetzen, das geborgt hat",
+  "OnlyCurrentHornDesc": "Wechselst du weg von dem Horn, das die Fähigkeit geborgt hat, wird die Aktion wieder zu Borgen."
+}

@@ -1,0 +1,11 @@
+{
+  "Add0WhenAvailableRespectManualCharge": "Fügt {0} hinzu, sobald verfügbar.\n Berücksichtigt die manuelle Aufladung von {0}.",
+  "AddRangeCheckFor0": "Fügt eine Reichweitenprüfung für {0} hinzu, damit es nur in Reichweite eingesetzt wird.",
+  "AddRangeCheckFor0And1": "Fügt eine Reichweitenprüfung für {0} und {1} hinzu, damit sie nur in Reichweite eingesetzt werden.",
+  "DisableRangeCheckFor0": "Deaktiviert die Reichweitenprüfung für {0}, sodass es auch ohne ausgewähltes Ziel eingesetzt wird.",
+  "DisableRangeCheckFor0And1": "Deaktiviert die Reichweitenprüfung für {0} und {1}, sodass sie auch ohne ausgewähltes Ziel eingesetzt werden.",
+  "Forces0Or1ForBuffs": "Erzwingt {0} oder {1}, wenn ein Buff erneuert werden muss.",
+  "HPPThresholdWheneverAvailableBossesOnly": "Lege eine HP%-Schwelle fest, ab der {0} eingesetzt wird, sobald es verfügbar ist. (Nur Bosse)",
+  "Replace0WithFullCombo": "Ersetzt {0} durch die vollständige Generationen-Legacy-Combo.",
+  "WillHoldLastChargeOf0For1": "Behält die letzte Aufladung von {0} für den Einsatz mit {1}, selbst wenn du für den normalen GCD falsch stehst.\nSteht der Regler oben auf 1, wird die verbleibende Aufladung NICHT für {1} genutzt, sondern für den manuellen Einsatz."
+}

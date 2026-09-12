@@ -1,0 +1,16 @@
+{
+  "Add0/1Finishers": "{0}/{1} als Abschluss hinzufügen",
+  "AutoRotationWarning1": "WARNUNG: {0} IST NICHT AKTIVIERT.",
+  "AutoRotationWarning2": "DIE AUTO-ROTATION STARTET DIE NAHKAMPF-COMBO NICHT AUTOMATISCH",
+  "DynamicallySwitchTo0": "Dynamisch zu {0} wechseln",
+  "PullWith0/1": "Mit {0}/{1} pullen",
+  "RDMFirstGCDOpener": "Opener mit frühen Buffs",
+  "RDMFirstGCDOpenerWarning": "Ein Countdown ist zwingend nötig. Stelle unten ein, zu welchem Zeitpunkt du {0} drücken willst. {1} wird bis 6 Sekunden im Countdown blockiert.",
+  "RDMFirstGCDOpenerWarningTimer": "Countdown-Zeitpunkt für den Opener-Start",
+  "RDMGapCloserOpener": "Standard-Opener mit angepasstem Lückenschluss",
+  "RDMOpenerTimeoutWarning": "Der Timeout für fehlgeschlagene Opener (im Reiter Einstellungen) muss auf 5 Sekunden oder mehr stehen, damit der Opener funktioniert – der erste Zauber hat eine lange Zauberzeit.",
+  "RDMOpenerWarning": "Der Timeout für fehlgeschlagene Opener (im Reiter Einstellungen) muss auf 5 Sekunden oder mehr stehen, damit der Opener funktioniert – der erste Zauber hat eine lange Zauberzeit.",
+  "StartsWith0/1": "Beginnt mit {0}/{1}, wenn du außerhalb des Kampfes bist.",
+  "SwitchToBlack": "Wechselt zu {0}, wenn das schwarze Mana niedriger ist.",
+  "SwitchToWhite": "Wechselt zu {0}, wenn das weiße Mana niedriger ist."
+}

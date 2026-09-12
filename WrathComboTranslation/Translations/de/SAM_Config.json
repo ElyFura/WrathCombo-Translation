@@ -1,0 +1,22 @@
+{
+  "Add0And1WhenNotMoving": "Fügt {0} und {1} hinzu, wenn du dich nicht bewegst.",
+  "Add0IfSeneiNotUnlocked": "Fügt {0} der Rotation hinzu, wenn {1} nicht freigeschaltet ist.",
+  "DelaySavageBlade": "Nur während eines Countdowns: hält bis zum jeweiligen Prepull-Zeitpunkt {0} bereit. Ohne Countdown laufen die Prepull-Schritte ohne Verzögerung.",
+  "HPPercentKenki": "HP-Prozent-Schwelle, ab der kein Kenki mehr aufgespart wird",
+  "HPPercentMeikyo": "HP-Prozent-Schwelle, ab der {0} nach Cooldown eingesetzt wird.",
+  "Include2x0": "2x {0} einbeziehen",
+  "IncludeBoth0": "Bezieht beide Einsätze von {0} ein",
+  "KenkiAmount": "Kenki-Menge",
+  "KenkiOvercapAmount": "Verbraucht Kenki ab dem eingestellten Wert.",
+  "KenkiOvercapProtection": "Schutz vor Kenki-Überlauf",
+  "PrioBuffUpkeepDesc": "Sorgt dafür, dass beide Buffs stehen, bevor die Sen abgeschlossen werden.",
+  "PrioSenGen": "Sen-Aufbau priorisieren",
+  "PrioSenGenDesc": "Baut zuerst alle 3 Sen auf, bevor die Buffs geprüft werden.",
+  "SecondsDelayFromFirstStep": "Prepull-Zeitpunkte: Meikyo bei -13, Neuausrichtung bei -5 (übersprungen, wenn es keine Positionals gibt), dann Gekko beim Pull.",
+  "SkipBoth": "Beide überspringen",
+  "SkipBothUsageOf0": "Überspringt beide Einsätze von {0} im Opener.",
+  "SkipFirst": "Ersten überspringen",
+  "SkipFirstUseOf0": "Überspringt den ersten Einsatz von {0} im Opener und behält den zweiten.",
+  "SkipSecond": "Zweiten überspringen",
+  "SkipSecondUseOf0": "Überspringt den zweiten Einsatz von {0} im Opener und behält den ersten."
+}

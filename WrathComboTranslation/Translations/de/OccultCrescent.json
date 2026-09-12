@@ -1,0 +1,13 @@
+{
+  "Add0Or1PriorUsing2": "{0} oder {1} vor dem Einsatz von {2} hinzufügen",
+  "AtLeast1PartyMember": "Mindestens 1 Gruppenmitglied erforderlich",
+  "AveragePartyHPLessOrEqual": "Durchschnittliche Gruppen-HP müssen kleiner oder gleich sein:",
+  "BuffOnlyDont": "Wenn du keinen der Jobs spielst, die sich regelmäßig selbst mit Schadensbuffs versehen, oder im OC nicht in Gruppe unterwegs bist, werden Phantom-Fähigkeiten hiermit ÜBERSPRUNGEN, bis eine Burst-Phase erkannt wird (was bei einem Job ohne Buffs nie passieren kann)!",
+  "BuffOnlyList": "DRK, PLD, WAR, AST, MNK, DRG, NIN, BRD sind die einzigen Jobs, für die sich das wahrscheinlich lohnt",
+  "BuffOnlyNotRecommended": "Viele Jobs haben keine Selbstbuffs, die regelmäßig stehen, viele Burst-Phasen bieten keinen Platz für zusätzliche Phantom-Fähigkeiten, und viele Phantom-Fähigkeiten sind bei vielen Jobs häufiger bereit als diese Option zulassen würde!",
+  "Costly": "Diese Funktion ist teuer!",
+  "NotAdvised": "In den meisten Situationen nicht ratsam!",
+  "Requires0Or1ToUse2": "{0} oder {1} erforderlich, um {2} einzusetzen",
+  "SliderShouldBeLow": "Der Reglerwert sollte eher niedrig sein, falls du sie doch nutzt!",
+  "VeryCostly": "Diese Funktion ist SEHR teuer!"
+}

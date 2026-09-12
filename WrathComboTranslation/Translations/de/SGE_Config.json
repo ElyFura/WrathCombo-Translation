@@ -1,0 +1,12 @@
+{
+  "AnyPanhaimaCheck": "Prüfung auf beliebiges {0}",
+  "AnyPanhaimaCheckDesc": "Aktivieren, um ein bereits vorhandenes {0} nicht zu überschreiben.",
+  "KerecholeTraitCheck": "Auf {0}-Merkmal prüfen (Heilung über Zeit)",
+  "KerecholeTraitCheckDesc": "Aktivieren verhindert den Einsatz von {0}, solange das Merkmal für Heilung über Zeit nicht verfügbar ist.",
+  "SGE_Mit_AoE_Kerachole_Help": "Fügt {0} am Anfang hinzu",
+  "SGE_Mit_AoE_Panhaima_Help": "Fügt {0} am Ende hinzu",
+  "SGE_Mit_AoE_Philosophia_Help": "Fügt {0} vor {1} für die Heilverstärkung hinzu",
+  "SGE_Mit_AoE_PrognosisOption_Name": "Schild-Prüfung: Prozentsatz der Gruppenmitglieder, die {0}-Schilde erhalten sollen. \n0 = nicht verwenden, 100 = alle brauchen Schilde",
+  "SGE_Mit_ST_Haima_Help": "Fügt {0} für mehr Mitigation hinzu.",
+  "SGE_Mit_ST_Taurochole_Help": "Fügt {0} hinzu, um die HP des Ziels aufzufüllen und den Schaden zu verringern."
+}
