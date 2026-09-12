@@ -50,8 +50,8 @@ German, against 4570 translatable source strings:
 | Source | Strings |
 | --- | --- |
 | Shipped by Wrath itself (`CustomComboPresets.de.resx`) | 474 |
-| This plugin | 3415 |
-| **Untranslated** | **681** |
+| This plugin | 3738 |
+| **Untranslated** | **358** |
 
 Wrath does ship `AutoRotationUI.de.resx`, `SettingsUI.de.resx` and `BST_Config.de.resx`, but
 all three are empty Crowdin placeholders, so the UI chrome is effectively untranslated upstream.
@@ -76,9 +76,8 @@ verified against the game's data - "Warden's Paeon", whose ability no longer exi
 sheets, "Encore", and the phantom Oracle's "Cleansing", whose only row match translates to
 something unrelated.
 
-The descriptions are underway: everything outside the PvE job groups, plus the four tanks and
-the four healers, leaving 939 for the melee, caster and physical ranged jobs and the Phantom
-group.
+The descriptions are underway: everything outside the PvE job groups, plus the tanks, healers
+and melee jobs, leaving 616 for the casters, the physical ranged jobs and the Phantom group.
 
 ## Development
 
