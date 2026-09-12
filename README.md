@@ -50,8 +50,8 @@ German, against 4570 translatable source strings:
 | Source | Strings |
 | --- | --- |
 | Shipped by Wrath itself (`CustomComboPresets.de.resx`) | 474 |
-| This plugin | 4223 |
-| **Untranslated** | **264** |
+| This plugin | 4529 |
+| **Untranslated** | **40** |
 
 Wrath does ship `AutoRotationUI.de.resx`, `SettingsUI.de.resx` and `BST_Config.de.resx`, but
 all three are empty Crowdin placeholders, so the UI chrome is effectively untranslated upstream.
@@ -79,11 +79,15 @@ verified against the game's data - "Warden's Paeon", whose ability no longer exi
 sheets, "Encore", and the phantom Oracle's "Cleansing", whose only row match translates to
 something unrelated.
 
-The descriptions are underway: everything outside the PvE job groups, plus the tanks, healers,
-melee and caster jobs, leaving 304 for the physical ranged jobs and the Phantom group. Wrath's
-own German covers 83 of those already, at noticeably lower quality - it addresses the player
-formally as "Sie" where this pack uses "du", and carries typos such as "Helden-Hymus" and
-"Kraft-Coral" - so they are still worth doing.
+**The descriptions are done too**, all 1942 of them.
+
+What is left is 40 strings that are deliberately not translated, and the report lists every
+one: numeric defaults and a colour code that read identically in German; proper nouns for
+in-game content (Bozja, Occult Crescent, Variant Dungeons) and role abbreviations (DPS, DOL,
+Tank); the target-stack listings, which Wrath builds from hard-coded C# literals the overlay
+cannot reach; a handful of format-only strings such as `{0}` and `        - {0}`; and five
+names whose German wording cannot be verified against the game's data - Warden's Paeon, whose
+ability no longer exists in the sheets, Encore, and the phantom Oracle's Cleansing.
 
 ## Development
 
