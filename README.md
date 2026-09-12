@@ -50,8 +50,8 @@ German, against 4570 translatable source strings:
 | Source | Strings |
 | --- | --- |
 | Shipped by Wrath itself (`CustomComboPresets.de.resx`) | 474 |
-| This plugin | 807 |
-| **Untranslated** | **3289** |
+| This plugin | 2412 |
+| **Untranslated** | **1684** |
 
 Wrath does ship `AutoRotationUI.de.resx`, `SettingsUI.de.resx` and `BST_Config.de.resx`, but
 all three are empty Crowdin placeholders, so the UI chrome is effectively untranslated upstream.
@@ -69,11 +69,14 @@ target-stack listings, whose entry names come from the still-untranslated `Gener
 What remains is essentially one file: `CustomComboPresets`, 3886 strings covering every
 feature name and description, of which Wrath itself already translates 474.
 
-That file is being worked through names first, across all jobs, rather than one job at a time:
-the names are what the feature tree shows, they are short, and the glossary covers most of the
-ability wording in them. The first tranche (326 names) is done and covers everything outside
-the PvE job groups - PvP, Bozja, Variant and Deep Dungeon content, gathering, and the
-cross-role `ALL` group.
+**Every preset name is now translated** - 1933 of 1942, worked through a role at a time so the
+shared vocabulary stays consistent. Nine are left to fall back on purpose: six read identically
+in German (Stotram, Exuviation, Tenri Jindo, Fuma Shuriken, Megaflare), and three cannot be
+verified against the game's data - "Warden's Paeon", whose ability no longer exists in the
+sheets, "Encore", and the phantom Oracle's "Cleansing", whose only row match translates to
+something unrelated.
+
+What remains is the 1942 preset descriptions.
 
 ## Development
 
