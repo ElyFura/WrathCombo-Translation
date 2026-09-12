@@ -1,6 +1,6 @@
 {
   "_translators": "ElyFura",
-  "_note": "These are the shared building blocks reused across every job's config, so {0}/{1}/{2} are filled at runtime with action names from the game's own sheets (German ones on a German client). Leading and trailing spaces are load-bearing for ImGui layout and are preserved verbatim. Community terms (Opener, Burst, Weave, Gapcloser, DoT, Mitigation, Soft/Hard Target, Smart Targeting) are kept as-is; 'Focus Target' uses the official German client wording 'Fokusziel'.",
+  "_note": "These are the shared building blocks reused across every job's config, so {0}/{1}/{2} are filled at runtime with action names from the game's own sheets (German ones on a German client). Leading and trailing spaces are load-bearing for ImGui layout and are preserved verbatim. Community terms (Opener, Burst, Weave, Gapcloser, DoT, Mitigation, Soft/Hard Target, Smart Targeting) are kept as-is; 'Focus Target' uses the official German client wording 'Fokusziel'. Keys that would read identically in German (SmartTargeting, SoftTarget) are omitted rather than repeated, so they are not counted as translated.",
 
   "Action_Opener": "{0}-Opener",
   "Action_Priority": "Priorität für {0}: ",
@@ -52,9 +52,7 @@
   "RangeBasedTargeting": "Reichweitenbasiertes Anvisieren",
   "RangeBasedTargetingDesc": "Wähle, ob auf den nächsten oder den entferntesten Gegner außerhalb von 5 Yalm umgeleitet wird.",
   "SelfOnly": "Nur auf sich selbst",
-  "SmartTargeting": "Smart Targeting",
   "SmartTargetingNotTargetingPlayer": "Die Optionen 'Am nächsten' und 'Am weitesten' anvisieren nur Gegner, die nicht den Spieler anvisieren.",
-  "SoftTarget": "Soft Target",
   "MouseoverRetargetHostile": "Leitet {0} auf dein MouseOver-Ziel um (sofern feindlich). Höchste Priorität.",
   "FurthestOOR": "Am weitesten außerhalb von 5 Yalm",
   "FurthestOORRetarget": "Setzt {0} auf den entferntesten Feind außerhalb von 5 Yalm ein.",
