@@ -47,6 +47,7 @@ internal static class WrathLocator
     private const string ManagerFieldName = "resourceMan";
     private const string CultureFieldName = "resourceCulture";
     private const string ManagerPropertyName = "ResourceManager";
+    private const string ResourceSuffix = ".resources";
 
     /// <summary>
     ///     Locates the loaded Wrath Combo assembly, or null if it is not (yet) loaded.
@@ -83,20 +84,21 @@ internal static class WrathLocator
     ///     Discovers every generated resource class in <paramref name="wrath" />.
     /// </summary>
     /// <remarks>
-    ///     Discovery is structural rather than a hard-coded list, so resource files added to
-    ///     Wrath in future releases are picked up without a change here.
+    ///     Candidates come from the assembly's embedded resource names rather than from
+    ///     <c>GetTypes()</c>: the resx generator names each class exactly after its resource,
+    ///     so <c>....MainWindowUI.resources</c> yields the type directly. Discovery stays
+    ///     structural — resource files added in future Wrath releases are still picked up —
+    ///     without forcing the runtime to load all several thousand of Wrath's combo types
+    ///     just to find thirty-odd of them.
     /// </remarks>
     public static IReadOnlyList<WrathResourceClass> DiscoverResourceClasses(Assembly wrath)
     {
         var found = new List<WrathResourceClass>();
 
-        foreach (var type in SafeGetTypes(wrath))
+        foreach (var type in CandidateTypes(wrath))
         {
-            // Generated resource classes are non-generic, non-public and carry a private
-            // static ResourceManager field named 'resourceMan'.
-            if (type.IsGenericTypeDefinition)
-                continue;
-
+            // Generated resource classes carry a private static ResourceManager field
+            // named 'resourceMan'.
             var managerField = type.GetField(ManagerFieldName,
                 BindingFlags.NonPublic | BindingFlags.Static);
             if (managerField is null || managerField.FieldType != typeof(ResourceManager))
@@ -143,9 +145,19 @@ internal static class WrathLocator
 
     /// <summary>
     ///     Invokes <c>WrathCombo.Window.Text.OnLanguageChanged</c>, which re-points every
-    ///     resource class at the current culture and drops Wrath's own string caches.
-    ///     Without this, strings resolved before the overlay was installed stay stale.
+    ///     resource class at the current culture and drops Wrath's own string caches, so that
+    ///     strings resolved before the overlay was installed are re-resolved.
     /// </summary>
+    /// <remarks>
+    ///     This is expensive and reaches deep into Wrath's internals, so it is never called
+    ///     automatically — see <see cref="OverlayInstaller.Install" />. Clearing those caches
+    ///     makes Wrath rebuild every job, action and status name, and each of those rebuilds
+    ///     re-fetches a Lumina Excel sheet (Wrath passes an eagerly evaluated value to
+    ///     <c>ConcurrentDictionary.GetOrAdd</c>, so the sheet is fetched even on a cache hit).
+    ///     Triggering that from a plugin is not worth the risk by default; without it,
+    ///     translations simply apply to strings resolved from here on, and fully on the next
+    ///     language change.
+    /// </remarks>
     public static bool TryInvalidateWrathCaches(Assembly wrath, string uiLanguage)
     {
         try
@@ -181,20 +193,42 @@ internal static class WrathLocator
             : baseName;
     }
 
-    private static IEnumerable<Type> SafeGetTypes(Assembly assembly)
+    /// <summary>
+    ///     The types that could be generated resource classes, derived from the embedded
+    ///     resource names so that only those few types are loaded.
+    /// </summary>
+    private static IEnumerable<Type> CandidateTypes(Assembly assembly)
     {
+        string[] resourceNames;
         try
         {
-            return assembly.GetTypes();
-        }
-        catch (ReflectionTypeLoadException ex)
-        {
-            return ex.Types.Where(t => t is not null)!;
+            resourceNames = assembly.GetManifestResourceNames();
         }
         catch (Exception ex)
         {
-            Log.Error(ex, "Could not enumerate Wrath Combo's types.");
-            return [];
+            Log.Error(ex, "Could not read Wrath Combo's embedded resource names.");
+            yield break;
+        }
+
+        foreach (var resourceName in resourceNames)
+        {
+            if (!resourceName.EndsWith(ResourceSuffix, StringComparison.Ordinal))
+                continue;
+
+            Type? type;
+            try
+            {
+                type = assembly.GetType(resourceName[..^ResourceSuffix.Length],
+                    throwOnError: false);
+            }
+            catch (Exception ex)
+            {
+                Log.Warning(ex, $"Could not resolve the type behind '{resourceName}'.");
+                continue;
+            }
+
+            if (type is not null)
+                yield return type;
         }
     }
 }

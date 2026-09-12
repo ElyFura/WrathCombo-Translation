@@ -67,9 +67,12 @@ internal static class Program
         Check($"baseline reads Wrath's own string (\"{english}\")", english == "About");
 
         // 4. Install the overlay and read again.
+        // invalidateWrathCaches stays false: making Wrath drop its caches needs a live game,
+        // so that path cannot be covered here — which is exactly why it is opt-in.
         var installer = Activator.CreateInstance(installerType)!;
-        var patched = (int)Invoke(installerType, "Install", installer, [wrath, pack, "de"])!;
+        var patched = (int)Invoke(installerType, "Install", installer, [wrath, pack, "de", false])!;
         Check($"overlay patched {patched} resource classes", patched > 0);
+        Check("all 34 of Wrath's resource classes were found", patched == 34);
 
         var translated = ReadString(mainWindowUi, "Button_About");
         Check($"translated string served (\"{translated}\")", translated == "Über");

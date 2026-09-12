@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
@@ -48,13 +49,20 @@ internal sealed class OverlayInstaller : IDisposable
     ///     Installs the overlay against <paramref name="wrath" />, replacing any previous
     ///     installation. Returns the number of resource classes patched.
     /// </summary>
-    public int Install(Assembly wrath, TranslationPack pack, string uiLanguage)
+    public int Install(Assembly wrath, TranslationPack pack, string uiLanguage,
+        bool invalidateWrathCaches = false)
     {
         ObjectDisposedException.ThrowIf(_disposed, this);
 
         Uninstall();
 
+        // Each phase is timed and logged: this runs on the framework thread against another
+        // plugin's internals, so if it ever stalls the log has to say which phase did it.
+        var clock = Stopwatch.StartNew();
+
         var classes = WrathLocator.DiscoverResourceClasses(wrath);
+        Log.Information($"Discovered {classes.Count} resource classes in {clock.ElapsedMilliseconds} ms.");
+
         if (classes.Count == 0)
         {
             Log.Warning("Wrath Combo is loaded but no localization classes were found; " +
@@ -77,14 +85,22 @@ internal sealed class OverlayInstaller : IDisposable
         }
 
         _wrath = wrath;
+        var afterPatch = clock.ElapsedMilliseconds;
 
-        // Wrath caches resolved strings (presets, settings, job names). Those caches were
-        // filled with untranslated text before we got here, so they have to be dropped.
-        WrathLocator.TryInvalidateWrathCaches(wrath, uiLanguage);
+        // Wrath caches resolved strings, so anything it displayed before we got here keeps
+        // its untranslated text until those caches are dropped. Doing that is expensive and
+        // opt-in; see WrathLocator.TryInvalidateWrathCaches.
+        if (invalidateWrathCaches)
+        {
+            Log.Information("Asking Wrath to drop its cached strings; this may stall briefly.");
+            WrathLocator.TryInvalidateWrathCaches(wrath, uiLanguage);
+            Log.Information($"Wrath's caches dropped in {clock.ElapsedMilliseconds - afterPatch} ms.");
+        }
 
         Log.Information(
             $"Translation overlay installed on {_patched.Count} resource classes " +
-            $"({pack.StringCount} strings, language '{pack.Language}').");
+            $"({pack.StringCount} strings, language '{pack.Language}') " +
+            $"in {clock.ElapsedMilliseconds} ms.");
 
         return _patched.Count;
     }
@@ -92,12 +108,12 @@ internal sealed class OverlayInstaller : IDisposable
     /// <summary>
     ///     Rebuilds the overlay with a different pack, keeping the same Wrath assembly.
     /// </summary>
-    public void Reload(TranslationPack pack, string uiLanguage)
+    public void Reload(TranslationPack pack, string uiLanguage, bool invalidateWrathCaches = false)
     {
         if (_wrath is null)
             return;
 
-        Install(_wrath, pack, uiLanguage);
+        Install(_wrath, pack, uiLanguage, invalidateWrathCaches);
     }
 
     /// <summary>
@@ -121,15 +137,13 @@ internal sealed class OverlayInstaller : IDisposable
             }
         }
 
-        var wrath = _wrath;
         var count = _patched.Count;
         _patched.Clear();
         _wrath = null;
 
-        // Drop the caches again so the original strings come back immediately.
-        if (wrath is not null)
-            WrathLocator.TryInvalidateWrathCaches(wrath, Plugin.PluginInterface?.UiLanguage ?? "en");
-
+        // Wrath's caches are deliberately left alone here: the originals are back in place,
+        // so anything resolved from now on is untranslated again, and forcing a rebuild on
+        // unload would be both expensive and pointless.
         Log.Information($"Translation overlay removed from {count} resource classes.");
     }
 

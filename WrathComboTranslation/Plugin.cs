@@ -21,11 +21,19 @@ public sealed class Plugin : IDalamudPlugin
     /// <summary>How often to re-check that the Wrath we patched is still the loaded one.</summary>
     private static readonly TimeSpan HealthInterval = TimeSpan.FromSeconds(10);
 
+    /// <summary>
+    ///     Installs to attempt before giving up for good. A repeatedly failing install would
+    ///     otherwise retry for the whole session, and whatever made it fail would be doing
+    ///     its damage on every attempt.
+    /// </summary>
+    private const int MaxInstallAttempts = 3;
+
     private readonly OverlayInstaller _installer = new();
     private readonly WindowSystem _windows = new("WrathComboTranslation");
     private readonly ConfigWindow _configWindow;
 
     private DateTime _nextCheck = DateTime.MinValue;
+    private int _installAttempts;
 
     public Plugin(IDalamudPluginInterface pluginInterface)
     {
@@ -67,6 +75,9 @@ public sealed class Plugin : IDalamudPlugin
     /// <summary>Set when Wrath Combo could not be found, for display in the status window.</summary>
     internal bool WrathFound { get; private set; }
 
+    /// <summary>Set once installation has failed too often to keep retrying.</summary>
+    internal bool GaveUp { get; private set; }
+
     public void Dispose()
     {
         Commands.RemoveHandler(CommandName);
@@ -98,9 +109,25 @@ public sealed class Plugin : IDalamudPlugin
         if (_installer.Installed)
             _installer.Reload(Pack, PluginInterface.UiLanguage);
         else
-            _nextCheck = DateTime.MinValue; // try to install on the next tick
+            ResumeSearching();
 
         Config.Save();
+    }
+
+    /// <summary>
+    ///     Clears the give-up latch and puts the search back on the framework tick, so the
+    ///     Reload button can recover a plugin that stopped trying.
+    /// </summary>
+    private void ResumeSearching()
+    {
+        _installAttempts = 0;
+        GaveUp = false;
+        _nextCheck = DateTime.MinValue;
+
+        // Subscribing twice would double the work per tick; removing first is a no-op when
+        // the handler is not attached.
+        Framework.Update -= OnFrameworkUpdate;
+        Framework.Update += OnFrameworkUpdate;
     }
 
     /// <summary>
@@ -123,7 +150,7 @@ public sealed class Plugin : IDalamudPlugin
         Config.Save();
 
         if (enabled)
-            _nextCheck = DateTime.MinValue;
+            ResumeSearching();
         else
             _installer.Uninstall();
     }
@@ -211,9 +238,21 @@ public sealed class Plugin : IDalamudPlugin
             return;
         }
 
+        if (_installAttempts >= MaxInstallAttempts)
+        {
+            GaveUp = true;
+            Framework.Update -= OnFrameworkUpdate;
+            Log.Error($"Giving up after {_installAttempts} failed attempts to install the " +
+                      "translation overlay. Use the Reload button to try again.");
+            return;
+        }
+
+        _installAttempts++;
+
         try
         {
             _installer.Install(wrath, Pack, PluginInterface.UiLanguage);
+            _installAttempts = 0;
         }
         catch (Exception ex)
         {
@@ -221,6 +260,26 @@ public sealed class Plugin : IDalamudPlugin
         }
 
         _nextCheck = now + HealthInterval;
+    }
+
+    /// <summary>
+    ///     Makes Wrath drop its cached strings so text it already displayed is re-resolved
+    ///     through the overlay. Deliberately a manual action: it forces Wrath to rebuild every
+    ///     job, action and status name, which is slow and reaches deep into its internals.
+    /// </summary>
+    internal void RefreshWrathStrings()
+    {
+        if (!_installer.Installed)
+            return;
+
+        try
+        {
+            _installer.Reload(Pack, PluginInterface.UiLanguage, invalidateWrathCaches: true);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to refresh Wrath's cached strings.");
+        }
     }
 
     private void OnCommand(string command, string args) => OpenConfig();

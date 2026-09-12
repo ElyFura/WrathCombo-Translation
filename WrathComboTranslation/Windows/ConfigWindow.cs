@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using Dalamud.Bindings.ImGui;
@@ -15,6 +16,9 @@ internal sealed class ConfigWindow : Window
 
     private readonly OverlayInstaller _installer;
     private readonly Plugin _plugin;
+
+    private IReadOnlyDictionary<string, int> _counts = new Dictionary<string, int>();
+    private TranslationPack? _countsFor;
 
     public ConfigWindow(Plugin plugin, OverlayInstaller installer)
         : base("Wrath Combo Translation###WrathComboTranslationConfig")
@@ -143,6 +147,18 @@ internal sealed class ConfigWindow : Window
 
         ImGui.TextColored(Muted,
             "Edit the JSON files in that folder and hit Reload - no restart needed.");
+
+        ImGui.Spacing();
+
+        if (ImGui.Button("Refresh Wrath's cached strings"))
+            _plugin.RefreshWrathStrings();
+
+        if (ImGui.IsItemHovered())
+            ImGui.SetTooltip(
+                "Text Wrath had already drawn before this plugin loaded keeps its original\n" +
+                "wording until Wrath rebuilds its caches. This forces that rebuild.\n\n" +
+                "It is not done automatically: Wrath re-reads every job, action and status\n" +
+                "name from the game's data files, which can stall for a moment.");
     }
 
     private void DrawCoverage()
@@ -156,7 +172,14 @@ internal sealed class ConfigWindow : Window
             return;
         }
 
-        var counts = _plugin.Pack.FileCounts;
+        // Rebuilt only when the pack changes: this runs every frame the window is open.
+        if (!ReferenceEquals(_countsFor, _plugin.Pack))
+        {
+            _countsFor = _plugin.Pack;
+            _counts = _plugin.Pack.FileCounts;
+        }
+
+        var counts = _counts;
 
         if (!ImGui.BeginTable("##coverage", 2,
                 ImGuiTableFlags.Borders | ImGuiTableFlags.RowBg | ImGuiTableFlags.ScrollY))
