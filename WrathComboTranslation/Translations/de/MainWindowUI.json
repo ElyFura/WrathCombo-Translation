@@ -1,22 +1,19 @@
 {
-  "_comment": "Keys starting with an underscore are metadata and are never shown in-game.",
-  "_translators": "ElyFura",
-
+  "$comment": "Keys starting with an underscore are metadata and are never shown in-game.",
+  "$translators": "ElyFura",
   "Button_About": "Über",
   "Button_CollapseSidebar": "Seitenleiste einklappen",
   "Button_ExpandSidebar": "Seitenleiste ausklappen",
   "Button_PvEFeatures": "PvE-Funktionen",
   "Button_PvPFeatures": "PvP-Funktionen",
   "Button_Settings": "Einstellungen",
-
-  "Tooltip_ConflictingPlugins": "Die folgenden Plugins sind dafür bekannt, mit {0} zu kollidieren:\n\n{1}\n\nEs wird empfohlen, diese Plugins oder deren Rotations-\nkomponenten zu deaktivieren, um unerwartetes Verhalten\nund Fehler zu vermeiden.",
   "Tooltip_ConflictingPluginSettings": "Die folgenden Plugins sind dafür bekannt, mit den\nEinstellungen von {0} zu kollidieren, die du aktiviert hast:\n{1}\n\nEs wird empfohlen, diese Plugins zu deaktivieren oder\ndie kollidierende Einstellung in den Plugins zu entfernen,\num unerwartetes Verhalten und Fehler zu vermeiden.",
+  "Tooltip_ConflictingPlugins": "Die folgenden Plugins sind dafür bekannt, mit {0} zu kollidieren:\n\n{1}\n\nEs wird empfohlen, diese Plugins oder deren Rotations-\nkomponenten zu deaktivieren, um unerwartetes Verhalten\nund Fehler zu vermeiden.",
   "Tooltip_ConflictingWrathSettings": "Die folgenden Wrath-Einstellungen sind dafür bekannt, mit den Einstellungen von {0} zu kollidieren:\n{1}\n\nEs wird empfohlen, diese Einstellungen zu deaktivieren, um unerwartetes Verhalten und Fehler zu vermeiden.",
   "Tooltip_Conflicts_Reason": "- Einstellung: {0}\n    Problem: {1}",
   "Tooltip_DalamudConfigConflicts": "Deine Dalamud-Konfiguration enthält Konflikte:\n",
   "Tooltip_GameConflicts": "Die folgenden Spieleinstellungen sind dafür bekannt, mit den Einstellungen von {0} zu kollidieren:\n{1}\n\nEs wird empfohlen, diese Einstellungen zu ändern, um unerwartetes Verhalten und Fehler zu vermeiden.",
   "Tooltip_TargettingConflicts": "Deine Konfiguration in den folgenden Plugins kollidiert mit\ndem aktivierten Aktions-Retargeting von {0}:\n{1}\n\nEs wird empfohlen, diese Plugins zu deaktivieren, die\nkollidierenden Aktionen aus deren Einstellungen zu entfernen\noder das Retargeting für die Aktion in {0} zu deaktivieren,\num unerwartetes Verhalten und Fehler zu vermeiden.",
   "Tooltip_TargettingConflicts_Plugin": "- {0} {1}\n    Aktionen, die dort und in {2} umgeleitet werden:\n{3}",
-
   "Warning_UnknownConflictType": "Unbekannter Konflikttyp:"
 }

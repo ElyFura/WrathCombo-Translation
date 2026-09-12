@@ -1,7 +1,6 @@
 {
-  "_translators": "ElyFura",
-  "_note": "These are the shared building blocks reused across every job's config, so {0}/{1}/{2} are filled at runtime with action names from the game's own sheets (German ones on a German client). Leading and trailing spaces are load-bearing for ImGui layout and are preserved verbatim. Community terms (Opener, Burst, Weave, Gapcloser, DoT, Mitigation, Soft/Hard Target, Smart Targeting) are kept as-is; 'Focus Target' uses the official German client wording 'Fokusziel'. Keys that would read identically in German (SmartTargeting, SoftTarget) are omitted rather than repeated, so they are not counted as translated.",
-  "_0Option": "{0}-Option",
+  "$translators": "ElyFura",
+  "$note": "These are the shared building blocks reused across every job's config, so {0}/{1}/{2} are filled at runtime with action names from the game's own sheets (German ones on a German client). Leading and trailing spaces are load-bearing for ImGui layout and are preserved verbatim. Community terms (Opener, Burst, Weave, Gapcloser, DoT, Mitigation, Soft/Hard Target, Smart Targeting) are kept as-is; 'Focus Target' uses the official German client wording 'Fokusziel'. Keys that would read identically in German (SmartTargeting, SoftTarget) are omitted rather than repeated, so they are not counted as translated.",
   "Action_Opener": "{0}-Opener",
   "Action_Priority": "Priorität für {0}: ",
   "Action_Threshold": "{0}-Schwellenwert",
@@ -164,5 +163,6 @@
   "WillAdd_0_ToThePriorityStack": "Fügt {0} dem Prioritäts-Stack hinzu",
   "WillNotUseInBossEncounters": "Wird in Boss-Kämpfen nicht verwendet.",
   "WillOnlyUseOnTanks": "Wird nur bei Tanks verwendet",
-  "WillOnlyWeaveThisAction": "Wird diese Aktion nur weaven."
+  "WillOnlyWeaveThisAction": "Wird diese Aktion nur weaven.",
+  "_0Option": "{0}-Option"
 }

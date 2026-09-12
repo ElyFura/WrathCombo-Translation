@@ -43,6 +43,12 @@
         <DalamudDevPlugins>$(HOME)/Library/Application Support/XIV on Mac/devPlugins/WrathComboTranslation/</DalamudDevPlugins>
     </PropertyGroup>
 
+    <!-- Path Override for CI, which has no XIVLauncher install and fetches Dalamud itself.
+         Last of the path overrides, so it wins over the per-OS defaults above. -->
+    <PropertyGroup Condition="'$(DALAMUD_HOME)' != ''">
+        <DalamudLibPath>$(DALAMUD_HOME)/</DalamudLibPath>
+    </PropertyGroup>
+
     <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
         <OutputPath>$(DalamudDevPlugins)</OutputPath>
     </PropertyGroup>

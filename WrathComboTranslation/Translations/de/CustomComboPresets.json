@@ -1,6 +1,6 @@
 {
-  "_translators": "ElyFura",
-  "_note": "Preset names and descriptions. Ability, status and duty-action names use the official German client wording from tools/GameGlossary; where the glossary offers two candidates the action was chosen over its status, by context. 'Burst' stays Burst throughout: in Wrath's text it means the rotational burst window, not the game's status of that name. A handful of entries are omitted on purpose - some read identically in German, and a few names cannot be verified against the game's data at all (Warden's Paeon, Encore, the phantom Oracle's Cleansing).",
+  "$translators": "ElyFura",
+  "$note": "Preset names and descriptions. Ability, status and duty-action names use the official German client wording from tools/GameGlossary; where the glossary offers two candidates the action was chosen over its status, by context. 'Burst' stays Burst throughout: in Wrath's text it means the rotational burst window, not the game's status of that name. A handful of entries are omitted on purpose - some read identically in German, and a few names cannot be verified against the game's data at all (Warden's Paeon, Encore, the phantom Oracle's Cleansing).",
   "ALL_Caster_Addle_Desc": "Verhindert den Einsatz von Stumpfsinn, wenn das Ziel den Effekt bereits hat.",
   "ALL_Caster_Addle_Name": "Magischer Fernkampf-DPS: Doppel-Stumpfsinn-Schutz",
   "ALL_Caster_Menu_Desc": "Funktionen und Optionen rund um die gemeinsamen Rollenaktionen des magischen Fernkampf-DPS.",

@@ -1,6 +1,6 @@
 {
-  "_translators": "ElyFura",
-  "_note": "Proper nouns for in-game content (Bozja, Occult Crescent, Variant) are deliberately left untranslated until the official German client wording is confirmed. Absent keys fall back to Wrath's own strings.",
+  "$translators": "ElyFura",
+  "$note": "Proper nouns for in-game content (Bozja, Occult Crescent, Variant) are deliberately left untranslated until the official German client wording is confirmed. Absent keys fall back to Wrath's own strings.",
   "Content": "Inhalte",
   "Deep_Dungeon": "Tiefes Gewölbe",
   "Healer": "Heiler",

@@ -1,0 +1,63 @@
+name: Build and validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      # The plugin builds against Dalamud, which a runner has no XIVLauncher install to
+      # provide. DALAMUD_HOME overrides the per-OS paths in the csproj.
+      - name: Fetch Dalamud
+        run: |
+          mkdir -p "$HOME/dalamud"
+          curl -fsSL https://goatcorp.github.io/dalamud-distrib/latest.zip -o /tmp/dalamud.zip
+          unzip -q /tmp/dalamud.zip -d "$HOME/dalamud"
+          echo "DALAMUD_HOME=$HOME/dalamud" >> "$GITHUB_ENV"
+
+      - name: Build plugin
+        run: dotnet build WrathComboTranslation/WrathComboTranslation.csproj -c Release -p:Platform=x64
+
+      - name: Build tools
+        run: |
+          dotnet build tools/ResxExtract/ResxExtract.csproj -c Release
+          dotnet build tools/MakeRepo/MakeRepo.csproj -c Release
+
+      # Checks every pack against the committed source strings. Exits non-zero on a {0}
+      # placeholder that was added or dropped, which would throw a FormatException in-game,
+      # and on a translated ###WidgetId suffix, which would detach an ImGui control from its
+      # state. Deliberately not against a Wrath checkout: this has to run without one.
+      - name: Validate translation packs
+        run: |
+          dotnet run --project tools/ResxExtract -c Release --no-build -- report \
+            --source source \
+            --pack WrathComboTranslation/Translations/de \
+            --lang de
+
+      # overlay-harness is not run here: it needs a built WrathCombo.dll to patch, which CI
+      # has no business downloading. It is the maintainer's pre-release check instead.
+      - name: Check repo.json is current
+        run: |
+          dotnet run --project tools/MakeRepo -c Release --no-build -- \
+            --manifest WrathComboTranslation/bin/Release/WrathComboTranslation/WrathComboTranslation.json \
+            --zip WrathComboTranslation/bin/Release/WrathComboTranslation/latest.zip \
+            --out /tmp/repo.json \
+            --repo "${{ github.server_url }}/${{ github.repository }}"
+          # LastUpdate is a build timestamp and changes every run, so compare everything else.
+          jq 'map(del(.LastUpdate))' repo.json > /tmp/have.json
+          jq 'map(del(.LastUpdate))' /tmp/repo.json > /tmp/want.json
+          if ! diff -u /tmp/have.json /tmp/want.json; then
+            echo "::error::repo.json is out of date. Run tools/MakeRepo and commit the result."
+            exit 1
+          fi

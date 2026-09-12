@@ -81,9 +81,21 @@ internal static class Program
     /// </summary>
     private static int Report(Options o)
     {
-        var repo = o.Require("repo");
         var packDir = o.Require("pack");
         var lang = o.Require("lang");
+
+        // Either against a Wrath checkout, which also reports what Wrath itself translates,
+        // or against the extracted source/ directory, which is committed here. The latter is
+        // what CI uses: the placeholder and widget-id checks are the ones that prevent
+        // crashes in-game, and they should not depend on having Wrath cloned alongside.
+        var repo = o.Value("repo");
+        var sourceDir = o.Value("source");
+
+        if (repo is null == sourceDir is null)
+        {
+            Console.Error.WriteLine("error: pass exactly one of --repo or --source");
+            return 1;
+        }
 
         var sourceTotal = 0;
         var upstreamTotal = 0;
@@ -95,14 +107,8 @@ internal static class Program
         Console.WriteLine($"{"Resource",-24} {"source",6} {"upstream",8} {"pack",8} {"missing",9} {"stale",7}");
         Console.WriteLine(new string('-', 68));
 
-        foreach (var (shortName, path) in FindBaseResx(repo))
+        foreach (var (shortName, source, upstream) in Sources(repo, sourceDir, lang))
         {
-            var source = ReadResx(path);
-            if (source.Count == 0)
-                continue;
-
-            var upstreamPath = path[..^".resx".Length] + $".{lang}.resx";
-            var upstream = File.Exists(upstreamPath) ? ReadResx(upstreamPath) : [];
 
             var packPath = Path.Combine(packDir, shortName + ".json");
             var pack = File.Exists(packPath) ? ReadJson(packPath) : [];
@@ -209,6 +215,45 @@ internal static class Program
     }
 
     /// <summary>
+    ///     The English strings to check against, with whatever Wrath already translates for
+    ///     the language, from either a Wrath checkout or the extracted source directory.
+    /// </summary>
+    private static IEnumerable<(string ShortName,
+        Dictionary<string, string> Source,
+        Dictionary<string, string> Upstream)> Sources(string? repo, string? sourceDir, string lang)
+    {
+        if (repo is not null)
+        {
+            foreach (var (shortName, path) in FindBaseResx(repo))
+            {
+                var source = ReadResx(path);
+                if (source.Count == 0)
+                    continue;
+
+                var upstreamPath = path[..^".resx".Length] + $".{lang}.resx";
+                yield return (shortName, source,
+                    File.Exists(upstreamPath) ? ReadResx(upstreamPath) : []);
+            }
+
+            yield break;
+        }
+
+        if (!Directory.Exists(sourceDir))
+            throw new DirectoryNotFoundException($"'{sourceDir}' does not exist.");
+
+        foreach (var file in Directory.EnumerateFiles(sourceDir!, "*.json").OrderBy(p => p, StringComparer.Ordinal))
+        {
+            var shortName = Path.GetFileNameWithoutExtension(file);
+            if (shortName.StartsWith("glossary", StringComparison.OrdinalIgnoreCase))
+                continue;
+
+            // No upstream column here: what Wrath ships for the language lives in its own
+            // .resx files, which only a checkout has.
+            yield return (shortName, ReadJson(file), []);
+        }
+    }
+
+    /// <summary>
     ///     All culture-neutral .resx files under the checkout's localization folder,
     ///     keyed by the short name the plugin uses for the matching JSON file.
     /// </summary>
@@ -246,8 +291,10 @@ internal static class Program
             if (data.Attribute("type") is not null || data.Attribute("mimetype") is not null)
                 continue;
 
+            // An empty entry has nothing to translate, and skipping it here keeps the
+            // counts identical whether the source came from a checkout or from source/.
             var value = data.Element("value")?.Value;
-            if (value is null)
+            if (string.IsNullOrWhiteSpace(value))
                 continue;
 
             result[name] = value;
@@ -257,14 +304,14 @@ internal static class Program
     }
 
     /// <summary>
-    ///     Reads a translation pack file. Underscore-prefixed keys hold metadata such as
+    ///     Reads a translation pack file. Dollar-prefixed keys hold metadata such as
     ///     translator credits and are dropped here exactly as the plugin drops them at runtime,
     ///     so they neither inflate the coverage count nor show up as stale keys.
     /// </summary>
     private static Dictionary<string, string> ReadJson(string path)
         => (JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText(path))
             ?? [])
-            .Where(kv => !kv.Key.StartsWith('_') && !string.IsNullOrWhiteSpace(kv.Value))
+            .Where(kv => !kv.Key.StartsWith('$') && !string.IsNullOrWhiteSpace(kv.Value))
             .ToDictionary(kv => kv.Key, kv => kv.Value, StringComparer.Ordinal);
 
     private static SortedDictionary<string, string> Sorted(Dictionary<string, string> d)
@@ -278,9 +325,11 @@ internal static class Program
               extract --repo <wrath checkout> --out <dir>
                   Write the English source strings as one JSON file per resource.
 
-              report --repo <wrath checkout> --pack <dir> --lang <code>
-                  Show how much of each resource is covered, and list keys in the
-                  pack that no longer exist upstream.
+              report (--repo <wrath checkout> | --source <dir>) --pack <dir> --lang <code>
+                  Show how much of each resource is covered, list keys in the pack
+                  that no longer exist upstream, and validate placeholders and
+                  widget ids. --repo also reports what Wrath itself translates;
+                  --source checks against the committed source/ directory.
             """);
         return 1;
     }
@@ -300,6 +349,8 @@ internal static class Program
 
             return o;
         }
+
+        public string? Value(string key) => _values.GetValueOrDefault(key);
 
         public string Require(string key)
             => _values.TryGetValue(key, out var v)

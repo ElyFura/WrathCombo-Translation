@@ -57,7 +57,9 @@ Translations live in two places, merged with loose files winning per key:
 Each file is flat `{ "ResourceKey": "Übersetzung" }`, named after the Wrath resource
 (`MainWindowUI.json`, `CustomComboPresets.json`, ...). A key that is absent falls back to
 Wrath's own string, so a partial translation degrades to English rather than showing blanks.
-Keys starting with `_` are metadata (translator credits and notes) and are never displayed.
+Keys starting with `$` are metadata (translator credits and notes) and are never displayed.
+Not `_`: Wrath's own resource keys are C# identifiers and some of them start with one, such as
+`Generics._0Option`, which a `_` convention would silently swallow.
 
 ## Translation status
 
@@ -166,10 +168,8 @@ dotnet build WrathComboTranslation/WrathComboTranslation.csproj -c Release -p:Pl
 dotnet run --project tools/MakeRepo --     --manifest WrathComboTranslation/bin/Release/WrathComboTranslation/WrathComboTranslation.json     --zip WrathComboTranslation/bin/Release/WrathComboTranslation/latest.zip     --out repo.json --repo https://github.com/ElyFura/WrathCombo-Translation
 ```
 
-Run it as part of cutting a release, and attach `latest.zip` to the GitHub release - the
-listing points at `releases/latest/download/latest.zip`, so it keeps working across versions.
-Dalamud offers an update only when `AssemblyVersion` in the listing is higher than the
-installed one, which is exactly the field that rots when the listing is kept by hand.
+CI runs it too and fails if the committed `repo.json` no longer matches the built manifest,
+so the listing cannot quietly fall behind.
 
 `overlay-harness` verifies the overlay against a real build of Wrath without starting the
 game. It loads both DLLs into separate `AssemblyLoadContext`s the way Dalamud does, then
@@ -197,6 +197,27 @@ dotnet run --project tools/OverlayHarness -c Release -p:Platform=x64 -- \
 How many resource classes exist depends on the build — the shipped 1.0.4.23 has 33, a current
 repo build has 34 (`BST_Config`, added after that release was cut) — so the harness counts what
 the assembly under test actually contains rather than expecting a fixed number.
+
+### Releasing
+
+Bump `<Version>` in `WrathComboTranslation.csproj`, commit, then tag that commit:
+
+```
+git tag v0.2.0 && git push origin v0.2.0
+```
+
+`.github/workflows/release.yml` takes it from there: it builds, validates the packs, refuses
+the release if the tag and `AssemblyVersion` disagree, publishes `latest.zip`, and commits the
+regenerated `repo.json` to the default branch. That last step matters because the listing is
+served from the branch, not the tag.
+
+`.github/workflows/ci.yml` runs on every push and pull request: it builds, validates the
+packs, and checks `repo.json` is current. Neither workflow runs `overlay-harness` - it needs a
+built `WrathCombo.dll` to patch, which CI has no business fetching, so that stays the
+maintainer's pre-release check.
+
+Both workflows build against Dalamud downloaded from `dalamud-distrib`, pointed at by
+`DALAMUD_HOME`, since a runner has no XIVLauncher install.
 
 ## Caveats
 

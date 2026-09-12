@@ -1,0 +1,92 @@
+name: Release
+
+# Cut a release by bumping <Version> in the csproj, committing, then tagging that commit:
+#   git tag v0.2.0 && git push origin v0.2.0
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Fetch Dalamud
+        run: |
+          mkdir -p "$HOME/dalamud"
+          curl -fsSL https://goatcorp.github.io/dalamud-distrib/latest.zip -o /tmp/dalamud.zip
+          unzip -q /tmp/dalamud.zip -d "$HOME/dalamud"
+          echo "DALAMUD_HOME=$HOME/dalamud" >> "$GITHUB_ENV"
+
+      - name: Build
+        run: |
+          dotnet build WrathComboTranslation/WrathComboTranslation.csproj -c Release -p:Platform=x64
+          dotnet build tools/ResxExtract/ResxExtract.csproj -c Release
+          dotnet build tools/MakeRepo/MakeRepo.csproj -c Release
+
+      - name: Validate translation packs
+        run: |
+          dotnet run --project tools/ResxExtract -c Release --no-build -- report \
+            --source source \
+            --pack WrathComboTranslation/Translations/de \
+            --lang de
+
+      # The tag and the version Dalamud will compare against must agree, or the release ships
+      # under v0.2.0 while the listing still says 0.1.0 and the update never appears.
+      - name: Check the tag matches the plugin version
+        run: |
+          version=$(jq -r '.AssemblyVersion' \
+            WrathComboTranslation/bin/Release/WrathComboTranslation/WrathComboTranslation.json)
+          tag="${GITHUB_REF_NAME#v}"
+          echo "tag $tag, plugin $version"
+          case "$version" in
+            "$tag"|"$tag".0|"$tag".0.0) ;;
+            *) echo "::error::Tag $GITHUB_REF_NAME does not match AssemblyVersion $version."
+               echo "::error::Bump <Version> in WrathComboTranslation.csproj to match the tag."
+               exit 1 ;;
+          esac
+
+      - name: Generate repo.json
+        run: |
+          dotnet run --project tools/MakeRepo -c Release --no-build -- \
+            --manifest WrathComboTranslation/bin/Release/WrathComboTranslation/WrathComboTranslation.json \
+            --zip WrathComboTranslation/bin/Release/WrathComboTranslation/latest.zip \
+            --out repo.json \
+            --repo "${{ github.server_url }}/${{ github.repository }}"
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: WrathComboTranslation/bin/Release/WrathComboTranslation/latest.zip
+          generate_release_notes: true
+
+      # The listing is served from the default branch, so it has to be committed there and
+      # not merely built on the tag. Nothing else in the repository is touched.
+      - name: Commit repo.json to the default branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          branch="${{ github.event.repository.default_branch }}"
+          git fetch origin "$branch"
+          git checkout "$branch"
+          dotnet run --project tools/MakeRepo -c Release --no-build -- \
+            --manifest WrathComboTranslation/bin/Release/WrathComboTranslation/WrathComboTranslation.json \
+            --zip WrathComboTranslation/bin/Release/WrathComboTranslation/latest.zip \
+            --out repo.json \
+            --repo "${{ github.server_url }}/${{ github.repository }}"
+          if git diff --quiet -- repo.json; then
+            echo "repo.json already current."
+            exit 0
+          fi
+          git add repo.json
+          git commit -m "repo.json: ${GITHUB_REF_NAME}"
+          git push origin "$branch"

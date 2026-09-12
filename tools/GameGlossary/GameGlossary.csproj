@@ -16,7 +16,12 @@
         <DalamudLibPath>$(appdata)\XIVLauncher\addon\Hooks\dev\</DalamudLibPath>
     </PropertyGroup>
 
-    <!--
+        <!-- Continuous integration has no XIVLauncher install; it downloads Dalamud and points here. -->
+    <PropertyGroup Condition="'$(DALAMUD_HOME)' != ''">
+        <DalamudLibPath>$(DALAMUD_HOME)/</DalamudLibPath>
+    </PropertyGroup>
+
+<!--
         Lumina comes from Dalamud's own runtime folder rather than NuGet, so the sheet
         schemas here are exactly the ones Wrath Combo reads at runtime.
     -->

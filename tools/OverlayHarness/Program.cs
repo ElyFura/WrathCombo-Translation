@@ -124,6 +124,13 @@ internal static class Program
         var numericDefault = settingsManager?.GetString("Throttle_defaultValue", de);
         Check($"numeric default falls back (\"{numericDefault}\")", numericDefault == "50");
 
+        // Wrath has resource keys that start with an underscore, and the pack format once
+        // reserved that prefix for its own metadata - which silently swallowed them.
+        var generics = Internal(wrath, "WrathCombo.Resources.Localization.JobConfigs.Generics");
+        var underscored = ((ResourceManager?)Get(generics, "ResourceManager", null))
+            ?.GetString("_0Option", de);
+        Check($"underscore-prefixed key is served (\"{underscored}\")", underscored == "{0}-Option");
+
         // 10. Uninstalling must leave Wrath exactly as it was.
         Invoke(installerType, "Uninstall", installer, []);
         var restored = ReadString(mainWindowUi, "Button_About");

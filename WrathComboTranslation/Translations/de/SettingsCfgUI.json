@@ -1,6 +1,6 @@
 {
-  "_translators": "ElyFura",
-  "_note": "Purely numeric defaults ('0', '1.5', '50') and the colour code are omitted because they read identically in German. The target-stack listings ('Focus Target > Hard Target > Self') are translated, but note that the stack widget shown below them in-game is not: Wrath builds that from hard-coded C# literals and property names in UserConfig.TargetDisplayNameFromPropertyName, which no resource overlay can reach, so it stays English. Established community terms (Combo, Preset, Opener, Retargeting, Heal-Stack, Weaving, GCD/oGCD, Tankbuster, Slidecast) are kept as-is.",
+  "$translators": "ElyFura",
+  "$note": "Purely numeric defaults ('0', '1.5', '50') and the colour code are omitted because they read identically in German. The target-stack listings ('Focus Target > Hard Target > Self') are translated, but note that the stack widget shown below them in-game is not: Wrath builds that from hard-coded C# literals and property names in UserConfig.TargetDisplayNameFromPropertyName, which no resource overlay can reach, so it stays English. Established community terms (Combo, Preset, Opener, Retargeting, Heal-Stack, Weaving, GCD/oGCD, Tankbuster, Slidecast) are kept as-is.",
   "ActionChanging_Name": "Aktionen ersetzen",
   "ActionChanging_defaultValue": "An",
   "ActionChanging_helpMark": "Legt fest, ob Aktionen auf deiner Hotbar durch Combos des Plugins ersetzt werden.\nIst dies deaktiviert, wirken sich Wrath-Einstellungen nicht mehr auf manuell gedrückte Aktionen aus.\n\nDie Auto-Rotation funktioniert unabhängig von dieser Einstellung.",

@@ -232,8 +232,10 @@ internal sealed class TranslationPack
         var added = 0;
         foreach (var (key, value) in parsed)
         {
-            // Keys starting with '_' are reserved for metadata such as translator credits.
-            if (key.StartsWith('_') || string.IsNullOrWhiteSpace(value))
+            // Keys starting with '$' are reserved for metadata such as translator credits.
+            // Not '_': Wrath's own resource keys are C# identifiers and some start with one,
+            // such as Generics' _0Option, which this would otherwise silently discard.
+            if (key.StartsWith('$') || string.IsNullOrWhiteSpace(value))
                 continue;
 
             file[key] = value;
