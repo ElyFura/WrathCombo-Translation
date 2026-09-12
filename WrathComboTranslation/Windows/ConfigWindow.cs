@@ -19,6 +19,7 @@ internal sealed class ConfigWindow : Window
 
     private IReadOnlyDictionary<string, int> _counts = new Dictionary<string, int>();
     private TranslationPack? _countsFor;
+    private bool _showEmptyResources;
 
     public ConfigWindow(Plugin plugin, OverlayInstaller installer)
         : base("Wrath Combo Translation###WrathComboTranslationConfig")
@@ -194,6 +195,35 @@ internal sealed class ConfigWindow : Window
         }
 
         var counts = _counts;
+        var resources = _installer.KnownResources;
+
+        var total = resources.Sum(r => r.SourceCount);
+        var translated = resources.Sum(r => Math.Min(Translated(r.Name), r.SourceCount));
+        var empty = resources.Count(r => r.SourceCount == 0);
+
+        ImGui.TextUnformatted($"{translated} of {total} strings translated");
+
+        // Wrath ships a third of its resource files with nothing in them, reserved for jobs
+        // whose options have not been written yet. Listing those alongside the real ones makes
+        // the table look full of gaps, so they are folded away by default.
+        if (empty > 0)
+        {
+            ImGui.SameLine();
+            ImGui.TextColored(Muted, $"  ({empty} of Wrath's {resources.Count} resource files are empty)");
+
+            var show = _showEmptyResources;
+            if (ImGui.Checkbox("Show empty resource files", ref show))
+                _showEmptyResources = show;
+
+            if (ImGui.IsItemHovered())
+                ImGui.SetTooltip(
+                    """
+                    Wrath ships these files with no strings in them at all.
+                    There is nothing in them to translate - they are not a gap in this pack.
+                    """);
+        }
+
+        ImGui.Spacing();
 
         if (!ImGui.BeginTable("##coverage", 2,
                 ImGuiTableFlags.Borders | ImGuiTableFlags.RowBg | ImGuiTableFlags.ScrollY))
@@ -204,25 +234,30 @@ internal sealed class ConfigWindow : Window
         ImGui.TableSetupScrollFreeze(0, 1);
         ImGui.TableHeadersRow();
 
-        foreach (var (name, total) in _installer.KnownResources)
+        foreach (var (name, sourceCount) in resources)
         {
-            var translated = counts.TryGetValue(name, out var n) ? n : 0;
+            if (sourceCount == 0 && !_showEmptyResources)
+                continue;
+
+            var done = Translated(name);
 
             ImGui.TableNextRow();
             ImGui.TableNextColumn();
             ImGui.TextUnformatted(name);
             ImGui.TableNextColumn();
 
-            // Shown as translated-of-total: several of Wrath's resource files are empty
-            // placeholders, and a bare "0" against those reads as missing work rather than
-            // as nothing to do.
-            if (total == 0)
-                ImGui.TextColored(Muted, "empty");
+            // Shown as translated-of-total, so a file with nothing in it reads as "no strings"
+            // rather than as a bare zero that looks like outstanding work.
+            if (sourceCount == 0)
+                ImGui.TextColored(Muted, "no strings");
             else
-                ImGui.TextColored(translated >= total ? Good : translated > 0 ? Muted : Bad,
-                    $"{translated}/{total}");
+                ImGui.TextColored(done >= sourceCount ? Good : done > 0 ? Muted : Bad,
+                    $"{done}/{sourceCount}");
         }
 
         ImGui.EndTable();
+        return;
+
+        int Translated(string resource) => counts.TryGetValue(resource, out var n) ? n : 0;
     }
 }

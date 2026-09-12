@@ -27,9 +27,12 @@ resource files added in future Wrath releases are picked up automatically.
 
 ## Using it
 
-Open the settings with `/wrathtl`. Its coverage table shows translated-of-total per resource;
-eleven of Wrath's `*_Config` files are empty placeholders for future use and are marked
-"empty" rather than showing a misleading zero.
+Open the settings with `/wrathtl`. Its coverage section leads with the number that matters -
+strings translated out of strings that exist - and lists each resource as translated-of-total.
+
+Thirteen of Wrath's 33 resource files contain no strings at all: they are placeholders for
+jobs whose options have not been written yet. Those are folded away by default, since listing
+them made the table look like it was full of gaps. The checkbox brings them back.
 
 The overlay only applies when Dalamud's UI language matches the pack, so a `de` pack needs
 Dalamud set to German. Players who run Dalamud in English can tick **Force language**.
