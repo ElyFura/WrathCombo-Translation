@@ -1,6 +1,6 @@
 {
   "_translators": "ElyFura",
-  "_note": "Checkbox_HealerAlwaysHardTarget keeps its '###HealerHardTarget' suffix verbatim: that is an ImGui widget id, not display text, and changing it would break the control's identity. Ability names that appear as literals rather than {0} placeholders (Excogitation, Regen/Aspected Benefic) are left in English because the official German client wording is unverified; placeholders themselves are filled from the game's own sheets and come out German automatically. Checkbox_AutoCleanse ('Auto-{0}') is omitted because it reads identically in German.",
+  "_note": "Checkbox_HealerAlwaysHardTarget keeps its '###HealerHardTarget' suffix verbatim: that is an ImGui widget id, not display text, and changing it would break the control's identity. Ability names appearing as literals rather than {0} placeholders use the official German client wording, taken from the game's own data files via tools/GameGlossary (Excogitation = Weise Voraussicht, Regen = Regena, Aspected Benefic = Harmonischer Orbis). Placeholders are filled from those same sheets at runtime and come out German automatically. Checkbox_AutoCleanse ('Auto-{0}') is omitted because it reads identically in German.",
 
   "Info_Header": "Hier konfigurierst du, unter welchen Bedingungen die Auto-Rotation arbeitet.\nFunktionen mit einem 'Auto-Modus'-Häkchen lassen sich mit der Auto-Rotation nutzen.",
 
@@ -59,9 +59,9 @@
 
   "Slider_AoETargetHPP": "AoE-HP%-Schwellenwert",
   "Slider_SingleTargetHPP": "Einzelziel-HP%-Schwellenwert",
-  "Slider_SingleTargetExcogHPP": "Einzelziel-HP%-Schwellenwert (Ziel hat Excogitation)",
+  "Slider_SingleTargetExcogHPP": "Einzelziel-HP%-Schwellenwert (Ziel hat Weise Voraussicht)",
   "HelpText_SingleTargetExcogHPP": "Diesen Wert stellt man üblicherweise niedriger ein als den darüber.",
-  "Slider_SingleTargetRegenHPP": "Einzelziel-HP%-Schwellenwert (Ziel hat Regen/Aspected Benefic)",
+  "Slider_SingleTargetRegenHPP": "Einzelziel-HP%-Schwellenwert (Ziel hat Regena/Harmonischer Orbis)",
   "HelpText_SingleTargetRegenHPP": "Diesen Wert stellt man üblicherweise niedriger ein als den darüber.",
 
   "Include_Shields": "Schilde berücksichtigen",

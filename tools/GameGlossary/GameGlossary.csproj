@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net10.0-windows</TargetFramework>
+        <EnableWindowsTargeting>true</EnableWindowsTargeting>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <RootNamespace>GameGlossary</RootNamespace>
+        <AssemblyName>game-glossary</AssemblyName>
+        <Platforms>x64</Platforms>
+        <NoWarn>PendingExcelSchema</NoWarn>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <DalamudLibPath>$(appdata)\XIVLauncher\addon\Hooks\dev\</DalamudLibPath>
+    </PropertyGroup>
+
+    <!--
+        Lumina comes from Dalamud's own runtime folder rather than NuGet, so the sheet
+        schemas here are exactly the ones Wrath Combo reads at runtime.
+    -->
+    <ItemGroup>
+        <Reference Include="Lumina">
+            <HintPath>$(DalamudLibPath)Lumina.dll</HintPath>
+        </Reference>
+        <Reference Include="Lumina.Excel">
+            <HintPath>$(DalamudLibPath)Lumina.Excel.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+</Project>

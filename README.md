@@ -98,6 +98,22 @@ FormatException in-game, and on a translated `###WidgetId` suffix, which would s
 detach an ImGui control from its state. It also points out strings left identical to the
 English source.
 
+`game-glossary` reads the installed client's data files with Lumina and writes an
+English-to-German map of every player action, status, trait and job name:
+
+```
+dotnet run --project tools/GameGlossary -c Release -p:Platform=x64 --     --sqpack "<game>/game/sqpack" --out source/glossary.de.json --lang German
+```
+
+Wrath spells ability and status names out as literal English text in its preset descriptions
+(its own sheet-lookup helper, `Text.ProcessSheetLookups`, is still a stub), and 2486 of the
+3886 preset strings contain at least one such name. The glossary supplies the exact wording
+the German client uses for them.
+
+Use it as a reference while translating, never as a find-and-replace: the most frequent match
+in the corpus is "Burst" (169 hits), which in Wrath's text nearly always means the rotational
+burst window and not the status the game calls "Schub".
+
 `overlay-harness` verifies the overlay against a real build of Wrath without starting the
 game. It loads both DLLs into separate `AssemblyLoadContext`s the way Dalamud does, then
 checks that the overlay installs, translates, falls back, honours the culture setting, and

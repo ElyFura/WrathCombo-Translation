@@ -1,6 +1,6 @@
 {
   "_translators": "ElyFura",
-  "_note": "Purely numeric defaults ('0', '1.5', '50'), the colour code and the target-stack listings ('Focus Target > Hard Target > Self') are deliberately omitted: they read identically in German, and the stack entry names themselves come from Generics.resx, which is still untranslated. Established community terms (Combo, Preset, Opener, Retargeting, Heal-Stack, Weaving, GCD/oGCD, Tankbuster, Slidecast) are kept as-is.",
+  "_note": "Purely numeric defaults ('0', '1.5', '50') and the colour code are omitted because they read identically in German. The target-stack listings ('Focus Target > Hard Target > Self') are omitted because they cannot be translated at all: Wrath builds those names from hard-coded C# literals and property names in UserConfig.TargetDisplayNameFromPropertyName, not from any resource file, so the overlay never sees them. Established community terms (Combo, Preset, Opener, Retargeting, Heal-Stack, Weaving, GCD/oGCD, Tankbuster, Slidecast) are kept as-is.",
 
   "MainUIOptions_Category": "Optionen der Hauptoberfläche",
   "RotationBehaviourOptions_Category": "Optionen zum Rotationsverhalten",
@@ -39,7 +39,7 @@
   "BlockSpellOnMove_defaultValue": "Aus",
 
   "CustomHealStack_Name": "Eigener Heal-Stack",
-  "CustomHealStack_helpMark": "Sind weniger als 4 Einträge vorhanden und liefert keiner davon ein Ziel, wird auf dich selbst zurückgegriffen.\n\nZiele gelten nur als gültig, wenn sie freundlich und innerhalb von 25 Yalm sind.\n\nBei Aktionen wie Esuna werden die Ziele zusätzlich daraufhin geprüft, ob sie einen entfernbaren Debuff haben.\nEinträge wie 'Any Cleansable Ally' sind daher nicht nötig.",
+  "CustomHealStack_helpMark": "Sind weniger als 4 Einträge vorhanden und liefert keiner davon ein Ziel, wird auf dich selbst zurückgegriffen.\n\nZiele gelten nur als gültig, wenn sie freundlich und innerhalb von 25 Yalm sind.\n\nBei Aktionen wie Medica werden die Ziele zusätzlich daraufhin geprüft, ob sie einen entfernbaren Debuff haben.\nEinträge wie 'Any Cleansable Ally' sind daher nicht nötig.",
   "CustomHealStack_recommendedValue": "Geschmackssache",
 
   "EnabledOutputLog_Name": "Log in den Chat ausgeben",

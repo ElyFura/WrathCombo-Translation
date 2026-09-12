@@ -190,5 +190,5 @@
   "TanksOnly": "Nur Tanks",
   "WillOnlyUseOnTanks": "Wird nur bei Tanks verwendet",
 
-  "PLDSheltronWarning": "Wenn du Off-Tank bist und Sheltron auf dir selbst einsetzen möchtest:\n        - Erwartet wird, dass du das über die Ein-Knopf-Mitigation-Funktion oder die Mitigation-Optionen deiner Rotation tust.\n        - Alternativ kannst du in diesem Fall per MouseOver auf dich selbst in der Gruppe Sheltron einsetzen.\n        - Tust du das nicht, würde Intervention die Combo ersetzen und auf den Main-Tank gehen.\n        - Wenn du diese Funktionen nicht für deine persönliche Mitigation nutzt, willst du dies womöglich nicht aktivieren."
+  "PLDSheltronWarning": "Wenn du Off-Tank bist und Schiltron auf dir selbst einsetzen möchtest:\n        - Erwartet wird, dass du das über die Ein-Knopf-Mitigation-Funktion oder die Mitigation-Optionen deiner Rotation tust.\n        - Alternativ kannst du in diesem Fall per MouseOver auf dich selbst in der Gruppe Schiltron einsetzen.\n        - Tust du das nicht, würde Intervention die Combo ersetzen und auf den Main-Tank gehen.\n        - Wenn du diese Funktionen nicht für deine persönliche Mitigation nutzt, willst du dies womöglich nicht aktivieren."
 }
