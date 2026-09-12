@@ -1,0 +1,9 @@
+{
+  "FirstPositional0": "First positional: {0}.",
+  "FlankFirst": "Flank First",
+  "On0": "{0}",
+  "OnlyUse0WhileUGot1": "Only uses {0} while you have {1}.",
+  "RearFirst": "Rear First",
+  "SecondsBeforeRefreshing0": "Seconds remaining before refreshing {0}.\nRecommended is 6.",
+  "WillHoldTNforGluttony": "Will hold the last charge of {0} for use with {1}, even when out of position for {2}/{3}.\nIf above slider is set to 1, it will NOT use the remaining charge for {1}, but for manual use."
+}

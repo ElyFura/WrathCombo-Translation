@@ -1,0 +1,16 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+  </Configurations>
+  <Folder Name="/Solution Items/">
+    <File Path="README.md" />
+    <File Path=".gitignore" />
+  </Folder>
+  <Folder Name="/tools/">
+    <Project Path="tools/ResxExtract/ResxExtract.csproj" />
+    <Project Path="tools/OverlayHarness/OverlayHarness.csproj" />
+  </Folder>
+  <Project Path="WrathComboTranslation/WrathComboTranslation.csproj">
+    <Platform Project="x64" />
+  </Project>
+</Solution>

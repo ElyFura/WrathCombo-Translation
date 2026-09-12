@@ -1,0 +1,9 @@
+{
+  "CycleBeasts": "Cycle Beasts",
+  "CycleBeastsDesc": "Will cycle beasts in combat using Parting Blow. You may wish to do this manually instead to prevent beasts going on cooldown.",
+  "Infinitive": "Perform Infinitive Combo?",
+  "InfinitiveDesc": "Adds Rally/Rallying cheer to allow performing Infinitive Combos. Infinitive combo will start when you have 100 TP for you and your beast, you have at least 2 Mastered Instinct stacks and at least 1 Natural Instinct stack, with both Rally and Rallying Cheer off cooldown. It will perform this setup before level 50 also, with it adding in the Infinitive combo finisher when you're level 50.",
+  "MinTPPlayerBeast": "Minimum TP for both player and beast",
+  "OnlyCurrentHorn": "Only replace for horn that borrowed",
+  "OnlyCurrentHornDesc": "If you switch away from the horn that borrowed the ability, return the action back to Borrow."
+}

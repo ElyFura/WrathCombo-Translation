@@ -1,0 +1,29 @@
+{
+  "_translators": "ElyFura",
+
+  "Button_Back": "Zurück",
+  "Checkbox_searchDescriptionText": "Beschreibungen",
+  "Label_AutoMode": "Auto-Modus",
+  "Label_ConflictsWith": "Kollidiert mit:",
+  "Label_searchLabelText": "Suche:",
+  "Search_searchHintText": "Optionsname, ID, interner Name, Beschreibung usw.",
+
+  "Hover_AutoMode": "Diese Funktion zur Auto-Rotation hinzufügen.\nDie Auto-Rotation verwendet dann automatisch die in der Funktion ausgewählten Aktionen, sodass du dich auf die Bewegung konzentrieren kannst. Die Einstellungen dazu findest du im Bereich 'Auto-Rotation'.",
+  "Hover_Retargetting_ControllingSetting": "Die Einstellung, die das Retargeting dieser Aktion steuert, ist:",
+  "Hover_Retargetting_IsRetargetted": "Die Aktionen dieser Funktion werden umgeleitet",
+  "Hover_Retargetting_Line2": "Die Aktionen dieser Funktion werden automatisch auf das Ziel\ngelenkt, das die Entwickler für das beste halten\n(wo zutreffend nach The Balance).",
+  "Hover_Retargetting_Line3": "Plugins wie Redirect oder Reaction mit Konfigurationen, die\ndiese Aktion betreffen, kollidieren damit und können Probleme\nverursachen.",
+  "Hover_Retargetting_MaybeRetargetted": "Die Aktionen dieser Funktion werden möglicherweise umgeleitet.",
+
+  "Info_BLUAllGoodSpells": "Alle benötigten Zauber aktiv!",
+  "Info_SelectAJob": "Wähle unten einen Job aus, um dessen Funktionen zu aktivieren und zu konfigurieren.",
+  "Info_pvpActionReplacingWarning": "Das Ersetzen von Aktionen ist in den Einstellungen deaktiviert! PvP-Combos funktionieren nicht!",
+  "Info_pvpAutoRotationWarning": "Auto-Rotation ist im PvP nicht verfügbar.",
+  "Info_pvpDesc": "Dies sind PvP-Funktionen. Sie wirken nur in PvP-Gebieten.",
+  "Info_pvpNothing": "Nichts entspricht deiner Suche.",
+
+  "Warning_BLUMissingSpells": "Fehlende aktive Zauber:",
+  "Warning_BLUNoSpells": "Keine benötigten Zauber aktiv:",
+  "Warning_DisabledDueToUpdate": "Wegen eines Updates deaktiviert",
+  "Warning_EquipJobStone": "Rüste deinen Jobstein aus, um die Funktionen wieder freizuschalten."
+}

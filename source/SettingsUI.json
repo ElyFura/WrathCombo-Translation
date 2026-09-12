@@ -1,0 +1,17 @@
+{
+  "Button_CreateDebug": "Create Debug File",
+  "Header_SettingsAbout": "This tab allows you to customise global settings for Wrath Combo.",
+  "HelpText_CreateDebug": "Will generate a debug file on your desktop.\nUseful to give developers to help troubleshoot issues.\nThe same as using the following command: /wrath debug",
+  "HelpText_HealStack": "This is the order in which Wrath will try to select a healing target. \nIf the 'Retarget Healing Actions' option is disabled, that is just the target that will be used for checking the HP threshold to trigger different healing actions to show up in their rotations. \nThat means that if your own retargeting solution (Redirect, Reaction, etc) does not match this then Wrath can stick you in a loop of healing the wrong target!!! \nIf the 'Retarget Healing Actions' option is enabled, that target is also the one that healing actions will be targeted onto (even when the action does not first check the HP of that target, like the combo's Replaced Action, for example).",
+  "HelpText_RaiseStack": "This is the order in which Wrath will try to select a raise target,\nif Retargeting of any Raise Feature is enabled.",
+  "HelpText_Retargetting1": "This Feature will involve retargeting actions if enabled.",
+  "HelpText_Retargetting2": "The actions this Feature affects will automatically be\ntargeted onto the targets in the priority you have configured.",
+  "HelpText_Retargetting3": "Using plugins like Redirect or Reaction with configurations\naffecting the same actions will Conflict and may cause issues.",
+  "Info_searchHintText": "Category name, Setting name, Internal Name, etc",
+  "Label_HealStack": "Current Heal Stack:",
+  "Label_RaiseStack": "Current Raise Stack:",
+  "Label_searchLabelText": "Search:",
+  "Text_DefaultValue": "Default Value:",
+  "Text_RecommendedValue": "Recommended Value:",
+  "Warning_HealStack": "YOU are responsible for making sure your retargeting solution matches this heal stack!\nIf it does not then Wrath can get stuck in a loop where X player is checked and needs healing, but Y player is who gets healed!"
+}

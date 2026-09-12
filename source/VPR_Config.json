@@ -1,0 +1,11 @@
+{
+  "Add0WhenAvailableRespectManualCharge": "Adds {0} when available.\n Respects the manual {0} charge.",
+  "AddRangeCheckFor0": "Adds range check for {0}, so it is used only when in range.",
+  "AddRangeCheckFor0And1": "Adds range check for {0} and {1}, so it is used only when in range.",
+  "DisableRangeCheckFor0": "Disables the range check for {0}, so it will be used even without a target selected.",
+  "DisableRangeCheckFor0And1": "Disables the range check for {0} and {1}, so it will be used even without a target selected.",
+  "Forces0Or1ForBuffs": "Forces {0} or {1} if buff needs to be reapplied.",
+  "HPPThresholdWheneverAvailableBossesOnly": "Set a HP% threshold to use {0} whenever available. (Bosses Only)",
+  "Replace0WithFullCombo": "Replaces {0} with Full Generation - Legacy combo.",
+  "WillHoldLastChargeOf0For1": "Will hold the last charge of {0} for use with {1}, even when out of position for normal GCD.\nIf above slider is set to 1, it will NOT use the remaining charge for {1}, but for manual use."
+}

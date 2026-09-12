@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <!-- Metadata -->
+    <PropertyGroup>
+        <Authors>ElyFura</Authors>
+        <Version>0.1.0.0</Version>
+        <Description>Community translation overlay for Wrath Combo</Description>
+        <PackageProjectUrl>https://github.com/ElyFura/WrathCombo-Translation</PackageProjectUrl>
+        <PackageId>WrathComboTranslation</PackageId>
+        <Product>WrathComboTranslation</Product>
+    </PropertyGroup>
+
+    <!-- Build Parameters -->
+    <PropertyGroup>
+        <AssemblyName>WrathComboTranslation</AssemblyName>
+        <RootNamespace>WrathComboTranslation</RootNamespace>
+        <TargetFramework>net10.0-windows</TargetFramework>
+        <Configurations>Debug;Release</Configurations>
+        <EnableWindowsTargeting>true</EnableWindowsTargeting>
+        <LangVersion>preview</LangVersion>
+        <Platforms>x64</Platforms>
+        <Nullable>enable</Nullable>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+        <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    </PropertyGroup>
+
+    <!-- Required Paths -->
+    <PropertyGroup>
+        <DalamudLibPath>$(appdata)\XIVLauncher\addon\Hooks\dev\</DalamudLibPath>
+        <DalamudDevPlugins>$(appdata)\XIVLauncher\devPlugins\WrathComboTranslation\</DalamudDevPlugins>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('Linux'))">
+        <DalamudLibPath>$(HOME)/.xlcore/dalamud/Hooks/dev/</DalamudLibPath>
+        <DalamudDevPlugins>$(HOME)/.xlcore/devPlugins/WrathComboTranslation/</DalamudDevPlugins>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('OSX'))">
+        <DalamudLibPath>$(HOME)/Library/Application Support/XIV on Mac/dalamud/Hooks/dev/</DalamudLibPath>
+        <DalamudDevPlugins>$(HOME)/Library/Application Support/XIV on Mac/devPlugins/WrathComboTranslation/</DalamudDevPlugins>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+        <OutputPath>$(DalamudDevPlugins)</OutputPath>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+        <OutputPath>bin\Release</OutputPath>
+    </PropertyGroup>
+
+    <!-- Dalamud Packaging -->
+    <ItemGroup>
+        <PackageReference Include="DalamudPackager" Version="15.0.0" />
+    </ItemGroup>
+
+    <!-- Translation packs ship embedded; loose files in the config dir override them. -->
+    <ItemGroup>
+        <EmbeddedResource Include="Translations\**\*.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="WrathComboTranslation.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
+    <!-- Dalamud Libraries -->
+    <ItemGroup>
+        <Reference Include="Dalamud">
+            <HintPath>$(DalamudLibPath)Dalamud.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="Dalamud.Bindings.ImGui">
+            <HintPath>$(DalamudLibPath)Dalamud.Bindings.ImGui.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="Newtonsoft.Json">
+            <HintPath>$(DalamudLibPath)Newtonsoft.Json.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+    </ItemGroup>
+
+</Project>

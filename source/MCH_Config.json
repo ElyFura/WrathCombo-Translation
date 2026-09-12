@@ -1,0 +1,14 @@
+{
+  "AlsoUse0Or1OnCooldown": "Also use {0} / {1} on cooldown.",
+  "BatteryThreshold": "Battery threshold",
+  "ChangesTo0Or1": "Changes to {0} / {1} depending on charges and what was used last",
+  "Early0Opener": "Early Buff Opener",
+  "NotRecommended": "NOT RECOMMENDED!\nOnly useful in Deep Dungeons to single pull.\nWill only work up until lvl 92.",
+  "Save0ForEvenWindows": "Saves {0} for 2 minute windows\nTHIS WILL CAUSE IT TO OVERCAP!",
+  "SaveForEvenWindows": "Save for 2 minute windows",
+  "StopUsingToolsBelowHpPercentage": "Stop Using Tools When Target HP% is at or Below\n(Set to 0 to Disable This Check)",
+  "Use0EveryMinute": "Uses {0} every minute/whenever your highest level tool is off cooldown.",
+  "UseEarly0Opener": "Uses the Early Buff Opener (early {0}).",
+  "UseEveryMinute": "Use every minute",
+  "UseQueenOutsideOfBoss": "Use {0} at this battery threshold outside of Boss encounter."
+}

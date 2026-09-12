@@ -1,0 +1,6 @@
+{
+  "AddChaosCombo": "Add Chaos Combo",
+  "AddChaosComboWhenApplicable": "Adds Chaos combo when applicable.",
+  "AddMirageDiveUnderLOTD": "Adds {0} to the rotation when under {1}.\nWorks best on 2.50 GCD.",
+  "BurstMirageDuringLoTD": "Burst {0} During {1}"
+}

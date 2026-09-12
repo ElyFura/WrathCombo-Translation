@@ -1,0 +1,20 @@
+{
+  "Button_About": "About",
+  "Button_AutoRotation": "Auto-Rotation",
+  "Button_CollapseSidebar": "Collapse Sidebar",
+  "Button_ExpandSidebar": "Expand Sidebar",
+  "Button_PvEFeatures": "PvE Features",
+  "Button_PvPFeatures": "PvP Features",
+  "Button_Settings": "Settings",
+  "Tooltip_ConflictingPluginSettings": "The following plugins are known to conflict with\n{0}'s Settings, which you have enabled:\n{1}\n\nIt is recommended you disable these plugins, or\nremove the conflicting setting in the plugins\nto prevent unexpected behavior and bugs.",
+  "Tooltip_ConflictingPlugins": "The following plugins are known to conflict with {0}:\n\n{1}\n\nIt is recommended you disable these plugins, or their rotation\ncomponents, to prevent unexpected behavior and bugs.",
+  "Tooltip_ConflictingWrathSettings": "The following Wrath settings are known to conflict with {0}'s Settings:\n{1}\n\nIt is recommended you disable these settings to prevent unexpected behavior and bugs.",
+  "Tooltip_Conflicts_Reason": "- Setting: {0}\n    Problem: {1}",
+  "Tooltip_DalamudConfigConflicts": "You have conflict(s) in your Dalamud config:\n",
+  "Tooltip_GameConflicts": "The following game settings are known to conflict with {0}'s Settings:\n{1}\n\nIt is recommended you change these settings to prevent unexpected behavior and bugs.",
+  "Tooltip_TargettingConflicts": "Your configuration in the following plugins will conflict\nwith {0}'s enabled Action Retargeting:\n{1}\n\nIt is recommended you disable these plugins, or\nremove the conflicting actions from their settings, or\ndisable Retargeting for the action in {0},\nto prevent unexpected behavior and bugs.",
+  "Tooltip_TargettingConflicts_Action": "        - {0}",
+  "Tooltip_TargettingConflicts_Plugin": "- {0} {1}\n    Actions Retargeted there and in {2}:\n{3}",
+  "Warning_UnknownConflictType": "Unknown conflict type:",
+  "Wrath_Combo": "Wrath Combo"
+}

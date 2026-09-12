@@ -1,0 +1,12 @@
+{
+  "AnyPanhaimaCheck": "Any {0} check",
+  "AnyPanhaimaCheckDesc": "Enable to not override an existing {0}.",
+  "KerecholeTraitCheck": "Check for {0} Trait (Heal over Time)",
+  "KerecholeTraitCheckDesc": "Enabling this will prevent {0} from being used when the Heal over Time trait is unavailable.",
+  "SGE_Mit_AoE_Kerachole_Help": "Will add {0} at beginning",
+  "SGE_Mit_AoE_Panhaima_Help": "Will add {0} at the end",
+  "SGE_Mit_AoE_Philosophia_Help": "Will add {0} before {1} for the Healing Boost",
+  "SGE_Mit_AoE_PrognosisOption_Name": "Shield Check: Percentage of Party Members to get {0} shields. \n0 = Dont use, 100 = everyone needs shields",
+  "SGE_Mit_ST_Haima_Help": "Will add {0} for more mitigation.",
+  "SGE_Mit_ST_Taurochole_Help": "Will add {0} to top off targets health and add Damage reduction."
+}

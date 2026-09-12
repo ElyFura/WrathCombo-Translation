@@ -1,0 +1,17 @@
+{
+  "Author": "ElyFura",
+  "Name": "Wrath Combo Translation",
+  "InternalName": "WrathComboTranslation",
+  "DalamudApiLevel": 15,
+  "Punchline": "Community translations for Wrath Combo, as a separate plugin.",
+  "Description": "Overlays translated strings onto Wrath Combo's UI without modifying Wrath Combo itself. Translations live in loose JSON files, so they can be edited and reloaded in-game.",
+  "RepoUrl": "https://github.com/ElyFura/WrathCombo-Translation",
+  "Tags": [
+    "wrath",
+    "wrathcombo",
+    "translation",
+    "localization",
+    "i18n",
+    "deutsch"
+  ]
+}

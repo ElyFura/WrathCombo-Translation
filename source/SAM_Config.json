@@ -1,0 +1,22 @@
+{
+  "Add0And1WhenNotMoving": "Adds {0} and {1} when you're not moving.",
+  "Add0IfSeneiNotUnlocked": "Adds {0} to the rotation if {1} is not unlocked.",
+  "DelaySavageBlade": "During a countdown only: holds as {0} until each prepull timing. Without a countdown, prepull steps have no delay.",
+  "HPPercentKenki": "HP percent threshold to not save Kenki",
+  "HPPercentMeikyo": "HP percent threshold to use {0} on cooldown.",
+  "Include2x0": "Include 2x {0}",
+  "IncludeBoth0": "Includes both usages of {0}",
+  "KenkiAmount": "Kenki Amount",
+  "KenkiOvercapAmount": "Spends Kenki when at the set value or above.",
+  "KenkiOvercapProtection": "Kenki Overcap Protection",
+  "PrioBuffUpkeepDesc": "Will prioritise having both buffs before finishing sens.",
+  "PrioSenGen": "Priortise Sen generation",
+  "PrioSenGenDesc": "Will prioritise generating all 3 Sens before checking buffs.",
+  "SecondsDelayFromFirstStep": "Prepull timing: Meikyo at -13, True North at -5 (skipped if no positionals), then Gekko on pull.",
+  "SkipBoth": "Skip Both",
+  "SkipBothUsageOf0": "Skips both usages of {0} in the opener.",
+  "SkipFirst": "Skip First",
+  "SkipFirstUseOf0": "Skips first usage of {0} in the opener, keeps the second.",
+  "SkipSecond": "Skip Second",
+  "SkipSecondUseOf0": "Skips second usage of {0} in the opener, keeps the first."
+}

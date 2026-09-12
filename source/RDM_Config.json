@@ -1,0 +1,16 @@
+{
+  "Add0/1Finishers": "Add {0}/{1} Finishers",
+  "AutoRotationWarning1": "WARNING: {0} IS NOT ENABLED.",
+  "AutoRotationWarning2": "AUTO ROTATION WILL NOT START THE MELEE COMBO AUTOMATICALLY",
+  "DynamicallySwitchTo0": "Dynamically switch to {0}",
+  "PullWith0/1": "Pull with {0}/{1}",
+  "RDMFirstGCDOpener": "Early Buff Opener",
+  "RDMFirstGCDOpenerWarning": "Countdown must be used. Set below at what time you plan to push {0}. {1} will be blocked until 6 seconds on countdown.",
+  "RDMFirstGCDOpenerWarningTimer": "Countdown time to start opener",
+  "RDMGapCloserOpener": "Gap-Closing Adjusted Standard Opener",
+  "RDMOpenerTimeoutWarning": "Opener Failure Timeout (in Settings Tab) Must be set to 5+ seconds for opener to function due to long initial spell cast.",
+  "RDMOpenerWarning": "Opener Failure Timeout (in Settings Tab) Must be set to 5+ seconds for opener to function due to long initial spell cast.",
+  "StartsWith0/1": "Starts with {0}/{1} if out of combat.",
+  "SwitchToBlack": "Switches to {0} if black mana is lower.",
+  "SwitchToWhite": "Switches to {0} if white mana is lower."
+}
