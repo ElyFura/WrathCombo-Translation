@@ -4,7 +4,7 @@
     <!-- Metadata -->
     <PropertyGroup>
         <Authors>ElyFura</Authors>
-        <Version>0.1.0.0</Version>
+        <Version>0.1.0.2</Version>
         <Description>Community translation overlay for Wrath Combo</Description>
         <PackageProjectUrl>https://github.com/ElyFura/WrathCombo-Translation</PackageProjectUrl>
         <PackageId>WrathComboTranslation</PackageId>

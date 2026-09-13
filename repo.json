@@ -3,7 +3,7 @@
     "Author": "ElyFura",
     "Name": "Wrath Combo Translation",
     "InternalName": "WrathComboTranslation",
-    "AssemblyVersion": "0.1.0.0",
+    "AssemblyVersion": "0.1.0.2",
     "Description": "Overlays translated strings onto Wrath Combo's UI without modifying Wrath Combo itself. Translations live in loose JSON files, so they can be edited and reloaded in-game.",
     "ApplicableVersion": "any",
     "RepoUrl": "https://github.com/ElyFura/WrathCombo-Translation",
@@ -29,6 +29,6 @@
     "IsHide": false,
     "IsTestingExclusive": false,
     "DownloadCount": 0,
-    "LastUpdate": 1789260377
+    "LastUpdate": 1789260575
   }
 ]
