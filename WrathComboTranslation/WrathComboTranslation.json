@@ -6,6 +6,7 @@
   "Punchline": "Community translations for Wrath Combo, as a separate plugin.",
   "Description": "Overlays translated strings onto Wrath Combo's UI without modifying Wrath Combo itself. Translations live in loose JSON files, so they can be edited and reloaded in-game.",
   "RepoUrl": "https://github.com/ElyFura/WrathCombo-Translation",
+  "IconUrl": "https://raw.githubusercontent.com/ElyFura/WrathCombo-Translation/refs/heads/main/res/wrath.png",
   "Tags": [
     "wrath",
     "wrathcombo",

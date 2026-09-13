@@ -20,6 +20,7 @@
     "LoadSync": false,
     "CanUnloadAsync": false,
     "LoadPriority": 0,
+    "IconUrl": "https://raw.githubusercontent.com/ElyFura/WrathCombo-Translation/refs/heads/main/res/wrath.png",
     "Punchline": "Community translations for Wrath Combo, as a separate plugin.",
     "AcceptsFeedback": true,
     "DownloadLinkInstall": "https://github.com/ElyFura/WrathCombo-Translation/releases/latest/download/latest.zip",
@@ -28,6 +29,6 @@
     "IsHide": false,
     "IsTestingExclusive": false,
     "DownloadCount": 0,
-    "LastUpdate": 1789254717
+    "LastUpdate": 1789260377
   }
 ]
