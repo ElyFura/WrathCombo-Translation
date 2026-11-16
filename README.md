@@ -63,13 +63,13 @@ Not `_`: Wrath's own resource keys are C# identifiers and some of them start wit
 
 ## Translation status
 
-German, against 4570 translatable source strings:
+German, against 4574 translatable source strings:
 
 | Source | Strings |
 | --- | --- |
 | Shipped by Wrath itself (`CustomComboPresets.de.resx`) | 474 |
-| This plugin | 4535 |
-| **Untranslated** | **34** |
+| This plugin | 4541 |
+| **Untranslated** | **32** |
 
 Wrath does ship `AutoRotationUI.de.resx`, `SettingsUI.de.resx` and `BST_Config.de.resx`, but
 all three are empty Crowdin placeholders, so the UI chrome is effectively untranslated upstream.
@@ -99,7 +99,7 @@ something unrelated.
 
 **The descriptions are done too**, all 1942 of them.
 
-What is left is 34 strings, and the report lists every one. They fall into four groups:
+What is left is 32 strings, and the report lists every one. They fall into four groups:
 
 - **Identical in German** (21): numeric defaults, a colour code, `Bozja`, `Normal`, `Tank`,
   `DPS`, `DOL`, `Soft Target`, `Wrath Combo`, `Auto-Rotation`, and ability names the client
