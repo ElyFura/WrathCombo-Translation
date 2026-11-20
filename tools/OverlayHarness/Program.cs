@@ -131,8 +131,40 @@ internal static class Program
             ?.GetString("_0Option", de);
         Check($"underscore-prefixed key is served (\"{underscored}\")", underscored == "{0}-Option");
 
+        // 9b. Hard-coded literals: Install also ran the Harmony transpiler over Wrath's UI code.
+        //     Drawing needs a live ImGui, so instead of running the method this reads back the
+        //     instructions Harmony now compiles for it.
+        var literals = Get(installerType, "Literals", installer)!;
+        var literalType = literals.GetType();
+        var replaced = (int)Get(literalType, "ReplacedLiterals", literals)!;
+        var failures = (System.Collections.IList)Get(literalType, "Failures", literals)!;
+        Check($"literal patcher active ({replaced} literals in " +
+              $"{Get(literalType, "PatchedMethods", literals)} methods)",
+            (bool)Get(literalType, "Active", literals)! && replaced > 0);
+        Check($"no literal patch failed ({failures.Count})", failures.Count == 0);
+        foreach (var failure in failures.Cast<object>().Take(5))
+            Console.WriteLine($"         {failure}");
+
+        var userConfig = Internal(wrath, "WrathCombo.Window.Functions.UserConfig");
+        var potion = userConfig.GetMethod("DrawOpenerPotionChoice",
+            BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static)!;
+        var shown = CurrentLiterals(potion);
+        Check($"shared opener option rewritten ({string.Join(" | ", shown.Take(2))})",
+            !shown.Contains("Include Potion?") && shown.Count > 0);
+
+        // A job's options live in one large Config.Draw switch; the Dark Knight opener block
+        // is what prompted the literal layer in the first place.
+        var drkDraw = Internal(wrath, "WrathCombo.Combos.PvE.DRK+Config")
+            .GetMethod("Draw", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static)!;
+        var drk = CurrentLiterals(drkDraw);
+        Check("job options rewritten (DRK opener and pull action)",
+            !drk.Contains("Select Opener") && !drk.Contains("Select Pull Action") &&
+            !drk.Contains("Early Buff Window Opener"));
+
         // 10. Uninstalling must leave Wrath exactly as it was.
         Invoke(installerType, "Uninstall", installer, []);
+        Check("uninstall restores the hard-coded literals",
+            CurrentLiterals(potion).Contains("Include Potion?"));
         var restored = ReadString(mainWindowUi, "Button_About");
         Check($"uninstall restores the original ({restored})", restored == "About");
 
@@ -179,6 +211,34 @@ internal static class Program
     private static int ResourceClassCount(Assembly assembly)
         => assembly.GetManifestResourceNames()
             .Count(n => n.EndsWith(".resources", StringComparison.Ordinal));
+
+    /// <summary>
+    ///     The <c>ldstr</c> operands of a method as Harmony currently compiles it, i.e. with
+    ///     any transpilers applied. Harmony lives in the default load context, put there by
+    ///     the plugin's bootstrap, so it is reached by reflection.
+    /// </summary>
+    private static List<string> CurrentLiterals(MethodBase method)
+    {
+        var harmony = AssemblyLoadContext.Default.Assemblies.First(a => a.GetName().Name == "0Harmony");
+        var processor = harmony.GetType("HarmonyLib.PatchProcessor", throwOnError: true)!;
+        var get = processor.GetMethods(BindingFlags.Public | BindingFlags.Static)
+            .First(m => m.Name == "GetCurrentInstructions");
+
+        var args = get.GetParameters().Select(p => p.HasDefaultValue ? p.DefaultValue : null).ToArray();
+        args[0] = method;
+
+        var instructions = (System.Collections.IEnumerable)get.Invoke(null, args)!;
+        var result = new List<string>();
+        foreach (var instruction in instructions)
+        {
+            var operand = instruction.GetType().GetField("operand")!.GetValue(instruction);
+            var opcode = instruction.GetType().GetField("opcode")!.GetValue(instruction)!.ToString();
+            if (opcode == "ldstr" && operand is string s)
+                result.Add(s);
+        }
+
+        return result;
+    }
 
     /// <summary>Reads a generated resource property, which is what Wrath's UI code does.</summary>
     private static string? ReadString(Type resourceClass, string property)

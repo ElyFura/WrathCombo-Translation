@@ -59,6 +59,10 @@ public sealed class Plugin : IDalamudPlugin
 
         Log.Information("Starting up.");
 
+        // Before anything can name a Harmony type: it has to live outside this plugin's
+        // collectible load context, or no patch will ever apply.
+        HarmonyBootstrap.Ensure();
+
         Config = PluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
         LooseRoot = Path.Combine(PluginInterface.GetPluginConfigDirectory(), TranslationPack.LooseFolderName);
         EnsureLooseRoot();

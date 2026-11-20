@@ -64,6 +64,19 @@ internal sealed class ConfigWindow : Window
                 ? $"active on {_installer.Patched.Count} resource files"
                 : "inactive");
 
+        var literals = _installer.Literals;
+        Row("Hard-coded text", literals.Active,
+            literals.Active
+                ? $"{literals.ReplacedLiterals} literals in {literals.PatchedMethods} methods"
+                : HarmonyBootstrap.Error is { } error ? $"unavailable ({error})" : "inactive");
+
+        if (literals.StaleKeys > 0 || literals.Failures.Count > 0)
+        {
+            ImGui.TextColored(Muted,
+                $"  {literals.StaleKeys} translations target code this Wrath version no longer has, " +
+                $"{literals.Failures.Count} methods failed to patch.");
+        }
+
         ImGui.TextUnformatted("Strings loaded:");
         ImGui.SameLine();
         ImGui.TextColored(_plugin.Pack.StringCount > 0 ? Good : Bad,

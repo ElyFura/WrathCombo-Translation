@@ -20,12 +20,16 @@ namespace WrathComboTranslation.Services;
 internal sealed class OverlayInstaller : IDisposable
 {
     private readonly List<WrathResourceClass> _patched = [];
+    private readonly LiteralPatcher _literals = new();
 
     private Assembly? _wrath;
     private bool _disposed;
 
     /// <summary>Whether the overlay is currently installed into a loaded Wrath Combo.</summary>
     public bool Installed => _patched.Count > 0;
+
+    /// <summary>The patcher for Wrath's hard-coded UI literals, for the status window.</summary>
+    public LiteralPatcher Literals => _literals;
 
     /// <summary>Resource classes currently overlaid.</summary>
     public IReadOnlyList<WrathResourceClass> Patched => _patched;
@@ -61,6 +65,17 @@ internal sealed class OverlayInstaller : IDisposable
         // Each phase is timed and logged: this runs on the framework thread against another
         // plugin's internals, so if it ever stalls the log has to say which phase did it.
         var clock = Stopwatch.StartNew();
+
+        // The literals are independent of the resource classes, so they go in even if
+        // discovery below comes up empty.
+        try
+        {
+            _literals.Apply(wrath, pack, uiLanguage);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to patch Wrath's hard-coded strings.");
+        }
 
         var classes = WrathLocator.DiscoverResourceClasses(wrath);
         Log.Information($"Discovered {classes.Count} resource classes in {clock.ElapsedMilliseconds} ms.");
@@ -127,6 +142,8 @@ internal sealed class OverlayInstaller : IDisposable
     /// </summary>
     public void Uninstall()
     {
+        _literals.Remove();
+
         if (_patched.Count == 0)
             return;
 

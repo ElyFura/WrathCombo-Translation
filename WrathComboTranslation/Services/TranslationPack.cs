@@ -23,6 +23,13 @@ internal sealed class TranslationPack
 
     private const string EmbeddedPrefix = "WrathComboTranslation.Translations.";
 
+    /// <summary>
+    ///     File holding translations of the string literals Wrath hard-codes into its UI,
+    ///     keyed <c>Type::Method/literal</c>. It names no Wrath resource, so the resource
+    ///     overlay never consults it; <see cref="LiteralPatcher" /> does.
+    /// </summary>
+    public const string LiteralsFile = "Literals";
+
     private readonly Dictionary<string, Dictionary<string, string>> _entries;
 
     private TranslationPack(
@@ -86,6 +93,36 @@ internal sealed class TranslationPack
         return _entries.TryGetValue(shortName, out var file)
                && file.TryGetValue(key, out value!)
                && !string.IsNullOrEmpty(value);
+    }
+
+    /// <summary>
+    ///     Every entry of one file, or nothing if the pack has no such file.
+    /// </summary>
+    public IReadOnlyDictionary<string, string> FileEntries(string shortName)
+        => _entries.TryGetValue(shortName, out var file)
+            ? file
+            : new Dictionary<string, string>();
+
+    /// <summary>
+    ///     Whether the pack should be applied for the given Dalamud UI language. Used where no
+    ///     <see cref="CultureInfo" /> is passed in, i.e. for the hard-coded literals.
+    /// </summary>
+    public bool AppliesTo(string uiLanguage)
+    {
+        if (StringCount == 0)
+            return false;
+
+        if (Forced)
+            return true;
+
+        try
+        {
+            return CultureMatches(CultureInfo.GetCultureInfo(uiLanguage));
+        }
+        catch (CultureNotFoundException)
+        {
+            return false;
+        }
     }
 
     private bool CultureMatches(CultureInfo? culture)

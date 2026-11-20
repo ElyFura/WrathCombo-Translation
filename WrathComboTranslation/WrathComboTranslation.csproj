@@ -62,6 +62,30 @@
         <PackageReference Include="DalamudPackager" Version="15.0.0" />
     </ItemGroup>
 
+    <!-- Harmony rewrites the string literals Wrath hard-codes into its UI (see Services/LiteralPatcher.cs).
+         ExcludeAssets="runtime": it must NOT end up beside the plugin, because Dalamud would then load it
+         into the plugin's collectible load context, where every Patch() call fails. It is embedded below
+         and pushed into the default context at startup instead - see Services/HarmonyBootstrap.cs. -->
+    <PropertyGroup>
+        <HarmonyVersion>2.4.2</HarmonyVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Lib.Harmony" Version="$(HarmonyVersion)" ExcludeAssets="runtime" />
+        <EmbeddedResource Include="$(NuGetPackageRoot)lib.harmony\$(HarmonyVersion)\lib\net10.0\0Harmony.dll">
+            <LogicalName>WrathComboTranslation.0Harmony.dll</LogicalName>
+        </EmbeddedResource>
+    </ItemGroup>
+
+    <!-- Checked at the source rather than on the output: a copy next to the plugin lands in the collectible
+         load context and breaks every patch, so dropping ExcludeAssets="runtime" fails the build instead. -->
+    <Target Name="VerifyHarmonyEmbedded" AfterTargets="ResolveReferences">
+        <Error Condition="!Exists('$(NuGetPackageRoot)lib.harmony\$(HarmonyVersion)\lib\net10.0\0Harmony.dll')"
+               Text="0Harmony.dll not found in the package cache - it must be embedded (see Services/HarmonyBootstrap.cs)" />
+        <Error Condition="'@(ReferenceCopyLocalPaths->AnyHaveMetadataValue('Filename', '0Harmony'))' == 'true'"
+               Text="0Harmony.dll would be copied next to the plugin, where every patch fails. Keep ExcludeAssets=&quot;runtime&quot; on the PackageReference." />
+    </Target>
+
     <!-- Translation packs ship embedded; loose files in the config dir override them. -->
     <ItemGroup>
         <EmbeddedResource Include="Translations\**\*.json" />

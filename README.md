@@ -17,6 +17,26 @@ anything the pack does not cover. Unloading the plugin puts the original manager
 Because the resource classes are discovered structurally rather than from a hard-coded list,
 resource files added in future Wrath releases are picked up automatically.
 
+### Hard-coded text
+
+Not everything Wrath shows comes from a resource file. Many job options - opener choices,
+mitigation thresholds, the shared "Include Potion?" and "Boss Only Content" choices - are
+string literals written straight into its C# code, which no ResourceManager ever sees.
+
+Those are reached with Harmony instead. A transpiler rewrites the `ldstr` operands of exactly
+the methods that have a translation, at patch time, so there is no per-frame lookup. Unloading
+the plugin, disabling it, or switching language unpatches and puts Wrath's code back.
+
+Their translations live in `Literals.json`, keyed `Type::Method/literal`. The location is part
+of the key because the same text can be a visible label in one method and an ImGui id or a
+string comparison in another, and only the label may change. When a Wrath update moves a
+literal to another method, its old key simply stops matching and that line falls back to
+English; `literal-extract pack` (see Tools) re-keys it by its English text.
+
+Harmony is embedded rather than shipped next to the plugin: Dalamud loads a plugin's folder
+into a collectible load context, where every Harmony patch fails, so it is loaded into the
+default context at startup instead.
+
 ### Why not the obvious alternatives
 
 - **Replacing the satellite assembly** (`de/WrathCombo.resources.dll`) breaks on every Wrath
@@ -71,6 +91,10 @@ German, against 4574 translatable source strings:
 | This plugin | 4541 |
 | **Untranslated** | **32** |
 
+On top of that come the **hard-coded literals** (`Literals.json`): 928 strings found in Wrath's
+UI code, of which 760 are translated. The other 168 are left alone on purpose - format strings,
+ability and summon names that read the same in German, and literals Wrath also uses as data.
+
 Wrath does ship `AutoRotationUI.de.resx`, `SettingsUI.de.resx` and `BST_Config.de.resx`, but
 all three are empty Crowdin placeholders, so the UI chrome is effectively untranslated upstream.
 
@@ -106,10 +130,9 @@ What is left is 32 strings, and the report lists every one. They fall into four 
   keeps as they are (Stotram, Exuviation, Tenri Jindo, Fuma Shuriken, Megaflare). An entry
   repeating the source would only count itself as translated.
 - **Format-only** (3): `{0}`, `        - {0}`, and one empty string.
-- **Unreachable** (0): the target-stack listings are now translated, but be aware that the
-  stack widget shown beneath them in-game is not, and cannot be: Wrath builds it from
-  hard-coded C# literals in `UserConfig.TargetDisplayNameFromPropertyName`, which no resource
-  overlay reaches.
+- **Unreachable** (0): the target-stack listings are now translated, but the stack widget
+  shown beneath them is not: Wrath builds those names at runtime from property names in
+  `UserConfig.TargetDisplayNameFromPropertyName`, so not even the literal layer can match them.
 - **Unverifiable** (4): `Warden's Paeon`, whose ability no longer exists in the sheets; the
   phantom Oracle's `Cleansing`, which does not appear in that job's action list at all; and
   `Variant` / `Variant Dungeons`, for which the German client has no corresponding content
@@ -143,6 +166,26 @@ it fails (exit 1) on a `{0}` placeholder that was added or dropped, which would 
 FormatException in-game, and on a translated `###WidgetId` suffix, which would silently
 detach an ImGui control from its state. It also points out strings left identical to the
 English source.
+
+`literal-extract` reads the compiled Wrath assembly and lists the string literals its UI code
+hard-codes - every `ldstr` in a method that calls into ImGui, Dalamud's interface helpers,
+ECommons' ImGui helpers or Wrath's window layer. ImGui ids, letter-less strings, the debug
+tab, the debug report and a few logic-only methods (config property names, search keywords)
+are left out. Read the **installed** DLL: keys name compiler-generated methods such as lambdas,
+whose names can differ between a repo build and the release players run.
+
+```
+# Refresh the catalogue
+dotnet run --project tools/LiteralExtract -c Release --     "$APPDATA/XIVLauncher/installedPlugins/WrathCombo/<version>/WrathCombo.dll" source/Literals.json
+
+# Rebuild a pack against it: keys keep their translation, moved literals are re-keyed by their
+# English text, keys Wrath no longer has are dropped. Optional extra arguments are flat
+# { "English": "Übersetzung" } maps, the easiest way to translate new text in bulk.
+dotnet run --project tools/LiteralExtract -c Release -- pack     source/Literals.json WrathComboTranslation/Translations/de/Literals.json [new-texts.json]
+```
+
+The catalogue also contains literals that must stay as they are - format strings, config
+names compared in code - so a missing key in the pack is not necessarily a gap.
 
 `game-glossary` reads the installed client's data files with Lumina and writes an
 English-to-German map of every player action, status, trait and job name:
@@ -220,6 +263,12 @@ Both workflows build against Dalamud downloaded from `dalamud-distrib`, pointed 
 `DALAMUD_HOME`, since a runner has no XIVLauncher install.
 
 ## Caveats
+
+- Hard-coded literals are patched per method. A tiny wrapper the JIT has already inlined into
+  its caller before the patch went in keeps its English text until Wrath is reloaded. Text that
+  Wrath assembles at runtime (interpolated strings, the target names built from property names
+  in `UserConfig.TargetDisplayNameFromPropertyName`) cannot be matched as a whole and stays
+  English.
 
 - The overlay depends on Wrath's generated resource classes keeping their standard shape. If
   a Wrath update changes that, the plugin logs a warning and stays inert rather than breaking
